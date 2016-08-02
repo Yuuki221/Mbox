@@ -1,0 +1,13 @@
+{
+	"name" : "Mbox",
+	"version" : "0.0.1",
+	"description" : "A Music Player API",
+	"repository" : {
+		"type" : "git",
+		"url" : "https://github.com/Yuuki221/Mbox"
+	},
+	"author" : "Icy",
+	"devDependencies":{
+		
+	}
+}

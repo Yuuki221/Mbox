@@ -1,13 +1,17 @@
 {
-	"name" : "Mbox",
-	"version" : "0.0.1",
-	"description" : "A Music Player API",
-	"repository" : {
-		"type" : "git",
-		"url" : "https://github.com/Yuuki221/Mbox"
-	},
-	"author" : "Icy",
-	"devDependencies":{
-		
-	}
+  "name": "Mbox",
+  "version": "0.0.1",
+  "description": "A Music Player API",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yuuki221/Mbox"
+  },
+  "author": "Icy",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-compass": "^2.1.0",
+    "gulp-connect": "^5.0.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7"
+  }
 }

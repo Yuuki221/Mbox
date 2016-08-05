@@ -1,0 +1,63 @@
+// _base.scss
+// global settings for layout and different elements 
+
+*{
+	@include box-sizing(border-box);
+}
+
+.plyr-container{
+	width: $boxBorderLen;
+	height: $boxBorderLen;
+	background: $davyGrey;
+	@include border-radius(5px);
+
+	@include box-shadow(rgba(0,0,0,0.3) 0 0 7px);
+}
+
+.icon{
+	background: transparent;
+	border: none;
+	margin: 0;
+	padding: 0;
+	padding-right: 8px;
+
+	@include transition-property(all);
+	@include transition-duration(0.2s);
+	@include transition-timing-function(ease-in-out);
+}
+
+.mbox-controlBtn-wrap-wrap{
+	width: 230px;
+	height: $albulmSize;
+	left: $albulmSize;
+	float: right;
+	padding: 27px 10px 25px 15px;
+}
+
+.mbox-album-cover-wrap{
+	height: $albulmSize;
+	width: $albulmSize;
+	background: $platinum;
+
+	@include box-shadow(rgba(0,0,0,0.3) 0 0 5px); 
+}
+
+.mbox-share-icon{
+	margin-left: 7px;
+}
+
+svg{
+	fill: $romanSilver;
+	// set transition property of svg icon
+	&:hover{
+		fill: $platinum;
+	}
+}
+
+.mbox-volume-bar{
+	width: $volumBarLen;
+	height: $volumBarHeight;
+	background: $romanSilver;
+	margin-top: 6px;
+}
+

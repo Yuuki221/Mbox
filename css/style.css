@@ -53,3 +53,84 @@ a img {
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
+
+.mbox-album-cover-wrap {
+  float: left;
+}
+
+.mbox-controlBtn-wrap-wrap div {
+  float: left;
+}
+
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.plyr-container {
+  width: 300px;
+  height: 300px;
+  background: #4a525a;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 0 7px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 0 7px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 7px;
+}
+
+.icon {
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  padding-right: 8px;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  -webkit-transition-property: all;
+  transition-property: all;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -moz-transition-timing-function: ease-in-out;
+  -o-transition-timing-function: ease-in-out;
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+}
+
+.mbox-controlBtn-wrap-wrap {
+  width: 230px;
+  height: 70px;
+  left: 70px;
+  float: right;
+  padding: 27px 10px 25px 15px;
+}
+
+.mbox-album-cover-wrap {
+  height: 70px;
+  width: 70px;
+  background: #dff3e3;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 0 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 0 5px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 5px;
+}
+
+.mbox-share-icon {
+  margin-left: 7px;
+}
+
+svg {
+  fill: #828a95;
+}
+svg:hover {
+  fill: #dff3e3;
+}
+
+.mbox-volume-bar {
+  width: 50px;
+  height: 2px;
+  background: #828a95;
+  margin-top: 6px;
+}

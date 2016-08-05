@@ -1,3 +1,12 @@
 // import compass
 @import "compass";
 @import "compass/reset";
+
+//----- import basic variables ------
+@import "variables";
+
+//----- import layout variables ------
+@import "layout";
+
+//----- include basic --------
+@import "basic";

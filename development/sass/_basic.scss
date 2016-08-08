@@ -20,10 +20,6 @@
 	margin: 0;
 	padding: 0;
 	padding-right: 8px;
-
-	@include transition-property(all);
-	@include transition-duration(0.2s);
-	@include transition-timing-function(ease-in-out);
 }
 
 .mbox-controlBtn-wrap-wrap{
@@ -39,7 +35,7 @@
 	width: $albulmSize;
 	background: $platinum;
 
-	@include box-shadow(rgba(0,0,0,0.3) 0 0 5px); 
+	@include box-shadow(rgba(0,0,0,.3) 0 0 5px); 
 }
 
 .mbox-share-icon{
@@ -49,6 +45,10 @@
 svg{
 	fill: $romanSilver;
 	// set transition property of svg icon
+	@include transition-property(all);
+	@include transition-duration(.5s);
+	@include transition-timing-function(ease-in-out);
+
 	&:hover{
 		fill: $platinum;
 	}

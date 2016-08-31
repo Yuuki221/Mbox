@@ -37,7 +37,7 @@ class MBox {
 	 	};
 
 	 	/**
-	 		method to transform play time to 00:00:00 format 
+	 		method to transform playtime to 00:00:00 format 
 	 		@param {Number} seconds
 	 		@return {String} time format in 00:00:00
 	 	*
@@ -53,8 +53,11 @@ class MBox {
 	 	};
 
 	 	/**
-	 		method to compute distance between user click/drag and the outerside of player border 
-	 	 */
-
+	 		method to compute distance between user click/drag and the outerside of player border
+	 		@param  
+	 	*/
+	 	this.getLeftView = ()
 	 }
 }
+
+module.exports = MBox;

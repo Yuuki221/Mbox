@@ -23,6 +23,8 @@ function getPosition(el) {
 	}
 }
 
+module.exports = getPosition;
+
 /*
 	Offset properties: measure the distance from the current element's top-left corner to its nearest offset parent 
 	offsetLeft, offsetTop; 
@@ -36,5 +38,5 @@ function getPosition(el) {
 
 	scrollLeft: gets or sets the number of pixels that an element's content is scrolled to the left 
 
-	documentElement: get the root element of the document (for instance: <html> element for HTML document )
+	documentElement: get the root element of the document (for instance: <html> element for HTML document)
 */

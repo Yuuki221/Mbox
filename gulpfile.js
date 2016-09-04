@@ -2,14 +2,19 @@ var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	compass = require('gulp-compass'),
 	ugligy = require('gulp-uglify'),
-	connect = require('gulp-connect');
-
+	connect = require('gulp-connect'),
+	browserify = require('gulp-browserify'),
+	gulpOpen = require('gulp-open'),
+	babelify = require('gulp-babel');
 
 var env, 
 	sassSource,
 	cssOutput,
 	jsOutput,
-	htmlSource;
+	htmlSource,
+	connectConfig = {
+		baseDevUrl: 'http://localhost',
+	};
 
 env = process.env.NODE_ENV || 'development';
 sassSource = ['development/sass/'];
@@ -32,8 +37,23 @@ gulp.task('compass', function(){
 gulp.task('connect', function(){
 	connect.server({
 		root: './',
+		base: connectConfig.baseDevUrl,
 		livereload: true
 	});
+});
+
+gulp.task('open', function(){
+	gulp.src('index.html')
+	.pipe(gulpOpen({uri: 'http://localhost:8080', app: 'Safari'}));
+});
+
+gulp.task('browserify', function(){
+	gulp.src('development/js/mbox.js')
+	.pipe(browserify())
+	.pipe(babelify({
+		presets: ['es2015']
+	}))
+	.pipe(gulp.dest('production/js/main.js'));
 });
 
 gulp.task('html', function(){
@@ -43,7 +63,9 @@ gulp.task('html', function(){
 gulp.task('watch', function(){
 	gulp.watch('development/sass/*.scss', ['compass']);
 	gulp.watch('index.html',['html']);
+	gulp.watch('development/js/mbox.js', ['browserify']);
 });
 
-gulp.task('default', ['html', 'compass', 'connect', 'watch']);
+
+gulp.task('default', ['html', 'compass', 'browserify', 'open','connect', 'watch']);
 

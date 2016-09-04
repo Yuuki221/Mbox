@@ -10,6 +10,10 @@
 	<div class="plyr-container">
 		<div class="magic-box">
 		<div class="magic-box-wrap">
+			<div class="mbox-music">
+				<audio class="mbox-music" src="development/music/You Need Me-KENN.mp3"></audio>
+			</div>
+			<!-- audio file links are here --> 
 			<div class="mbox-album-cover-wrap">
 			</div>
 			<div class="mbox-controller-wrap-wrap">
@@ -77,6 +81,11 @@
 			margin: 100px auto;
 		}
 	</style>
-	<script src="http;//localhost:35729/liveload.js"></script>
+	<script src="http://localhost:35729/liveload.js"></script>
+	<script src="/production/js/main.js/mbox.js"></script>
+	<script>
+		var test = new MBox();
+		test.load();
+	</script>
 </body>
 </html>

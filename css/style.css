@@ -1,3 +1,4 @@
+@import "https://fonts.googleapis.com/css?family=Titillium+Web";
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -93,7 +94,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   height: 70px;
   left: 70px;
   float: right;
-  padding: 27px 10px 25px 15px;
+  padding: 0px 10px 25px 15px;
 }
 
 .mbox-album-cover-wrap {
@@ -133,4 +134,31 @@ svg:hover {
   height: 2px;
   background: #828a95;
   margin-top: 6px;
+  position: relative;
+}
+
+.mbox-volume-bar-inner {
+  display: inline-block;
+  position: absolute;
+  height: 2px;
+}
+
+.mbox-songinfo {
+  margin: 10px auto;
+  padding-top: 10px;
+}
+
+.mbox-song-info {
+  font-size: 0.8rem;
+  margin: 0 auto;
+}
+
+.mbox-album-name {
+  font-size: 0.3rem;
+  margin: 0 auto;
+}
+
+.mbox-album-name, .mbox-song-info {
+  padding-left: 15px;
+  font-family: "Titillium Web";
 }

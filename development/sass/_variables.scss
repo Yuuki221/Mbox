@@ -1,3 +1,6 @@
+// import some fonts
+@import 'https://fonts.googleapis.com/css?family=Titillium+Web';
+
 // some color schema issue 
 $davyGrey: #4a525a;
 $platinum: #dff3e3;
@@ -10,3 +13,11 @@ $boxBorderLen: 300px;
 $albulmSize: 70px;
 $volumBarLen: 50px;
 $volumBarHeight: 2px;
+
+// song information fontsize
+$songinfoFontSize: 0.8rem;
+$albumnameFontSize: 0.3rem;
+
+// font-familty 
+$songinfoFontType: 'Titillium Web';
+

@@ -27,7 +27,7 @@
 	height: $albulmSize;
 	left: $albulmSize;
 	float: right;
-	padding: 27px 10px 25px 15px;
+	padding: 0px 10px 25px 15px;
 }
 
 .mbox-album-cover-wrap{
@@ -54,10 +54,38 @@ svg{
 	}
 }
 
-.mbox-volume-bar{
+.mbox-volume-bar {
 	width: $volumBarLen;
 	height: $volumBarHeight;
 	background: $romanSilver;
 	margin-top: 6px;
+
+	position: relative;
+}
+
+.mbox-volume-bar-inner {
+	display: inline-block;
+	position: absolute;
+	height: $volumBarHeight;
+}
+
+.mbox-songinfo {
+	margin: 10px auto;
+	padding-top: 10px;
+}
+
+.mbox-song-info {
+	font-size: $songinfoFontSize;
+	margin: 0 auto;
+}
+
+.mbox-album-name {
+	font-size: $albumnameFontSize;
+	margin: 0 auto;
+}
+
+.mbox-album-name, .mbox-song-info {
+	padding-left: 15px;
+	font-family: $songinfoFontType;
 }
 

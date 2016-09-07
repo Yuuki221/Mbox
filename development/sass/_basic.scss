@@ -5,13 +5,18 @@
 	@include box-sizing(border-box);
 }
 
-.plyr-container{
+.magic-box{
 	width: $boxBorderLen;
 	height: $boxBorderLen;
 	background: $davyGrey;
 	@include border-radius(5px);
 
 	@include box-shadow(rgba(0,0,0,0.3) 0 0 7px);
+}
+
+.magic-box-upper-wrap {
+	width: $boxBorderLen;
+	height: $albulmSize;
 }
 
 .icon{
@@ -22,12 +27,21 @@
 	padding-right: 8px;
 }
 
+.mbox-controller-wrap-wrap {
+	width: 230px;
+
+	float: right;
+}
+
+.mbox-controller-wrap-wrap:after, .mbox-controller-wrap-wrap:before {
+	clear: both;
+}
+
 .mbox-controlBtn-wrap-wrap{
 	width: 230px;
-	height: $albulmSize;
+	height: 18px;
 	left: $albulmSize;
-	float: right;
-	padding: 0px 10px 25px 15px;
+	padding: 0px 10px 0px 15px;
 }
 
 .mbox-album-cover-wrap{
@@ -69,9 +83,21 @@ svg{
 	height: $volumBarHeight;
 }
 
+.mbox-play-progress-wrap {
+	position: relative;
+	top: 80px;
+	width: 100%;
+	height: $progressBarHeight;
+	background: $romanSilver;
+}
+
+.mbox-play-progress-inner {
+	position: absolute;
+}
+
 .mbox-songinfo {
+	width: 230px;
 	margin: 10px auto;
-	padding-top: 10px;
 }
 
 .mbox-song-info {

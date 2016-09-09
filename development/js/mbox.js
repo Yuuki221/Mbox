@@ -58,7 +58,12 @@ class MBox {
 	 	// volume realted 
 	 	this.volumeIcon = document.getElementsByClassName('mbox-volume-icon')[0];
 	 	this.volumeBar = document.getElementsByClassName('mbox-volume-bar-inner')[0];
-
+	 	// play progress related
+	 	this.playProgressBar = document.getElementsByClassName('mbox-play-progress-inner')[0];
+	 	this.playProgressOuter = document.getElementsByClassName('mbox-play-progress-wrap')[0];
+	 	// play time related
+	 	this.playedTime = document.getElementsByClassName('mbox-time-played')[0];
+	 	this.totalTime = document.getElementsByClassName('mbox-time-total')[0];
 	 	/*
 			@param {Object} progress bar needs to be update 
 			@param {Number} percentage that needs to be update 
@@ -96,15 +101,23 @@ class MBox {
 
 	 	this.detectPlayStatus = () => {
 	 		// if the audio is not buffering, paused or ended then we check the status
-	 		if(!buffering && !this.musicFile.paused && !this.musicFile.ended){
-	 			this.detectIdx = setTimeInterval(()=>{
-	 				musicCurrentTime = this.musicFile.currentTime,
-	 				musicTotalTime = this.musicFile.duration;
-	 					playPercent = musicCurrentTime/musicTotalTime;
-	 					this.updateProgressBar('play', playPercent, width);
+	 		if(!buffering && !this.musicFile.paused){
+	 			this.detectIdx = setInterval(()=>{
+	 				musicCurrentTime = Math.floor(this.musicFile.currentTime);
+	 				musicTotalTime = Math.floor(this.musicFile.duration);
+	 				this.playedTime.innerHTML = '' + transformTime(musicCurrentTime);
+	 				this.totalTime.innerHTML = '' + transformTime(musicTotalTime);
+	 					let playPercent = musicCurrentTime/musicTotalTime;
+	 					this.updateProgressBar('playProgress', playPercent, 'width');
 	 					if(!buffering && (musicCurrentTime-musicLastTime)<0.2 && !this.musicFile.paused && !this.musicFile.ended){
 	 						// the audio is buffering for some reason 
 	 						buffering = true;
+	 					}
+	 					if(buffering && (musicCurrentTime-musicLastTime)>=0.2) buffering = false;
+	 					musicLastTime = musicCurrentTime;
+	 					if(this.musicFile.ended){
+	 						this.playBtn.innerHTML = this.getSvg(this.viewBox['play'], this.svg['play']);
+	 						this.clearTime();
 	 					}
 	 			},200);
 	 		}
@@ -143,8 +156,12 @@ class MBox {
 	 			this.volumeIcon.innerHTML = this.getSvg(this.viewBox['high_volume'], this.svg['high_volume']);
 	 		}
 	 	}
-
-
+	 	/*
+			method for clearInterval 
+	 	*/
+	 	this.clearTime = () => {
+	 		clearInterval(this.detectIdx);
+	 	}
 	}
 	/*
 		method for initialize the music player 
@@ -170,6 +187,7 @@ class MBox {
 		if(this.musicFile.paused){
 			this.musicFile.play();
 			this.watchVolume();
+			this.detectPlayStatus();
 			this.playBtn.innerHTML = this.getSvg(this.viewBox['pause'], this.svg['pause']);
 		}
 	}
@@ -180,6 +198,7 @@ class MBox {
 	pause() {
 		if(!this.musicFile.paused && !this.musicFile.ended){
 			this.musicFile.pause();
+			this.clearTime();
 			this.playBtn.innerHTML = this.getSvg(this.viewBox['play'], this.svg['play']);
 		}
 	}

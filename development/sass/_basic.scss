@@ -83,16 +83,48 @@ svg{
 	height: $volumBarHeight;
 }
 
-.mbox-play-progress-wrap {
+.mbox-play-info-wrap {
 	position: relative;
-	top: 80px;
+	height: 11px;
 	width: 100%;
+}
+
+.mbox-play-progress-wrap {
+	display: inline-block;
+	position: absolute;
+	width: 75%;
 	height: $progressBarHeight;
+	top:0;
+	bottom:0;
+	margin: auto;
+
 	background: $romanSilver;
 }
 
 .mbox-play-progress-inner {
 	position: absolute;
+	height: $progressBarHeight;
+}
+
+.mbox-play-time {
+	display: inline-block;
+	position: relative;
+	
+	height: 11px;
+	float: right;
+	width: 25%;
+
+	color: $romanSilver;
+
+	left:0;
+	right:0;
+	margin: auto;
+}
+
+.mbox-played-time {
+	font-size: 0.3rem !important;
+	position: absolute;
+	left: 7px;
 }
 
 .mbox-songinfo {

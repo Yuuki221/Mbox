@@ -6,13 +6,13 @@
 */
 function transformTime(secTime){
 	var strRes = '';
-	for(let i=0; i<3; i++){
+	for(let i=0; i<2; i++){
 		let subres = secTime%60;
 		secTime = Math.floor(secTime/60);
-		strRes = ':' + (subres===0? '00' : ''+subres) + strRes;
+		strRes = ':' + (subres<10? '0'+subres : ''+subres) + strRes;
 	}
 	return strRes.substring(1);
 };
 
-// console.log(transformTime(23));
+//console.log(transformTime(1298));
 module.exports = transformTime;

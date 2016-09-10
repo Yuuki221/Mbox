@@ -93,6 +93,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   padding: 0;
   padding-right: 8px;
 }
+.icon:hover {
+  cursor: pointer;
+}
 
 .mbox-controller-wrap-wrap {
   width: 230px;
@@ -149,6 +152,9 @@ svg:hover {
   margin-top: 6px;
   position: relative;
 }
+.mbox-volume-bar:hover {
+  cursor: pointer;
+}
 
 .mbox-volume-bar-inner {
   display: inline-block;
@@ -171,6 +177,9 @@ svg:hover {
   bottom: 0;
   margin: auto;
   background: #828a95;
+}
+.mbox-play-progress-wrap:hover {
+  cursor: pointer;
 }
 
 .mbox-play-progress-inner {

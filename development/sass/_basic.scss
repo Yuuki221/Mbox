@@ -25,6 +25,8 @@
 	margin: 0;
 	padding: 0;
 	padding-right: 8px;
+
+	&:hover{ cursor: pointer; }
 }
 
 .mbox-controller-wrap-wrap {
@@ -75,6 +77,8 @@ svg{
 	margin-top: 6px;
 
 	position: relative;
+
+	&:hover { cursor:pointer; }
 }
 
 .mbox-volume-bar-inner {
@@ -99,6 +103,8 @@ svg{
 	margin: auto;
 
 	background: $romanSilver;
+
+	&:hover{ cursor: pointer; }
 }
 
 .mbox-play-progress-inner {

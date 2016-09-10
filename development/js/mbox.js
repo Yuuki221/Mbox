@@ -1,6 +1,7 @@
 let transformTime = require('./getplaytime.js');
 let iconInfo = require('./svginfo.js');
 let uiHtml = require('./buildui.js');
+let getPosition = require('./getpositions.js');
 
 class MBox {
 	/**
@@ -43,14 +44,15 @@ class MBox {
 	 	// music piece realted properties
 	 	this.musicFile = document.getElementsByClassName('mbox-music')[0];
 
-	 	// transform time function 
-	 	this.transformTime = new transformTime();
-
+	 	// bar length 
+	 	this.volumeBarLen = 50;
+	 	this.progressBarLen = 225;
 	 	/*
 			player related elements 
 	 	*/
 	 	// icons 
 	 	this.playBtn = document.getElementsByClassName('mbox-play-icon')[0];
+	 	this.volumeBtn = document.getElementsByClassName('mbox-volume-icon')[0];
 	 	// album related information 
 	 	this.coverArea = document.getElementsByClassName('mbox-album-cover-wrap')[0];
 	 	this.songInfo = document.getElementsByClassName('mbox-song-info')[0];
@@ -58,12 +60,14 @@ class MBox {
 	 	// volume realted 
 	 	this.volumeIcon = document.getElementsByClassName('mbox-volume-icon')[0];
 	 	this.volumeBar = document.getElementsByClassName('mbox-volume-bar-inner')[0];
+	 	this.volumeBarOutter = document.getElementsByClassName('mbox-volume-bar')[0];
 	 	// play progress related
 	 	this.playProgressBar = document.getElementsByClassName('mbox-play-progress-inner')[0];
 	 	this.playProgressOuter = document.getElementsByClassName('mbox-play-progress-wrap')[0];
 	 	// play time related
 	 	this.playedTime = document.getElementsByClassName('mbox-time-played')[0];
 	 	this.totalTime = document.getElementsByClassName('mbox-time-total')[0];
+
 	 	/*
 			@param {Object} progress bar needs to be update 
 			@param {Number} percentage that needs to be update 
@@ -148,9 +152,9 @@ class MBox {
 	 		// get the volume between 0.0 to 1.0
 	 		let curVolume = this.musicFile.volume;
 	 		this.updateProgressBar('volume', curVolume, 'width');
-	 		if(curVolume === 0) {
+	 		if(curVolume === 0.0) {
 	 			this.volumeIcon.innerHTML = this.getSvg(this.viewBox['mute'], this.svg['mute']);
-	 		}else if(curVolume > 0.3 && curVolume<0.6) {
+	 		}else if(curVolume > 0 && curVolume<0.6) {
 	 			this.volumeIcon.innerHTML = this.getSvg(this.viewBox['volume'], this.svg['volume']);
 	 		}else {
 	 			this.volumeIcon.innerHTML = this.getSvg(this.viewBox['high_volume'], this.svg['high_volume']);
@@ -162,6 +166,38 @@ class MBox {
 	 	this.clearTime = () => {
 	 		clearInterval(this.detectIdx);
 	 	}
+
+	 	/*
+			add listener to volume bar 
+	 	*/
+	 	this.volumeBarOutter.addEventListener('click',(event) => {
+	 		let clickX = event.clientX,
+	 			barX = getPosition(this.volumeBarOutter, 'left'),
+	 			percentage = (clickX - barX)/this.volumeBarLen;
+	 		this.musicFile.volume = percentage>1? 1 : (percentage<0? 0 : percentage);
+	 		this.watchVolume();
+	 		this.updateProgressBar('volume', percentage, 'width');
+	 	});
+
+	 	/*
+			add listener to progress bar 
+	 	*/
+	 	this.playProgressOuter.addEventListener('click', (event) => {
+	 		let clickX = event.clientX,
+	 			barX = getPosition(this.playProgressOuter, 'left'),
+	 			percentage = (clickX - barX)/this.progressBarLen;
+	 		this.musicFile.currentTime = (percentage>1? 1 : (percentage<0? 0 : percentage))*this.musicFile.duration;
+	 		this.updateProgressBar('playPorgress', percentage, 'width');
+	 	});
+
+	 	/*
+			add listener to volume icon, when click volume icon, turn the music to mute 
+	 	*/
+	 	this.volumeBtn.addEventListener('click', () => {
+	 		this.volumeBtn.innerHTML = this.getSvg(this.viewBox['mute'], this.svg['mute']);
+	 		this.musicFile.volume = 0;
+	 		this.updateProgressBar('volume', 0, 'width');
+	 	});
 	}
 	/*
 		method for initialize the music player 

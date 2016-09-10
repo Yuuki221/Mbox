@@ -27,10 +27,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 		// object for svg viewbox
 		module.exports = "<div class=\"magic-box\">\n\t\t\t\t\t<div class=\"magic-box-upper-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-music-wrap\">\n\t\t\t\t\t\t\t<audio class=\"mbox-music\" src=\"development/music/You Need Me-KENN.mp3\"></audio>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<!-- audio file links are here --> \n\t\t\t\t\t\t<div class=\"mbox-album-cover-wrap\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-controller-wrap-wrap\">\n\t\t\t\t\t\t\t<div class=\"mbox-controller-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-songinfo\">\n\t\t\t\t\t\t\t\t<span class=\"mbox-song-info\" style=\"color: #dff3e3;\">Unknown</span><br>\n\t\t\t\t\t\t\t\t<span class=\"mbox-album-name\" style=\"color: #dff3e3;\">Unknown</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-controlBtn-wrap-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-previous-song-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-previous-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['previous'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['previous'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['play'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['play'] + "\"/>\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-next-song-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-next-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['next'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['next'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-mode-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-mode-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['playmode'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['playmode_cycle'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-volume-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['volume'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['volume'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar-wrap\">\n\t\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar\">\n\t\t\t\t\t\t\t\t\t\t<span class=\"mbox-volume-bar-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-share-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-share-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['share'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['share'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-play-info-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-play-progress-wrap\">\n\t\t\t\t\t\t\t\t<span class=\"mbox-play-progress-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-play-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-played-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-time-played\">00:00</span>/<span class=\"mbox-time-total\">00:00</span>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>";
-	}, { "./svginfo.js": 4 }], 2: [function (require, module, exports) {
+	}, { "./svginfo.js": 5 }], 2: [function (require, module, exports) {
 		var transformTime = require('./getplaytime.js');
 		var iconInfo = require('./svginfo.js');
 		var uiHtml = require('./buildui.js');
+		var getPosition = require('./getpositions.js');
 
 		var MBox = function () {
 			/**
@@ -76,14 +77,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				// music piece realted properties
 				this.musicFile = document.getElementsByClassName('mbox-music')[0];
 
-				// transform time function 
-				this.transformTime = new transformTime();
-
+				// bar length 
+				this.volumeBarLen = 50;
+				this.progressBarLen = 225;
 				/*
     player related elements 
     */
 				// icons 
 				this.playBtn = document.getElementsByClassName('mbox-play-icon')[0];
+				this.volumeBtn = document.getElementsByClassName('mbox-volume-icon')[0];
 				// album related information 
 				this.coverArea = document.getElementsByClassName('mbox-album-cover-wrap')[0];
 				this.songInfo = document.getElementsByClassName('mbox-song-info')[0];
@@ -91,12 +93,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				// volume realted 
 				this.volumeIcon = document.getElementsByClassName('mbox-volume-icon')[0];
 				this.volumeBar = document.getElementsByClassName('mbox-volume-bar-inner')[0];
+				this.volumeBarOutter = document.getElementsByClassName('mbox-volume-bar')[0];
 				// play progress related
 				this.playProgressBar = document.getElementsByClassName('mbox-play-progress-inner')[0];
 				this.playProgressOuter = document.getElementsByClassName('mbox-play-progress-wrap')[0];
 				// play time related
 				this.playedTime = document.getElementsByClassName('mbox-time-played')[0];
 				this.totalTime = document.getElementsByClassName('mbox-time-total')[0];
+
 				/*
     @param {Object} progress bar needs to be update 
     @param {Number} percentage that needs to be update 
@@ -181,9 +185,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					// get the volume between 0.0 to 1.0
 					var curVolume = _this.musicFile.volume;
 					_this.updateProgressBar('volume', curVolume, 'width');
-					if (curVolume === 0) {
+					if (curVolume === 0.0) {
 						_this.volumeIcon.innerHTML = _this.getSvg(_this.viewBox['mute'], _this.svg['mute']);
-					} else if (curVolume > 0.3 && curVolume < 0.6) {
+					} else if (curVolume > 0 && curVolume < 0.6) {
 						_this.volumeIcon.innerHTML = _this.getSvg(_this.viewBox['volume'], _this.svg['volume']);
 					} else {
 						_this.volumeIcon.innerHTML = _this.getSvg(_this.viewBox['high_volume'], _this.svg['high_volume']);
@@ -195,6 +199,38 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				this.clearTime = function () {
 					clearInterval(_this.detectIdx);
 				};
+
+				/*
+    add listener to volume bar 
+    */
+				this.volumeBarOutter.addEventListener('click', function (event) {
+					var clickX = event.clientX,
+					    barX = getPosition(_this.volumeBarOutter, 'left'),
+					    percentage = (clickX - barX) / _this.volumeBarLen;
+					_this.musicFile.volume = percentage > 1 ? 1 : percentage < 0 ? 0 : percentage;
+					_this.watchVolume();
+					_this.updateProgressBar('volume', percentage, 'width');
+				});
+
+				/*
+    add listener to progress bar 
+    */
+				this.playProgressOuter.addEventListener('click', function (event) {
+					var clickX = event.clientX,
+					    barX = getPosition(_this.playProgressOuter, 'left'),
+					    percentage = (clickX - barX) / _this.progressBarLen;
+					_this.musicFile.currentTime = (percentage > 1 ? 1 : percentage < 0 ? 0 : percentage) * _this.musicFile.duration;
+					_this.updateProgressBar('playPorgress', percentage, 'width');
+				});
+
+				/*
+    add listener to volume icon, when click volume icon, turn the music to mute 
+    */
+				this.volumeBtn.addEventListener('click', function () {
+					_this.volumeBtn.innerHTML = _this.getSvg(_this.viewBox['mute'], _this.svg['mute']);
+					_this.musicFile.volume = 0;
+					_this.updateProgressBar('volume', 0, 'width');
+				});
 			}
 			/*
    	method for initialize the music player 
@@ -261,7 +297,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 		// var test = new MBox();
 		// test.load();
-	}, { "./buildui.js": 1, "./getplaytime.js": 3, "./svginfo.js": 4 }], 3: [function (require, module, exports) {
+	}, { "./buildui.js": 1, "./getplaytime.js": 3, "./getpositions.js": 4, "./svginfo.js": 5 }], 3: [function (require, module, exports) {
 		/**
   	method to transform playtime to 00:00:00 format 
   	@param {Number} seconds
@@ -281,6 +317,47 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 		//console.log(transformTime(1298));
 		module.exports = transformTime;
 	}, {}], 4: [function (require, module, exports) {
+		/*
+  	modules for compute the current element position 
+  
+  	@param {Object} element
+  	@param {String} direction 'left' or 'right', upper or lower case not a problem 
+  */
+
+		function getPos(element, direction) {
+			// left position 
+			if (direction.trim().toLowerCase() === 'left') {
+				// deal with body element
+				var xPos = 0;
+				while (element) {
+					if (element.tagName == 'BODY') {
+						var xScroll = element.scrollLeft || document.documentElement.scrollLeft;
+
+						xPos += element.offsetLeft - xScroll + element.clientLeft;
+					} else {
+						xPos += element.offsetLeft - element.scrollLeft + element.clientLeft;
+					}
+					element = element.offsetParent;
+				}
+				return xPos;
+			} else {
+				// top position 
+				var yPos = 0;
+				while (element) {
+					if (element.tagName === 'BODY') {
+						var yScroll = element.scrollTop || document.documentElement.scrollTop;
+						yPos += element.offsetTop - yScroll + element.clientTop;
+					} else {
+						yPos += element.offsetTop - element.scrollTop + element.clientTop;
+					}
+					element = element.offsetParent;
+				}
+				return yPos;
+			}
+		}
+
+		module.exports = getPos;
+	}, {}], 5: [function (require, module, exports) {
 		/*
   	svg icon path and viewBox information 
   */

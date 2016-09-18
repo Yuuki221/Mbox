@@ -46,7 +46,7 @@ var Song = mongoose.model('Song', songSchema);
 // });
 app.all('/api', function(req, res, next){
 	res.header('Access-Control-Allow-Origin', '*');
-	res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+	res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
 	res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
 	next();
 	console.log('server configured');
@@ -59,22 +59,30 @@ app.all('/api', function(req, res, next){
 app.post('/api', function(req, res){
 		console.log('in the post method');
 		var song = new Song();
-		console.log(req.body);
-		// parse the request body query string parameters
-		song.song_url = decodeURIComponent(req.body.url);
-		song.song_name = decodeURIComponent(req.body.song_name);
-		song.singer = decodeURIComponent(req.body.singer);
-		song.album_name = decodeURIComponent(req.body.album);
-		song.album_cover = decodeURIComponent(req.body.album_cover);
-
-		song.save(function(err){
-		// if some errors occurs when sending the data
-			if(err){ 
-				res.send(err);
-			}else{
-				console.log('reached save song area');
-			}
-		});	
+		// console.log(req.body); need body parser to use this 
+		var body = '';
+		req.on('data', function(chunk){
+			// console.log(chunk);
+			body+=chunk;
+		}).on('end', function(){
+			body = JSON.parse(body);
+			console.log(body.url);
+			// parse the request body query string parameters
+			song.song_url = body.url;
+			song.song_name = body.song_name;
+			song.singer = body.singer;
+			song.album_name = body.album;
+			song.album_cover = body.album_cover;
+			song.save(function(err){
+				// if some errors occurs when sending the data
+				if(err){ 
+					res.send(err);
+				}else{
+					res.send({ message : 'Successfully save song data'});
+				}
+			});
+		});
+		// res.send({'message' : 'connect sucessfully'});
 });
 
 app.listen(8080);

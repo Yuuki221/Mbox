@@ -30,10 +30,10 @@ gulp.task('compass', function(){
 				style: sassStyle
 			})
 			.on('error', gutil.log))
-		.pipe(gulp.dest('production/css'))
-		.pipe(connect.reload());
+		.pipe(gulp.dest('production/css'));
+		//.pipe(connect.reload());
 });
-
+/**
 gulp.task('connect', function(){
 	connect.server({
 		root: './',
@@ -41,6 +41,7 @@ gulp.task('connect', function(){
 		livereload: true
 	});
 });
+*/
 /**
 gulp.task('open', function(){
 	gulp.src('index.html')
@@ -55,11 +56,11 @@ gulp.task('browserify', function(){
 	}))
 	.pipe(gulp.dest('production/js/main.js'));
 });
-
+/**
 gulp.task('html', function(){
 	gulp.src('index.html').pipe(connect.reload());
 });
-
+*/
 gulp.task('watch', function(){
 	gulp.watch('development/sass/*.scss', ['compass']);
 	gulp.watch('index.html',['html']);
@@ -67,5 +68,5 @@ gulp.task('watch', function(){
 });
 
 
-gulp.task('default', ['html', 'compass', 'browserify', 'connect', 'watch']);
+gulp.task('default', ['compass', 'browserify','watch']);
 

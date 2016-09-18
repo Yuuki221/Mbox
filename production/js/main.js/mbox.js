@@ -241,10 +241,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     */
 				var xhrq = new XMLHttpRequest();
 				// string represent url 
-				var url = "http://localhost:8080";
-				var playlistData = "/api/url=" + encodeURIComponent(this.usrOption['music']['url']) + "\n\t \t\t\t\t&song_name=" + encodeURIComponent(this.usrOption['music']['song_name']) + "\n\t \t\t\t\t&singer=" + encodeURIComponent(this.usrOption['music']['singer']) + "\n\t \t\t\t\t&album=" + encodeURIComponent(this.usrOption['music']['album']) + "\n\t \t\t\t\t&album_cover=" + encodeURIComponent(this.usrOption['music']['album_cover']);
+				var url = "http://localhost:8080/api";
+				var playlistData = {
+					url: this.usrOption['music']['url'],
+					song_name: this.usrOption['music']['song_name'],
+					singer: this.usrOption['music']['singer'],
+					album: this.usrOption['music']['album'],
+					album_cover: this.usrOption['music']['album_cover']
+				};
 				xhrq.open('post', url, true);
-				xhrq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				// xhrq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhrq.setRequestHeader('Content-type', 'application/json');
 				xhrq.onreadystatechange = function () {
 					if (xhrq.readyState === XMLHttpRequest.DONE) {
 						alert(xhrq.responseText);

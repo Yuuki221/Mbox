@@ -41,12 +41,12 @@ gulp.task('connect', function(){
 		livereload: true
 	});
 });
-
+/**
 gulp.task('open', function(){
 	gulp.src('index.html')
-	.pipe(gulpOpen({uri: 'http://localhost:8080', app: 'Safari'}));
+	.pipe(gulpOpen({uri: 'http://localhost:3030', app: 'google chrome'}));
 });
-
+*/
 gulp.task('browserify', function(){
 	gulp.src('development/js/mbox.js')
 	.pipe(browserify())
@@ -67,5 +67,5 @@ gulp.task('watch', function(){
 });
 
 
-gulp.task('default', ['html', 'compass', 'browserify', 'open','connect', 'watch']);
+gulp.task('default', ['html', 'compass', 'browserify', 'connect', 'watch']);
 

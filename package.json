@@ -18,5 +18,9 @@
     "gulp-open": "^2.0.0",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "mongoose": "^4.6.0"
   }
 }

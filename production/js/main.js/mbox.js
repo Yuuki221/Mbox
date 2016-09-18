@@ -54,12 +54,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     	2. foreground color
     	3. background color 
     	// if the option is empty, then we could use defaultSetting 
+    		// need add api url here 
+    	4. song_ids: match the song_id in database that we would like to retrieve, this is an optional selection 
     */
 				var defaultSetting = {
 					element: document.getElementsByClassName('plyr-container')[0],
 					foreground_color: '#828a95',
 					background_color: '#4a525a',
 					music: {
+						'song_ids': '1-3',
 						'url': 'development/music/You Need Me-KENN.mp3',
 						'song_name': 'You Need Me',
 						'singer': 'KENN',
@@ -231,6 +234,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					_this.musicFile.volume = 0;
 					_this.updateProgressBar('volume', 0, 'width');
 				});
+
+				/*
+    XMLHttp Request Retrieve Playlist from database 
+    if the user want to have backend support 
+    */
+				var xhrq = new XMLHttpRequest();
+				// string represent url 
+				var url = "http://localhost:8080";
+				var playlistData = "/api/url=" + encodeURIComponent(this.usrOption['music']['url']) + "\n\t \t\t\t\t&song_name=" + encodeURIComponent(this.usrOption['music']['song_name']) + "\n\t \t\t\t\t&singer=" + encodeURIComponent(this.usrOption['music']['singer']) + "\n\t \t\t\t\t&album=" + encodeURIComponent(this.usrOption['music']['album']) + "\n\t \t\t\t\t&album_cover=" + encodeURIComponent(this.usrOption['music']['album_cover']);
+				xhrq.open('post', url, true);
+				xhrq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhrq.onreadystatechange = function () {
+					if (xhrq.readyState === XMLHttpRequest.DONE) {
+						alert(xhrq.responseText);
+						console.log("Sucessfully send song information.");
+						// playlistData here 
+					}
+				};
+				xhrq.send(JSON.stringify(playlistData));
 			}
 			/*
    	method for initialize the music player 

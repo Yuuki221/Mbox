@@ -36,14 +36,6 @@ var songSchema = new Schema({
 // model the schema
 var Song = mongoose.model('Song', songSchema);
 
-// create router
-// var router = express.Router();
-
-// middleware to use for all request
-// router.use(function(req, res, next){
-// 	console.log('Something works');
-// 	next();
-// });
 app.all('/api', function(req, res, next){
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');

@@ -5,6 +5,11 @@
 	@include box-sizing(border-box);
 }
 
+button {
+	// fix chrome focus blue border 
+	&:focus { outline: 0; }
+}
+
 .magic-box{
 	width: $boxBorderLen;
 	height: $boxBorderLen;
@@ -151,5 +156,56 @@ svg{
 .mbox-album-name, .mbox-song-info {
 	padding-left: 15px;
 	font-family: $songinfoFontType;
+}
+
+.mbox-multidisplay-area {
+	position: relative;
+
+	height: 207px;
+	width: 100%;
+
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+	font-family: $songinfoFontType;
+	font-size: 0.7rem;
+	font-weight: 100;
+
+	color: $romanSilver;
+
+	text-align: center;
+	overflow: scroll;
+}
+
+.mbox-multidisplay-area-wrap {
+	position: relative;
+	width: 300px;
+	height: 219px;
+}
+/**
+.mbox-multidisplay-area-wrap:before {
+	content: '';
+	position: absolute;
+
+	width: 100%;
+	height: 40px;
+	top: 0;
+	left: 0;
+
+	background: linear-gradient($davyGrey, #fff);
+	background: linear-gradient($davyGrey, rgba(0,0,0,0));
+}
+*/
+.mbox-multidisplay-area-wrap:after {
+	content: '';
+	position: absolute;
+
+	width: 100%;
+	height: 40px;
+	top: 170px;
+	left: 0;
+
+	background: linear-gradient(#fff, $davyGrey);
+	background: linear-gradient(rgba(0,0,0,0), $davyGrey);
 }
 

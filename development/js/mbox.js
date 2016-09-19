@@ -2,6 +2,7 @@ let transformTime = require('./getplaytime.js');
 let iconInfo = require('./svginfo.js');
 let uiHtml = require('./buildui.js');
 let getPosition = require('./getpositions.js');
+let processLyric = require('./lyricprocessor.js');
 
 class MBox {
 	/**
@@ -20,22 +21,90 @@ class MBox {
 	 		1. element to load the Player
 	 		2. foreground color
 	 		3. background color 
+	 		4. multi : multiple song or single song 
+	 		5. music : music information (lyric is optional)
+
 	 		// if the option is empty, then we could use defaultSetting 
 
 	 		// need add api url here 
 	 		4. song_ids: match the song_id in database that we would like to retrieve, this is an optional selection 
 	 	*/
+	 	const noLyric = ['Lyric is not available'];
 	 	const defaultSetting = {
 	 		element : document.getElementsByClassName('plyr-container')[0],
 	 		foreground_color : '#828a95',
 	 		background_color : '#4a525a',
+	 		multi : false,
 	 		music : {
-	 			'song_ids' : '1-3',
 	 			'url' : 'development/music/You Need Me-KENN.mp3',
 	 			'song_name' : 'You Need Me',
 	 			'singer' : 'KENN',
 	 			'album' : 'You Need Me',
-	 			'album_cover' : 'development/music/YouNeedMeCover.jpg' 
+	 			'album_cover' : 'development/music/YouNeedMeCover.jpg',
+	 			'lyric_with_time' : false,
+	 			'lyric' :  [
+	 				'You Need Me - KENN',
+	 				'',
+	 				'君は　覚えているかい',
+	 				'はじめて 出会えた時',
+	 				'(Baby I need you)',
+	 				'何故か　ふいに横切る',
+	 				'おそれや　不安を確かめる',
+	 				'',
+	 				'上手く言葉じゃ君に',
+	 				'伝えられないけれと',
+	 				"(I'm missing you)",
+	 				'誤解しないで　悲しまないで',
+	 				'勇気出して　歩き出すよ',
+	 				'So Feeling my heart',
+	 				'',
+	 				'君の名前を（呼んでいるよ)',
+	 				'僕のメロディー　この歌に乗せて',
+	 				'大好きだから（心つなぐ）',
+	 				'この道をゆこう　永久に',
+	 				'例えどんなに　苦しい時も',
+	 				'もう　離れないから',
+	 				'これからもずっと',
+	 				'',
+	 				'愛に 終わりはあるか',
+	 				'はじめて 考えたよ',
+	 				"(So Don't you fake me?)",
+	 				'そうさ 失うことが',
+	 				'怖くて 不安を抱きしめる',
+	 				'',
+	 				'君に　触れた瞬間（聞こえる)',
+	 				'鼓動　揺らめいた瞳が',
+	 				"(Don't be afraid)",
+	 				'僕を見つめて　変わらぬまま',
+	 				'2人で　愛を誓い合おう',
+	 				'So just stay with me',
+	 				'',
+	 				'君への愛を（叫んでるよ）',
+	 				'僕のメロディー　この声に乗せて',
+	 				'大好きだから（溢れるほど）',
+	 				'この道を行こう　永久に',
+	 				'例えどんなに　苦しい時も',
+	 				'もう　迷わないから',
+	 				'これからもずっと',
+	 				'',
+	 				'I miss you　消えないで',
+	 				'(Oh my sweet baby)',
+	 				'僕が守るから',
+	 				'',
+	 				'そばにいるよ···',
+	 				'',
+	 				'君の名前を（呼んでいるよ）',
+	 				'僕のメロディー　この歌に乗せて',
+	 				'大好きだから（心つなぐ）',
+	 				'この道をゆこう　永久に',
+	 				'',
+	 				'例えどんなに　苦しい時も',
+	 				'もう　離さないから',
+	 				'もう　迷わないから',
+	 				'これからもずっと',
+	 				'',
+	 				"I don't wanna leave you"
+	 			]
 	 		}
 	 	};
 
@@ -45,9 +114,14 @@ class MBox {
 	 	// load the interface 
 		this.usrOption['element'].innerHTML = uiHtml;
 
+		// process lyrics 
+		if(this.usrOption['music']['lyric']===undefined){
+			this.usrOption['music']['lyric'] = noLyric;
+		}
+
 	 	// music piece realted properties
 	 	this.musicFile = document.getElementsByClassName('mbox-music')[0];
-
+	 	this.processedLyric = processLyric(this.usrOption['music']['lyric_with_time'], this.usrOption['music']['lyric']);
 	 	// bar length 
 	 	this.volumeBarLen = 50;
 	 	this.progressBarLen = 225;
@@ -71,7 +145,15 @@ class MBox {
 	 	// play time related
 	 	this.playedTime = document.getElementsByClassName('mbox-time-played')[0];
 	 	this.totalTime = document.getElementsByClassName('mbox-time-total')[0];
+	 	// display area
+	 	this.displayArea = document.getElementsByClassName('mbox-multidisplay-area')[0];
 
+	 	// insert lyric or play list 
+	 	if(!this.usrOption['multi']){
+	 		this.displayArea.innerHTML = this.processedLyric;
+	 	}else{
+	 		
+	 	}
 	 	/*
 			@param {Object} progress bar needs to be update 
 			@param {Number} percentage that needs to be update 
@@ -207,6 +289,7 @@ class MBox {
 			XMLHttp Request Retrieve Playlist from database 
 			if the user want to have backend support 
 	 	*/
+	 /**
 	 	let xhrq = new XMLHttpRequest();
 	 	// string represent url 
 	 	let url = `http://localhost:8080/api`;
@@ -228,6 +311,7 @@ class MBox {
 	 		}
 	 	};
 	 	xhrq.send(JSON.stringify(playlistData));
+	 	*/
 	}
 	/*
 		method for initialize the music player 

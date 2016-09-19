@@ -75,12 +75,16 @@ module.exports = `<div class="magic-box">
 					</div>
 					<div class="mbox-play-info-wrap">
 						<div class="mbox-play-progress-wrap">
-								<span class="mbox-play-progress-inner" style="width: 0; background: #dff3e3;"></span>
+							<span class="mbox-play-progress-inner" style="width: 0; background: #dff3e3;"></span>
 						</div>
 						<div class="mbox-play-time">
 							<span class="mbox-played-time">
 							<span class="mbox-time-played">00:00</span>/<span class="mbox-time-total">00:00</span>
 							</span>
+						</div>
+					</div>
+					<div class="mbox-multidisplay-area-wrap">
+						<div class="mbox-multidisplay-area">
 						</div>
 					</div>
 				</div>`;

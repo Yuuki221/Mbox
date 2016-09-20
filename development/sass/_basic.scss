@@ -11,6 +11,8 @@ button {
 }
 
 .magic-box{
+	position: relative;
+
 	width: $boxBorderLen;
 	height: $boxBorderLen;
 	background: $davyGrey;
@@ -154,8 +156,17 @@ svg{
 }
 
 .mbox-album-name, .mbox-song-info {
+	display: inline-block;
+
+	width: 200px;
+	height: 13px;
+
 	padding-left: 15px;
+
 	font-family: $songinfoFontType;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .mbox-multidisplay-area {
@@ -208,4 +219,61 @@ svg{
 	background: linear-gradient(#fff, $davyGrey);
 	background: linear-gradient(rgba(0,0,0,0), $davyGrey);
 }
+
+/* for the sandwich button */
+.mbox-setting-trigger {
+	display: none;
+}
+
+.mbox-setting-wrap {
+	position: absolute;
+
+	width: 40px;
+	height: 40px;
+
+	bottom: 0;
+	right: 0;
+
+	&:hover{
+		cursor: pointer;
+	}
+}
+
+.mbox-setting-icon {
+	position: relative;
+
+	width: 40px;
+	height: 40px;
+}
+
+.mbox-setting-bars {
+	position: absolute;
+	top: 9px;
+	left: 8px;
+}
+
+.toggle-bar {
+	height: 3px;
+	width: 1.5em;
+	background: $davyGrey;
+	margin-top: 3px;
+	transition: all 0.3s ease-in-out;
+}
+
+#trigger:checked + .mbox-setting-bars .setting-first-bar {
+	margin-top: 10px;
+	transform: rotate(-45deg);
+}
+
+#trigger:checked + .mbox-setting-bars .setting-second-bar {
+	opacity: 0;
+	transform: rotate(-45deg);
+}
+
+#trigger:checked + .mbox-setting-bars .setting-third-bar {
+	margin-top: -9px;
+	transform: rotate(45deg);
+}
+
+
 

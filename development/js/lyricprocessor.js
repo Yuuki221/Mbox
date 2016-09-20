@@ -10,7 +10,7 @@ let processLyric = (time, lyrics) => {
 		// if the entry is empty then replace with a new line symbol
 		for(let i=0; i<lyrics.length; i++){
 			if(!lyrics[i]){
-				lyrics[i] = '<br>';
+				lyrics[i] = '<br><br>';
 			}else{
 				lyrics[i]+='<br>';
 			}

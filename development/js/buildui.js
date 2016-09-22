@@ -98,22 +98,22 @@ module.exports = `<div class="magic-box">
 								</label>
 							</div>
 						</div>
-						<div class="mbox-setting-item mbox-playlist-wrap">
-							<button class="mbox-setting-icon">
+						<div class="mbox-setting-item mbox-playlist-wrap" style="background: #dff3e3;">
+							<button class="mbox-menu-icon">
 								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999" width="16" height="16" viewBox="${viewBox['playlist']}">
 									<path d="${svg['playlist']}" />
 								</svg>
 							</button>
 						</div>
-						<div class="mbox-setting-item mbox-lovelist-wrap">
-							<button class="mbox-setting-icon">
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999" width="16" height="16" viewBox="${viewBox['lovelist']}">
-									<path d="${svg['lovelist']}" />
+						<div class="mbox-setting-item mbox-lovelist-wrap" style="background: #dff3e3;">
+							<button class="mbox-menu-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999" width="16" height="16" viewBox="${viewBox['heart']}">
+									<path d="${svg['heart']}" />
 								</svg>
 							</button>
 						</div>
-						<div class="mbox-setting-item mbox-lyric-show-wrap">
-							<button class="mbox-setting-icon">
+						<div class="mbox-setting-item mbox-lyric-show-wrap" style="background: #dff3e3;">
+							<button class="mbox-menu-icon">
 								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999" width="16" height="16" viewBox="${viewBox['lyric']}">
 									<path d="${svg['lyric']}" />
 								</svg>

@@ -18,6 +18,66 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 	}return s;
 })({ 1: [function (require, module, exports) {
 		/*
+  	build playlist User Interface
+  */
+		var svgInfo = require('./svginfo.js');
+
+		var BuildPlayList = function () {
+			function BuildPlayList(playlist, songPool) {
+				_classCallCheck(this, BuildPlayList);
+
+				// set the currentPlayList
+				this.currentPlaylist = playlist;
+				this.songsInList = songPool;
+				this.svgInfo = svgInfo;
+			}
+
+			_createClass(BuildPlayList, [{
+				key: "initPlaylist",
+				value: function initPlaylist() {
+					var playlistUI = '';
+					for (var i = 0; i < this.currentPlaylist.length; i++) {
+						var curSong = this.songsInList['_' + this.currentPlaylist[i]];
+						if (curSong !== undefined && !curSong.removed && !curSong.deleted) {
+							playlistUI += this.getRowUI(curSong.song_name, curSong.singer);
+						}
+					}
+					return "<div class=\"mbox-multidisplay-playlist-area hide\">\n\t\t\t\t\t<ul class=\"mbox-multidisplay-playlist-ul\"> \n\t\t\t\t\t\t" + (playlistUI === undefined ? '<span class="mbox-no-song-message">No song to display</span>' : playlistUI) + "\n\t\t\t\t\t</ul> \n\t\t\t\t</div>";
+				}
+			}, {
+				key: "addSongRow",
+				value: function addSongRow(rowElement) {
+					console.log('in addSongRow');
+					return this.getRowUI(rowElement.song_name, rowElement.singer, rowElement.song_id);
+				}
+			}, {
+				key: "removeSongRow",
+				value: function removeSongRow(song) {
+					var rowToRemove = document.getElementById('' + song.song_id);
+					var parentUL = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
+					parentUL.removeChild(rowToRemove);
+				}
+
+				/*
+    	@param {String} songname
+    	@param {String} singer
+    	@param {Array} an array contains svg icons to the end of each row
+    	@return {String} html code to be inserted 
+    */
+
+			}, {
+				key: "getRowUI",
+				value: function getRowUI(songname, singer, songID) {
+					return "\n\t\t\t<li id=" + songID + " class=\"mbox-song-row\">\n\t\t\t\t<span class=\"mbox-song-row-songinfo\">" + songname + " - " + singer + "</span>\n\t\t\t\t<span class=\"mbox-song-row-setting-buttons\">\n\t\t\t\t<button class=\"icon mbox-row-buttons\">\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + this.svgInfo.viewBox['heart'] + "\">\n\t\t\t\t\t\t<path d=\"" + this.svgInfo.svg['heart'] + "\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t<button class=\"icon mbox-row-buttons\">\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + this.svgInfo.viewBox['garbage'] + "\">\n\t\t\t\t\t\t<path d=\"" + this.svgInfo.svg['garbage'] + "\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t<button class=\"icon mbox-row-buttons\">\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + this.svgInfo.viewBox['delete'] + "\">\n\t\t\t\t\t\t<path d=\"" + this.svgInfo.svg['delete'] + "\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t</span>\n\t\t\t</li>\n\t\t";
+				}
+			}]);
+
+			return BuildPlayList;
+		}();
+
+		module.exports = BuildPlayList;
+	}, { "./svginfo.js": 7 }], 2: [function (require, module, exports) {
+		/*
   	method for load html content for the player
   */
 
@@ -26,13 +86,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 		var viewBox = iconInfo['viewBox'];
 
 		// object for svg viewbox
-		module.exports = "<div class=\"magic-box\">\n\t\t\t\t\t<div class=\"magic-box-upper-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-music-wrap\">\n\t\t\t\t\t\t\t<audio class=\"mbox-music\" src=\"development/music/You Need Me-KENN.mp3\"></audio>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<!-- audio file links are here --> \n\t\t\t\t\t\t<div class=\"mbox-album-cover-wrap\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-controller-wrap-wrap\">\n\t\t\t\t\t\t\t<div class=\"mbox-controller-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-songinfo\">\n\t\t\t\t\t\t\t\t<span class=\"mbox-song-info\" style=\"color: #dff3e3;\">Unknown</span><br>\n\t\t\t\t\t\t\t\t<span class=\"mbox-album-name\" style=\"color: #dff3e3;\">Unknown</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-controlBtn-wrap-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-previous-song-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-previous-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['previous'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['previous'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['play'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['play'] + "\"/>\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-next-song-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-next-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['next'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['next'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-mode-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-mode-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['playmode'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['playmode_cycle'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-volume-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['volume'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['volume'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar-wrap\">\n\t\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar\">\n\t\t\t\t\t\t\t\t\t\t<span class=\"mbox-volume-bar-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-share-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-share-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['share'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['share'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-play-info-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-play-progress-wrap\">\n\t\t\t\t\t\t\t<span class=\"mbox-play-progress-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-play-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-played-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-time-played\">00:00</span>/<span class=\"mbox-time-total\">00:00</span>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-multidisplay-area-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-multidisplay-area\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-options-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-setting-wrap\">\n\t\t\t\t\t\t\t<div class=\"mbox-setting-icon\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<input id=\"trigger\" class=\"mbox-setting-trigger\" type=\"checkbox\" />\n\t\t\t\t\t\t\t\t<label for=\"trigger\" class=\"mbox-setting-bars\">\n\t\t\t\t\t\t\t\t\t<div class=\"toggle-bar setting-first-bar\"></div>\n\t\t\t\t\t\t\t\t\t<div class=\"toggle-bar setting-second-bar\"></div>\n\t\t\t\t\t\t\t\t\t<div class=\"toggle-bar setting-third-bar\"></div>\n\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-playlist-wrap\">\n\t\t\t\t\t\t\t<button class=\"mbox-setting-icon\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['playlist'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['playlist'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-lovelist-wrap\">\n\t\t\t\t\t\t\t<button class=\"mbox-setting-icon\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['lovelist'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['lovelist'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-lyric-show-wrap\">\n\t\t\t\t\t\t\t<button class=\"mbox-setting-icon\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['lyric'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['lyric'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>";
-	}, { "./svginfo.js": 6 }], 2: [function (require, module, exports) {
+		module.exports = "<div class=\"magic-box\">\n\t\t\t\t\t<div class=\"magic-box-upper-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-music-wrap\">\n\t\t\t\t\t\t\t<audio class=\"mbox-music\" src=\"development/music/You Need Me-KENN.mp3\"></audio>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<!-- audio file links are here --> \n\t\t\t\t\t\t<div class=\"mbox-album-cover-wrap\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-controller-wrap-wrap\">\n\t\t\t\t\t\t\t<div class=\"mbox-controller-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-songinfo\">\n\t\t\t\t\t\t\t\t<span class=\"mbox-song-info\" style=\"color: #dff3e3;\">Unknown</span><br>\n\t\t\t\t\t\t\t\t<span class=\"mbox-album-name\" style=\"color: #dff3e3;\">Unknown</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-controlBtn-wrap-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-previous-song-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-previous-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['previous'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['previous'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['play'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['play'] + "\"/>\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-next-song-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-next-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['next'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['next'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-mode-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-mode-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['playmode'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['playmode_cycle'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-volume-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['volume'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['volume'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar-wrap\">\n\t\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar\">\n\t\t\t\t\t\t\t\t\t\t<span class=\"mbox-volume-bar-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-share-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-share-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['share'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['share'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-play-info-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-play-progress-wrap\">\n\t\t\t\t\t\t\t<span class=\"mbox-play-progress-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-play-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-played-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-time-played\">00:00</span>/<span class=\"mbox-time-total\">00:00</span>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-multidisplay-area-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-multidisplay-area\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-options-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-setting-wrap\">\n\t\t\t\t\t\t\t<div class=\"mbox-setting-icon\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<input id=\"trigger\" class=\"mbox-setting-trigger\" type=\"checkbox\" />\n\t\t\t\t\t\t\t\t<label for=\"trigger\" class=\"mbox-setting-bars\">\n\t\t\t\t\t\t\t\t\t<div class=\"toggle-bar setting-first-bar\"></div>\n\t\t\t\t\t\t\t\t\t<div class=\"toggle-bar setting-second-bar\"></div>\n\t\t\t\t\t\t\t\t\t<div class=\"toggle-bar setting-third-bar\"></div>\n\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-playlist-wrap\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['playlist'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['playlist'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-lovelist-wrap\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['heart'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['heart'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-lyric-show-wrap\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['lyric'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['lyric'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>";
+	}, { "./svginfo.js": 7 }], 3: [function (require, module, exports) {
 		var transformTime = require('./getplaytime.js');
 		var iconInfo = require('./svginfo.js');
 		var uiHtml = require('./buildui.js');
 		var getPosition = require('./getpositions.js');
 		var processLyric = require('./lyricprocessor.js');
+		var BuildPlayList = require('./buildplaylist.js');
 
 		var MBox = function () {
 			/**
@@ -90,91 +151,55 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				this.musicFile = document.getElementsByClassName('mbox-music')[0];
 				// this.processedLyric = processLyric(this.usrOption['music']['lyric_with_time'], this.usrOption['music']['lyric']);
 				// music from database, add request later 
-				this.musicPool = {
-					_0: {
-						second_id: 0, // the id used when actual play, default is the same as original id 
-						removed: false, // field marked removed song 
-						deleted: false, // field marked for deleted song 
-						url: 'development/music/You Need Me-KENN.mp3',
-						song_name: 'You Need Me',
-						singer: 'KENN',
-						album: 'You Need Me',
-						album_cover: 'development/music/YouNeedMeCover.jpg',
-						lyric_with_time: false,
-						lyric: ['You Need Me - KENN', '', '君は　覚えているかい', 'はじめて 出会えた時', '(Baby I need you)', '何故か　ふいに横切る', 'おそれや　不安を確かめる', '', '上手く言葉じゃ君に', '伝えられないけれと', "(I'm missing you)", '誤解しないで　悲しまないで', '勇気出して　歩き出すよ', 'So Feeling my heart', '', '君の名前を（呼んでいるよ)', '僕のメロディー　この歌に乗せて', '大好きだから（心つなぐ）', 'この道をゆこう　永久に', '例えどんなに　苦しい時も', 'もう　離れないから', 'これからもずっと', '', '愛に 終わりはあるか', 'はじめて 考えたよ', "(So Don't you fake me?)", 'そうさ 失うことが', '怖くて 不安を抱きしめる', '', '君に　触れた瞬間（聞こえる)', '鼓動　揺らめいた瞳が', "(Don't be afraid)", '僕を見つめて　変わらぬまま', '2人で　愛を誓い合おう', 'So just stay with me', '', '君への愛を（叫んでるよ）', '僕のメロディー　この声に乗せて', '大好きだから（溢れるほど）', 'この道を行こう　永久に', '例えどんなに　苦しい時も', 'もう　迷わないから', 'これからもずっと', '', 'I miss you　消えないで', '(Oh my sweet baby)', '僕が守るから', '', 'そばにいるよ···', '', '君の名前を（呼んでいるよ）', '僕のメロディー　この歌に乗せて', '大好きだから（心つなぐ）', 'この道をゆこう　永久に', '', '例えどんなに　苦しい時も', 'もう　離さないから', 'もう　迷わないから', 'これからもずっと', '', "I don't wanna leave you"]
-					},
+				this.musicPool = {};
+				/*
+    XMLHttp Request Retrieve Playlist from database 
+    if the user want to have backend support 
+    */
 
-					_1: {
-						second_id: 1, // the id used when actual play, default is the same as original id 
-						removed: false, // field marked removed song 
-						deleted: false, // field marked for deleted song 
-						url: 'development/music/Anchor-Novo Amor.mp3',
-						song_name: 'Anchor',
-						singer: 'Novo Amor',
-						album: 'Achor',
-						album_cover: 'development/music/AnchorCover.jpg',
-						lyric_with_time: false,
-						lyric: ['Anchor - Novo Amor', '', 'Took the breath from my open mouth', 'Never known how it broke me down', 'I went in circles somewhere else', '', 'Shook the best when your love was home', 'Storing up on your summer glow', 'You went in search of someone else', '', "And I hear your ship is comin' in", 'Your tears a sea for me to swim', "And I hear a storm is comin' in", 'My dear is it all we’ve ever been?', '', 'Caught the air in your woven mouth', 'Leave it all i’ll be hearing how you went', 'In search of someone else', '', 'They taught the hand that taut the bride', 'Both our eyes locked to the tide', 'We went in circles somewhere else', '', "And I hear your ship is comin' in", 'Your tears a sea for me to swim', "And I hear a storm is comin' in", 'My dear is it all we’ve ever been?', '', 'Anchor up to me, love', 'Anchor up to me, love', 'Anchor up to me, love', 'Oh, Anchor up to me', 'My love, my love, my love']
-					},
+				var getSongPoolxhrq = new XMLHttpRequest();
+				var getSongPoolURL = 'http://localhost:8080/getSongPool';
+				getSongPoolxhrq.open('get', getSongPoolURL, true);
+				getSongPoolxhrq.setRequestHeader('Content-type', 'application/json');
+				getSongPoolxhrq.onreadystatechange = function () {
+					if (getSongPoolxhrq.readyState === XMLHttpRequest.DONE) {
 
-					_2: {
-						second_id: 2, // the id used when actual play, default is the same as original id 
-						removed: false, // field marked removed song 
-						deleted: false, // field marked for deleted song 
-						url: 'development/music/M01-梶浦由記.mp3',
-						song_name: 'M01',
-						singer: '梶浦由記',
-						album: '劇場版 空の境界 Vol.2「殺人考察(前)」Original Soundtrack',
-						album_cover: 'development/music/M01Cover.jpg',
-						lyric_with_time: false,
-						lyric: undefined
-					},
-
-					_3: {
-						second_id: 3, // the id used when actual play, default is the same as original id 
-						removed: false, // field marked removed song 
-						deleted: false, // field marked for deleted song 
-						url: 'development/music/Signal-TK from 凛として時雨.mp3',
-						song_name: 'Signal',
-						singer: 'TK from 凛として時雨',
-						album: 'Signal',
-						album_cover: 'development/music/SingnalCover.jpg',
-						lyric_with_time: false,
-						lyric: undefined
-					},
-
-					_4: {
-						second_id: 4, // the id used when actual play, default is the same as original id 
-						removed: false, // field marked removed song 
-						deleted: false, // field marked for deleted song 
-						url: 'development/music/WAVE-kradness.mp3',
-						song_name: 'WAVE',
-						singer: 'kradness',
-						album: 'KRAD VORTEX',
-						album_cover: 'development/music/KRADVORTEXCover.jpg',
-						lyric_with_time: false,
-						lyric: ['WAVE - kradness', '', '間違（まちが）えて宇宙（うちゅう）終（お）わって', '青信号（あおしんごう）はいつも通（とお）り', '飛（と）んでまた止（とま）まって', 'また　飛（と）びそうだ', 'ココロコネクト', '古代人（こだいじん）と恋（こい）した', '妄想（もうそう）コレクト', '化石的（かせきてき）なロマンス', 'はぁ…夢（ゆめ）に踊（おど）るの', '', '月（つき）の灯（あか）りが', '僕（ぼく）を包（つつ）んで', '鳴（な）り響（ひび）く音（おと）カラダを', '飲（の）み込（こ）んでいく', 'もう恐（おそ）れることを', '感（かん）じないくらいの', '眩（まぶ）しさに', '今（いま）ココロを', '狙（ねら）われているの', '回（まわ）る　回（まわ）る　世界（せかい）は', '///W/A//VE//', '', '考（かんが）えてみて止（と）まって', '赤信号（あかしんごう）は狙（ねら）い通（とお）り', '逃（に）げたくて滑（すべ）って', 'また　逃（に）げそうだ', '開（ひら）けネクスト', '宇宙人（うちゅうじん）とＳｋｙｐｅ', '妄想（もうそう）セレクト', '電波的（でんぱてき）なロマンス', 'はぁ…夜（よる）に眠（ねむ）るの', '', '月（つき）の灯（あか）りが', '僕（ぼく）を包（つつ）んで', '鳴（な）り響（ひび）く音（おと）カラダを', 'また惑（まど）わせる', 'もう暴（あば）れることを', '忘（わす）れちゃうくらいの', '眩（まぶ）しさに', '今（いま）ココロを', '狙（ねら）われているの', '迫（せま）る　迫（せま）る　未来（みらい）は', '///W/A//VE//', '', 'はぁーん…', '夢（ゆめ）に踊（おど）るのー', '明日（あした）の声（こえ）が', '僕（ぼく）を誘（さそ）って', '鳴（な）り響（ひび）く音（おと）ミライを', '塗（ぬ）り替（か）えていく', 'もう留（とど）まることを', '許（ゆる）さないくらいの', '', '眩（まぶ）しさに', '今（いま）ココロを', '狙（ねら）われているの', '回（まわ）る　回（まわ）る　世界（せかい）から', '見（み）える　見（み）える', '未来（みらい）', '', 'らららーららーららー', 'らららーららーららー', 'らららーららーららー', 'らららーららーららー']
-					},
-
-					_5: {
-						second_id: 5, // the id used when actual play, default is the same as original id 
-						removed: false, // field marked removed song 
-						deleted: false, // field marked for deleted song 
-						url: 'development/music/夢見る三日月-近藤隆.mp3',
-						song_name: '夢見る3日月',
-						singer: '近藤隆',
-						album: '夕燒けデイズ',
-						album_cover: 'development/music/JohnCover.jpg',
-						lyric_with_time: false,
-						lyric: ['夢見る三日月 - 近藤隆', '', 'ちょっと前をゆく人の', '背中追って 浮かんでた', '階段の踊り場で', '見失った 道しるべ', '', 'なんでかな この場所を', '知った風で 忘れてた', '奥にあった 細道で', '立ち止まって 見上げたら', '', '煙を散らして', '星を渡った', '', 'ひとりきりの夢の中', '君がそばにいるだけで', '声にならない想い 焦がして', 'こんなに 胸が苦しくて', 'だけど 僕は戻れない', 'そうやって今を漂っているんだ', '', '寝息 立てる街を', '風になって すり抜ける', '勘の冴えた 野良猫が', '僕の目を見て 鳴いた', '', '誰かと話が', 'できたら良いのに', '', 'ひかり灯す 悪戯で', '君に何か 伝えたくて', '猫の手も借りてみようか なんて', 'どうにもならない 哀しみも', 'いつか 前を向けるなら', 'そうやって未来は変わっていくんだ', '', '振り返る街並みは 走馬灯のように', 'やり残した願いも すべて抱きしめて', 'La La La...少しのお別れだね', 'La La La...だから 怖がらないで', 'それじゃあ お先に', '僕は眠っているよ', '', 'ひとりきりの夢の中', '君の姿 見つけたら', '精一杯の笑顔で 手を握って', 'ひかりが宿る 三日月の', '迎えを待つ その場所で', 'いつか 僕らにも訪れるさ', 'そうやって 命は続いていくんだ']
+						_this.musicPool = getSongPoolxhrq.responseText;
+						console.log(_this.musicPool);
 					}
 				};
+				getSongPoolxhrq.send(null);
+				/**
+    	let xhrq = new XMLHttpRequest();
+    	// string represent url 
+    	let url = `http://localhost:8080/api`;
+    	let playlistData = {
+    			url : this.usrOption['music']['url'],
+    			song_name : this.usrOption['music']['song_name'],
+    			singer : this.usrOption['music']['singer'],
+    			album : this.usrOption['music']['album'],
+    			album_cover : this.usrOption['music']['album_cover']
+    	};
+    	xhrq.open('post', url, true);
+     	// xhrq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+     	xhrq.setRequestHeader('Content-type', 'application/json')
+    	xhrq.onreadystatechange = () => {
+    		if(xhrq.readyState === XMLHttpRequest.DONE){
+    			alert(xhrq.responseText);
+    			console.log("Sucessfully send song information.");
+    		// playlistData here 
+    		}
+    	};
+    	xhrq.send(JSON.stringify(playlistData));
+    	*/
 
 				// generate music playlist 
 				this.normalOrderedPlaylist = [0, 1, 2, 3, 4, 5];
 				this.shufflePlaylist = [];
-				this.currentPlaylist = [0, 1, 2, 3, 4, 5];
+				this.currentPlaylist = [];
 				this.curIdx = 0;
+				// initialize the playlist 
+				this.iniPlaylist = new BuildPlayList(this.currentPlaylist, this.musicPool);
 
 				// bar length 
 				this.volumeBarLen = 50;
@@ -201,6 +226,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				this.totalTime = document.getElementsByClassName('mbox-time-total')[0];
 				// display area
 				this.displayArea = document.getElementsByClassName('mbox-multidisplay-area')[0];
+				this.displayAreaWrap = document.getElementsByClassName('mbox-multidisplay-area-wrap')[0];
+				this.displayAreaWrap.innerHTML = this.iniPlaylist.initPlaylist();
+				//menu items
 
 				// insert lyric or play list 
 				// if(!this.usrOption['multi']){
@@ -208,6 +236,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				// }else{
 
 				// }
+
+				// load playlist 
+
 				/*
     @param {Object} progress bar needs to be update 
     @param {Number} percentage that needs to be update 
@@ -356,34 +387,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					_this.musicFile.volume = 0;
 					_this.updateProgressBar('volume', 0, 'width');
 				});
-
-				/*
-    XMLHttp Request Retrieve Playlist from database 
-    if the user want to have backend support 
-    */
-				/**
-    	let xhrq = new XMLHttpRequest();
-    	// string represent url 
-    	let url = `http://localhost:8080/api`;
-    	let playlistData = {
-    			url : this.usrOption['music']['url'],
-    			song_name : this.usrOption['music']['song_name'],
-    			singer : this.usrOption['music']['singer'],
-    			album : this.usrOption['music']['album'],
-    			album_cover : this.usrOption['music']['album_cover']
-    	};
-    	xhrq.open('post', url, true);
-     	// xhrq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-     	xhrq.setRequestHeader('Content-type', 'application/json')
-    	xhrq.onreadystatechange = () => {
-    		if(xhrq.readyState === XMLHttpRequest.DONE){
-    			alert(xhrq.responseText);
-    			console.log("Sucessfully send song information.");
-    		// playlistData here 
-    		}
-    	};
-    	xhrq.send(JSON.stringify(playlistData));
-    	*/
 			}
 			/*
    	method for initialize the music player 
@@ -394,6 +397,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				key: "init",
 				value: function init() {
 					this.loadSongInfo();
+					this.addSong(this.usrOption['music']);
 				}
 
 				/*
@@ -435,7 +439,87 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					newSong.removed = false;
 					newSong.deleted = false;
 					this.musicPool[newId] = newSong;
-					// dealing with backend problem here 
+					this.currentPlaylist.push(newSecondId);
+
+					var rowUI = this.iniPlaylist.addSongRow(newSong);
+					//console.log(rowUI);
+					var fakeEle = document.createElement('li');
+					fakeEle.innerHTML = rowUI;
+					var rowEle = fakeEle.children[0];
+					// console.log(rowEle);
+					var node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
+					// console.log(node);
+					node.appendChild(rowEle);
+					this.musicPool['_' + Object.keys(this.musicPool).length] = newSong;
+
+					// dealing with backend problem here
+					/** 
+     let xhrq = new XMLHttpRequest();
+     	// string represent url 
+     	let url = `http://localhost:8080/addSong`;
+     	// let playlistData = {
+     	// 		url : newSong['url'],
+     	// 		song_name : newSong['song_name'],
+     	// 		singer : newSong['singer'],
+     	// 		album : newSong['album'],
+     	// 		album_cover : newSong['album_cover']
+     	// };
+     	xhrq.open('post', url, true);
+      	// xhrq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      	xhrq.setRequestHeader('Content-type', 'application/json')
+     	xhrq.onreadystatechange = () => {
+     		if(xhrq.readyState === XMLHttpRequest.DONE){
+     			alert(xhrq.responseText);
+     			console.log("Sucessfully send song information.");
+     		// playlistData here 
+     		}
+     	};
+     	xhrq.send(JSON.stringify(newSong));
+      	let rowUI = this.iniPlaylist.addSongRow(newSong);
+     	let fakeEle = document.createElement('li');
+     	fakeEle.innerHTML = rowUI;
+     	let rowEle = fakeEle.firstChild;
+     	console.log(rowEle);
+     	document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0].appendChild(rowEle);
+     	*/
+				}
+
+				/*
+    	method for remove a song from current playlist 
+    */
+
+			}, {
+				key: "removeSong",
+				value: function removeSong(song) {
+					var originID = '_' + song.second_id;
+					this.musicPool[originID].removed = true;
+					this.iniPlaylist.removeSongRow(song);
+				}
+
+				/*
+    	method for deleting the song 
+    */
+
+			}, {
+				key: "deleteSong",
+				value: function deleteSong(song) {
+					var _this2 = this;
+
+					var originID = '_' + song.second_id;
+					this.musicPool[originID].deleted = true;
+					// deleted song from database, or add gargbage place later 
+					var xhrq = new XMLHttpRequest();
+					var url = "http://localhost:8080/removeSong?removeId=" + encodeURIComponent(song.song_id);
+					xhrq.onreadystatechange = function () {
+						if (xhrq.readyState === XMLHttpRequest.DONE) {
+							alert(xhrq.responseText);
+							console.log("Successfully delete the ");
+							// handle the request status here 
+							_this2.iniPlaylist.removeSongRow(song);
+						}
+					};
+					xhrq.open('delete', url, true);
+					xhrq.send(null);
 				}
 
 				/*
@@ -479,7 +563,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 		// var test = new MBox();
 		// test.load();
-	}, { "./buildui.js": 1, "./getplaytime.js": 3, "./getpositions.js": 4, "./lyricprocessor.js": 5, "./svginfo.js": 6 }], 3: [function (require, module, exports) {
+	}, { "./buildplaylist.js": 1, "./buildui.js": 2, "./getplaytime.js": 4, "./getpositions.js": 5, "./lyricprocessor.js": 6, "./svginfo.js": 7 }], 4: [function (require, module, exports) {
 		/**
   	method to transform playtime to 00:00:00 format 
   	@param {Number} seconds
@@ -498,7 +582,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 		//console.log(transformTime(1298));
 		module.exports = transformTime;
-	}, {}], 4: [function (require, module, exports) {
+	}, {}], 5: [function (require, module, exports) {
 		/*
   	modules for compute the current element position 
   
@@ -539,7 +623,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 		}
 
 		module.exports = getPos;
-	}, {}], 5: [function (require, module, exports) {
+	}, {}], 6: [function (require, module, exports) {
 		/*
   	@param {Boolean} time: showing this lyric is with time or not 
   	@param {Array} lyric: array contains the lyric file
@@ -631,7 +715,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   	 			];
   	 console.log(processLyric(false, lyrics));
   	 */
-	}, {}], 6: [function (require, module, exports) {
+	}, {}], 7: [function (require, module, exports) {
 		/*
   	svg icon path and viewBox information 
   */
@@ -647,9 +731,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				'high_volume': '0 0 508.514 508.514',
 				'share': '0 0 475.082 475.081',
 				'heart': '0 0 510 510',
-				'playlist': '0 0 44 44',
-				'lovelist': '0 0 43.995 43.995',
-				'lyric': '0 0 48.75 48.75'
+				'playlist': '0 0 298.274 298.274',
+				'lovelist': '0 0 33.293 33.293',
+				'lyric': '0 0 48.75 48.75',
+				'popSong': '0 0 516.45 516.45',
+				'garbage': '0 0 408.483 408.483',
+				'delete': '0 0 60 60'
 			},
 
 			// object for svg 
@@ -664,10 +751,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				'high_volume': 'M271.483,0.109c-5.784-0.54-12.554,0.858-20.531,5.689c0,0-132.533,115.625-138.286,121.314 H39.725c-17.544,0.032-31.782,14.27-31.782,31.814v194.731c0,17.607,14.239,31.782,31.782,31.782h72.941 c5.753,5.753,138.286,117.277,138.286,117.277c7.977,4.799,14.747,6.229,20.531,5.689c11.76-1.112,20.023-10.965,22.534-21.358 c0.127-1.017,0.127-464.533-0.032-465.55C291.506,11.074,283.211,1.222,271.483,0.109z M342.962,309.798c-7.85,3.973-10.997,13.508-7.087,21.358c2.829,5.53,8.422,8.74,14.207,8.74 c2.384,0,4.799-0.572,7.151-1.684c32.132-16.209,52.091-48.341,52.091-83.938s-19.959-67.728-52.091-83.938 c-7.85-3.973-17.385-0.795-21.358,7.056c-3.909,7.85-0.763,17.385,7.087,21.358c21.326,10.743,34.579,32.005,34.579,55.524 S364.288,299.055,342.962,309.798z M339.72,59.32c-8.486-1.716-17.004,3.941-18.593,12.522c-1.716,8.645,3.909,17.004,12.522,18.688 c78.312,15.256,135.139,84.128,135.139,163.743S411.962,402.761,333.65,418.017c-8.613,1.684-14.239,10.011-12.554,18.656 c1.494,7.596,8.136,12.84,15.542,12.84l3.083-0.318c93.218-18.148,160.851-100.147,160.851-194.922S432.938,77.5,339.72,59.32z',
 				'share': 'M469.658,133.333L360.029,23.697c-3.621-3.617-7.909-5.424-12.854-5.424c-2.275,0-4.661,0.476-7.132,1.425c-7.426,3.237-11.139,8.852-11.139,16.846v54.821h-45.683c-20.174,0-38.879,1.047-56.101,3.14c-17.224,2.092-32.404,4.993-45.537,8.708c-13.134,3.708-24.983,8.326-35.547,13.846c-10.562,5.518-19.555,11.372-26.98,17.559c-7.426,6.186-13.943,13.23-19.558,21.129c-5.618,7.898-10.088,15.653-13.422,23.267c-3.328,7.616-5.992,15.99-7.992,25.125c-2.002,9.137-3.333,17.701-3.999,25.693c-0.666,7.994-0.999,16.657-0.999,25.979c0,10.663,1.668,22.271,4.998,34.838c3.331,12.559,6.995,23.407,10.992,32.545c3.996,9.13,8.709,18.603,14.134,28.403c5.424,9.802,9.182,16.317,11.276,19.555c2.093,3.23,4.095,6.187,5.997,8.85c1.903,2.474,4.377,3.71,7.421,3.71c0.765,0,1.902-0.186,3.427-0.568c4.377-2.095,6.279-5.325,5.708-9.705c-8.564-63.954-1.52-108.973,21.128-135.047c21.892-24.934,63.575-37.403,125.051-37.403h45.686v54.816c0,8.001,3.71,13.613,11.136,16.851c2.471,0.951,4.853,1.424,7.132,1.424c5.14,0,9.425-1.807,12.854-5.421l109.633-109.637c3.613-3.619,5.424-7.898,5.424-12.847C475.082,141.23,473.271,136.944,469.658,133.333z M395.996,292.356c-3.625-1.529-6.951-0.763-9.993,2.283c-4.948,4.568-10.092,8.093-15.42,10.564c-3.433,1.902-5.141,4.66-5.141,8.277v61.104c0,12.562-4.466,23.308-13.415,32.26c-8.945,8.946-19.704,13.419-32.264,13.419H82.222c-12.564,0-23.318-4.473-32.264-13.419c-8.947-8.952-13.418-19.697-13.418-32.26V137.039c0-12.563,4.471-23.313,13.418-32.259c8.945-8.947,19.699-13.418,32.264-13.418h31.977c1.141,0,2.666-0.383,4.568-1.143c10.66-6.473,23.313-12.185,37.972-17.133c4.949-0.95,7.423-3.994,7.423-9.136c0-2.474-0.903-4.611-2.712-6.423c-1.809-1.804-3.946-2.708-6.423-2.708H82.226c-22.65,0-42.018,8.042-58.102,24.125C8.042,95.026,0,114.394,0,137.044v237.537c0,22.651,8.042,42.018,24.125,58.102c16.084,16.084,35.452,24.126,58.102,24.126h237.541c22.647,0,42.017-8.042,58.101-24.126c16.085-16.084,24.127-35.45,24.127-58.102v-73.946C401.995,296.829,399.996,294.071,395.996,292.356z',
 				'heart': 'M255,489.6l-35.7-35.7C86.7,336.6,0,257.55,0,160.65C0,81.6,61.2,20.4,140.25,20.4c43.35,0,86.7,20.4,114.75,53.55 C283.05,40.8,326.4,20.4,369.75,20.4C448.8,20.4,510,81.6,510,160.65c0,96.9-86.7,175.95-219.3,293.25L255,489.6z',
-				'playlist': 'M42.901,13.97C43.414,12.756,44,11.315,44,10   c0-7.369-1.599-9.938-15.986-9.997C28.009,0.003,28.005,0,28,0s-0.009,0.003-0.013,0.003L27,0.016v33.789  C25.729,32.692,23.96,32,22,32c-3.866,0-7,2.687-7,6s3.134,6,7,6s7-2.687,7-6V9h2v0.01c5.565,0.1,10,1.846,10,3.99  c0,0.346-0.096,0.617-0.094,1h0c0,0.553,0.448,1,1,1c0.552,0,0.875-0.635,1-1c0.003-0.01-0.006-0.019-0.006-0.03H42.901z   M22,42   c-2.761,0-5-1.791-5-4s2.239-4,5-4c2.761,0,5,1.791,5,4S24.761,42,22,42z  M41.971,10.625c-1.852-2.055-6.027-3.512-10.94-3.611V7  H29V1.979C40.638,1.899,42,4.077,42,10C42,10.191,41.988,10.404,41.971,10.625z  m1,2h23c0.552,0 1-0.447 1-1s-0.448-1-1-1h-23c-0.552,0-1,0.447-1,1s0.448,1 1,1zm23,18h-23c-0.552,0-1,0.447-1,1s0.448,1 1,1h23c0.552,0 1-0.447  1-1s-0.448-1-1-1zm0-10h-23c-0.552,0-1,0.447-1,1s0.448,1 1,1h23c0.552,0 1-0.447  1-1s-0.448-1-1-1zm-10,20h-13c-0.552,0-1,0.447-1,1s0.448,1 1,1h13c0.552,0 1-0.447 1-1s-0.448-1-1-1z',
-				'lovelist': 'm42.07,24.111c-2.566-2.557-6.369-2.913-8.936-0.356l-2.145,2.137-2.144-2.137c-2.566-2.557-6.369-2.2-8.935,0.356-2.566,2.557-2.566,6.701 0,9.258l.357,.356 10.008,9.97c0.395,0.394 1.035,0.394 1.43,0l10.365-10.326c2.567-2.557 2.567-6.701 0-9.258zm-1.429,7.834l-1.072,1.067-8.578,8.547-9.65-9.614c-1.776-1.771-1.776-4.64 0-6.41 1.654-1.647 4.202-2.223 6.076-0.355l3.574,3.561 3.574-3.561c1.964-1.956 4.422-1.292 6.076,0.355 1.776,1.771 1.776,4.64 7.10543e-15,6.41z m1,2.005h28c0.552,0 1-0.447 1-1s-0.448-1-1-1h-28c-0.552,0-1,0.447-1,1s0.448,1 1,1zm17,18h-17c-0.552,0-1,0.447-1,1s0.448,1 1,1h17c0.552,0 1-0.447 1-1s-0.448-1-1-1zm11-10h-28c-0.552,0-1,0.447-1,1s0.448,1 1,1h28c0.552,0 1-0.447 1-1s-0.448-1-1-1zm-14,20h-14c-0.552-3.55271e-15-1,0.447-1,1s0.448,1 1,1h14c0.552,0 1-0.447 1-1s-0.448-1-1-1z',
-				'lyric': 'M43.192,32.834c0.552,0,1-0.447,1-1V1c0-0.553-0.448-1-1-1H5.558c-0.552,0-1,0.447-1,1v46.75c0,0.553,0.448,1,1,1H31.05 c0.265,0,0.52-0.105,0.707-0.293l12.142-12.143c0.286-0.286,0.372-0.716,0.217-1.09c-0.155-0.374-0.52-0.617-0.924-0.617 l-12.143,0.001c-0.552,0-1,0.447-1,1v8.809c0,0.553,0.448,1,1,1c0.552,0,1-0.447,1-1v-7.809l8.729-0.001L30.636,46.75H6.558V2 h35.634v29.834C42.192,32.387,42.64,32.834,43.192,32.834z M11.162,12.938h9.281c0.552,0,1-0.447,1-1c0-0.553-0.448-1-1-1h-9.281c-0.552,0-1,0.447-1,1 C10.162,12.49,10.61,12.938,11.162,12.938z M26.634,12.938c0.552,0,1-0.447,1-1c0-0.553-0.448-1-1-1h-2.836c-0.552,0-1,0.447-1,1c0,0.553,0.448,1,1,1H26.634z M37.589,10.938h-7.793c-0.552,0-1,0.447-1,1c0,0.553,0.448,1,1,1h7.793c0.552,0,1-0.447,1-1 C38.589,11.385,38.141,10.938,37.589,10.938z M11.162,23.438h9.281c0.552,0,1-0.447,1-1c0-0.553-0.448-1-1-1h-9.281c-0.552,0-1,0.447-1,1 C10.162,22.99,10.61,23.438,11.162,23.438z M26.634,21.438h-2.836c-0.552,0-1,0.447-1,1c0,0.553,0.448,1,1,1h2.836c0.552,0,1-0.447,1-1 C27.634,21.885,27.186,21.438,26.634,21.438z M37.589,21.438h-7.793c-0.552,0-1,0.447-1,1c0,0.553,0.448,1,1,1h7.793c0.552,0,1-0.447,1-1 C38.589,21.885,38.141,21.438,37.589,21.438z M37.589,16.188H30.69c-0.552,0-1,0.447-1,1c0,0.553,0.448,1,1,1h6.899c0.552,0,1-0.447,1-1 C38.589,16.635,38.141,16.188,37.589,16.188z M28.528,17.188c0-0.553-0.448-1-1-1h-7.794c-0.552,0-1,0.447-1,1c0,0.553,0.448,1,1,1h7.794 C28.08,18.188,28.528,17.74,28.528,17.188z M11.162,18.188h4.994c0.552,0,1-0.447,1-1c0-0.553-0.448-1-1-1h-4.994c-0.552,0-1,0.447-1,1 C10.162,17.74,10.61,18.188,11.162,18.188z'
+				'playlist': 'M109.927,33v176.646c-9-8.76-21.559-14.146-35.278-14.146c-28.379,0-51.332,23.007-51.332,51.387  c0,28.381,23.035,51.388,51.414,51.388c28.381,0,51.403-22.928,51.403-51.309c0-0.016-0.165,0.034-0.165,0.034l-0.042-5.386V99  l133-29.456v104.103c-9-8.76-21.559-14.146-35.278-14.146c-28.379,0-51.332,23.007-51.332,51.387  c0,28.381,23.035,51.388,51.414,51.388c28.344,0,51.165-22.946,51.225-51.274l-0.03-3.75V66V0L109.927,33z',
+				'lovelist': 'M27.577,33.293H5.716c-1.379,0-2.5-1.121-2.5-2.5V2.5c0-1.379,1.121-2.5,2.5-2.5h15.875c0.276,0,0.5,0.224,0.5,0.5 S21.867,1,21.591,1H5.716c-0.827,0-1.5,0.673-1.5,1.5v28.293c0,0.827,0.673,1.5,1.5,1.5h21.861c0.827,0,1.5-0.673,1.5-1.5V8.703 c0-0.276,0.224-0.5,0.5-0.5s0.5,0.224,0.5,0.5v22.09C30.077,32.172,28.956,33.293,27.577,33.293z M29.577,9.203h-7.986c-0.276,0-0.5-0.224-0.5-0.5V0.717c0-0.276,0.224-0.5,0.5-0.5s0.5,0.224,0.5,0.5v7.486h7.486  c0.276,0,0.5,0.224,0.5,0.5S29.853,9.203,29.577,9.203z  M29.577,9.203c-0.13,0-0.26-0.051-0.358-0.151l-7.986-8.203c-0.192-0.197-0.188-0.515,0.01-0.707  c0.196-0.191,0.513-0.188,0.707,0.01l7.986,8.203c0.192,0.197,0.188,0.515-0.01,0.707C29.829,9.156,29.703,9.203,29.577,9.203z',
+				'lyric': 'M43.192,32.834c0.552,0,1-0.447,1-1V1c0-0.553-0.448-1-1-1H5.558c-0.552,0-1,0.447-1,1v46.75c0,0.553,0.448,1,1,1H31.05 c0.265,0,0.52-0.105,0.707-0.293l12.142-12.143c0.286-0.286,0.372-0.716,0.217-1.09c-0.155-0.374-0.52-0.617-0.924-0.617 l-12.143,0.001c-0.552,0-1,0.447-1,1v8.809c0,0.553,0.448,1,1,1c0.552,0,1-0.447,1-1v-7.809l8.729-0.001L30.636,46.75H6.558V2 h35.634v29.834C42.192,32.387,42.64,32.834,43.192,32.834z M11.162,12.938h9.281c0.552,0,1-0.447,1-1c0-0.553-0.448-1-1-1h-9.281c-0.552,0-1,0.447-1,1 C10.162,12.49,10.61,12.938,11.162,12.938z M26.634,12.938c0.552,0,1-0.447,1-1c0-0.553-0.448-1-1-1h-2.836c-0.552,0-1,0.447-1,1c0,0.553,0.448,1,1,1H26.634z M37.589,10.938h-7.793c-0.552,0-1,0.447-1,1c0,0.553,0.448,1,1,1h7.793c0.552,0,1-0.447,1-1 C38.589,11.385,38.141,10.938,37.589,10.938z M11.162,23.438h9.281c0.552,0,1-0.447,1-1c0-0.553-0.448-1-1-1h-9.281c-0.552,0-1,0.447-1,1 C10.162,22.99,10.61,23.438,11.162,23.438z M26.634,21.438h-2.836c-0.552,0-1,0.447-1,1c0,0.553,0.448,1,1,1h2.836c0.552,0,1-0.447,1-1 C27.634,21.885,27.186,21.438,26.634,21.438z M37.589,21.438h-7.793c-0.552,0-1,0.447-1,1c0,0.553,0.448,1,1,1h7.793c0.552,0,1-0.447,1-1 C38.589,21.885,38.141,21.438,37.589,21.438z M37.589,16.188H30.69c-0.552,0-1,0.447-1,1c0,0.553,0.448,1,1,1h6.899c0.552,0,1-0.447,1-1 C38.589,16.635,38.141,16.188,37.589,16.188z M28.528,17.188c0-0.553-0.448-1-1-1h-7.794c-0.552,0-1,0.447-1,1c0,0.553,0.448,1,1,1h7.794 C28.08,18.188,28.528,17.74,28.528,17.188z M11.162,18.188h4.994c0.552,0,1-0.447,1-1c0-0.553-0.448-1-1-1h-4.994c-0.552,0-1,0.447-1,1 C10.162,17.74,10.61,18.188,11.162,18.188z',
+				'popsong': 'M123.065,209.722h84.075v189.437c0,7.431,11.822,13.455,26.406,13.455h46.213c14.583,0,26.409-6.024,26.409-13.455  V209.722h84.071c8.433,0,15.269-5.339,15.269-11.927c0,0-125.952-184.874-137.404-193.819c-11.449-8.947-22.899,0-22.899,0  L107.799,197.795C107.799,204.383,114.635,209.722,123.065,209.722z  M408.651,497.322c0,10.565-7.475,19.128-16.7,19.128H124.726c-9.221,0-16.7-8.563-16.7-19.128v-19.128  c0-10.565,7.479-19.128,16.7-19.128h267.223c9.225,0,16.7,8.563,16.7,19.128v19.128L408.651,497.322L408.651,497.322z',
+				'garbage': 'M87.748,388.784c0.461,11.01,9.521,19.699,20.539,19.699h191.911c11.018,0,20.078-8.689,20.539-19.699l13.705-289.316  H74.043L87.748,388.784z  M247.655,171.329c0-4.61,3.738-8.349,8.35-8.349h13.355c4.609,0,8.35,3.738,8.35,8.349v165.293  c0,4.611-3.738,8.349-8.35,8.349h-13.355c-4.61,0-8.35-3.736-8.35-8.349V171.329z M189.216,171.329  c0-4.61,3.738-8.349,8.349-8.349h13.355c4.609,0,8.349,3.738,8.349,8.349v165.293c0,4.611-3.737,8.349-8.349,8.349h-13.355  c-4.61,0-8.349-3.736-8.349-8.349V171.329L189.216,171.329z  M130.775,171.329c0-4.61,3.738-8.349,8.349-8.349h13.356  c4.61,0,8.349,3.738,8.349,8.349v165.293c0,4.611-3.738,8.349-8.349,8.349h-13.356c-4.61,0-8.349-3.736-8.349-8.349V171.329z  M343.567,21.043h-88.535V4.305c0-2.377-1.927-4.305-4.305-4.305h-92.971c-2.377,0-4.304,1.928-4.304,4.305v16.737H64.916  c-7.125,0-12.9,5.776-12.9,12.901V74.47h304.451V33.944C356.467,26.819,350.692,21.043,343.567,21.043z',
+				'delete': 'M0,0v60h60V0H0z M46.414,43.284l-2.828,2.828L30.151,32.677L16.716,46.112l-2.828-2.828l13.435-13.435L13.888,16.414  l2.828-2.828l13.435,13.435l13.435-13.435l2.828,2.828L32.979,29.849L46.414,43.284z'
 
 			}
 		};
-	}, {}] }, {}, [2]);
+	}, {}] }, {}, [3]);

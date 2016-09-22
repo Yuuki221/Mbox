@@ -10,6 +10,8 @@ button {
 	&:focus { outline: 0; }
 }
 
+// .hide { display: none;}
+
 .magic-box{
 	position: relative;
 
@@ -258,6 +260,8 @@ svg{
 	background: $davyGrey;
 	margin-top: 3px;
 	transition: all 0.3s ease-in-out;
+
+	&:hover { cursor: pointer;}
 }
 
 #trigger:checked + .mbox-setting-bars .setting-first-bar {
@@ -274,6 +278,116 @@ svg{
 	margin-top: -9px;
 	transform: rotate(45deg);
 }
+
+/* menu area */
+.mbox-setting-item {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+}
+
+.mbox-menu-icon {
+	position: relative;
+
+	top: 12px;
+	left: 12px;
+	background: transparent;
+	border: none;
+	margin: 0;
+	padding: 0;
+
+
+	&:hover { cursor: pointer;}
+}
+
+.mbox-lovelist-wrap {
+	bottom: 0;
+	right: 40px;
+}
+
+.mbox-lyric-show-wrap {
+	bottom: 40px;
+	right: 40px;
+}
+
+.mbox-playlist-wrap {
+	bottom: 40px;
+	right: 0;
+}
+
+/* dealing with playlist displaying */
+.mbox-multodisplay-playlist-area {
+	position: relative;
+
+	height: 207px;
+	width: 100%;
+
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+	font-family: $songinfoFontType;
+	font-size: 0.7rem;
+	font-weight: 100;
+
+	color: $romanSilver;
+}
+
+.mbox-multidisplay-playlist-ul {
+	margin-top: 10px;
+}
+
+.mbox-row-buttons {
+	float: right;
+}
+
+
+
+.mbox-song-row {
+	display: inline-block;
+	position: relative;
+	width: 280px;
+	height: 25px;
+
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: $romanSilver;
+
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.mbox-song-row-songinfo {
+	display: inline-block;
+	position: absolute;
+
+	top: 5px;
+
+	height: 13px;
+	width: 200px;
+
+	padding-left: 15px;
+	padding-right: 15px;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 0.7rem;
+	font-family: $songinfoFontType;
+	color: $romanSilver;
+}
+
+.mbox-song-row-setting-buttons {
+	display: inline-block;
+	position: absolute;
+
+	top: 4px;
+
+	right: 0;
+	width: 80px;
+
+}
+
+
+
 
 
 

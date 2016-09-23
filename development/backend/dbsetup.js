@@ -91,7 +91,7 @@ app.post('/addSong', function(req, res){
 			body = JSON.parse(body);
 			console.log(body.url);
 			// parse the request body query string parameters
-			song.song_id = currentMaxID + 1;
+			song.song_id = ++currentMaxID;
 			song.second_id = 0;
 			song.song_url = body.url;
 			song.song_name = body.song_name;
@@ -149,16 +149,36 @@ app.get('/getSongPool', function(req, res){
 	//res.send({songInformation});
 });
 
-app.delete('/removeSong/:song_id', function(req, res){
+app.all('/removeSong', function(req, res, next){
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
+	res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+	next();
+	console.log('ALL DELETE server configured');
+});
+
+// app.options('/removeSong/:removeId', function(req, res, next){
+// 	res.header('Access-Control-Allow-Origin', '*');
+// 	res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
+// 	res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+// 	next();
+// 	console.log('OPTION server configured');
+
+// });
+
+app.delete('/removeSong', function(req, res){
 	console.log('in DELETE processing');
-	var idToDelete = querystring.parse(req.query()).song_id;
+	var idToDelete = req.query.removeId;
+	console.log(idToDelete);
 	var deleteQuery = Song.remove({song_id : idToDelete});
 	deleteQuery.exec(function(err, result){
 		if(err){
 			console.log(err);
+			res.send(err);
 			return;
 		}else{
 			console.log("Successfully delete song!");
+			res.send(result);
 		}
 	});
 });

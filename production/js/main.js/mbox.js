@@ -152,23 +152,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				// this.processedLyric = processLyric(this.usrOption['music']['lyric_with_time'], this.usrOption['music']['lyric']);
 				// music from database, add request later 
 				this.musicPool = {};
-				/*
-    XMLHttp Request Retrieve Playlist from database 
-    if the user want to have backend support 
-    */
-
-				var getSongPoolxhrq = new XMLHttpRequest();
-				var getSongPoolURL = 'http://localhost:8080/getSongPool';
-				getSongPoolxhrq.open('get', getSongPoolURL, true);
-				getSongPoolxhrq.setRequestHeader('Content-type', 'application/json');
-				getSongPoolxhrq.onreadystatechange = function () {
-					if (getSongPoolxhrq.readyState === XMLHttpRequest.DONE) {
-
-						_this.musicPool = getSongPoolxhrq.responseText;
-						console.log(_this.musicPool);
-					}
-				};
-				getSongPoolxhrq.send(null);
 				/**
     	let xhrq = new XMLHttpRequest();
     	// string represent url 
@@ -293,13 +276,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 							if (_this.musicFile.ended) {
 								_this.playBtn.innerHTML = _this.getSvg(_this.viewBox['play'], _this.svg['play']);
 								var ct = _this.curIdx;
-								for (ct = _this.curIdx + 1; ct < _this.currentPlaylist.length; ct++) {
+								for (ct = _this.curIdx; ct < _this.currentPlaylist.length; ct++) {
 									var curKey = '_' + _this.currentPlaylist[ct];
 									if (!_this.musicPool[curKey].removed && !_this.musicPool[curKey].deleted) {
 										// if the song is not removed or deleted by user, we find the next song to play 
 										_this.musicFile.src = _this.musicPool[curKey].url;
-										_this.usrOption['music'] = _this.musicPool[curKey];
-										_this.loadSongInfo();
+										// this.usrOption['music'] = this.musicPool[curKey];
+										_this.loadSongInfo(_this.musicPool[curKey]);
 										// this.processedLyric = processLyric(this.usrOption['music']['lyric_with_time'], this.usrOption['music']['lyric']);
 										// update current playing index 
 										_this.curIdx++;
@@ -396,8 +379,50 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 			_createClass(MBox, [{
 				key: "init",
 				value: function init() {
-					this.loadSongInfo();
-					this.addSong(this.usrOption['music']);
+					var _this2 = this;
+
+					// this.loadSongInfo();
+					/*
+     	XMLHttp Request Retrieve Playlist from database 
+     	if the user want to have backend support 
+     	*/
+
+					var getSongPoolxhrq = new XMLHttpRequest();
+					var getSongPoolURL = 'http://localhost:8080/getSongPool';
+					getSongPoolxhrq.open('get', getSongPoolURL, true);
+					getSongPoolxhrq.setRequestHeader('Content-type', 'application/json');
+					getSongPoolxhrq.onreadystatechange = function () {
+						if (getSongPoolxhrq.readyState === XMLHttpRequest.DONE) {
+
+							_this2.musicPool = JSON.parse(getSongPoolxhrq.responseText);
+							for (var key in _this2.musicPool) {
+								_this2.currentPlaylist.push(Number(key.substring(1)));
+								//this.iniPlaylist.addSongRow(this.musicPool[key]);
+								var rowUI = _this2.iniPlaylist.addSongRow(_this2.musicPool[key]);
+								//console.log(rowUI);
+								var fakeEle = document.createElement('li');
+								fakeEle.innerHTML = rowUI;
+								var rowEle = fakeEle.children[0];
+								// console.log(rowEle);
+								var node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
+								// console.log(node);
+								node.appendChild(rowEle);
+							}
+							// console.log(typeof(this.musicPool));
+
+							_this2.musicFile.src = _this2.musicPool['_0']['url'];
+
+							// console.log(this.musicPool);
+							_this2.loadSongInfo(_this2.musicPool['_0']);
+							_this2.play();
+
+							// console.log(this.musicPool);
+						}
+					};
+
+					getSongPoolxhrq.send(null);
+
+					// this.addSong(this.usrOption['music']);
 				}
 
 				/*
@@ -406,17 +431,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 			}, {
 				key: "loadSongInfo",
-				value: function loadSongInfo() {
+				value: function loadSongInfo(song) {
 					// load the album cover 
-					this.coverArea.innerHTML = "<img src=\"" + this.usrOption['music']['album_cover'] + "\" width=\"70px\" height=\"70px\">";
-					this.songInfo.innerText = '' + this.usrOption['music']['song_name'] + ' - ' + this.usrOption['music']['singer'];
-					this.albumName.innerText = '' + this.usrOption['music']['album'];
+					this.coverArea.innerHTML = "<img src=\"" + song['album_cover'] + "\" width=\"70px\" height=\"70px\">";
+					this.songInfo.innerText = '' + song['song_name'] + ' - ' + song['singer'];
+					this.albumName.innerText = '' + song['album'];
 
 					if (this.usrOption['music']['lyric'] === undefined) {
 						this.usrOption['music']['lyric'] = this.noLyric;
 					}
 
-					this.processedLyric = processLyric(this.usrOption['music']['lyric_with_time'], this.usrOption['music']['lyric']);
+					this.processedLyric = processLyric(song['lyric_with_time'], song['lyric']);
 					if (!this.usrOption['multi']) {
 						this.displayArea.innerHTML = this.processedLyric;
 					} else {}
@@ -452,36 +477,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					node.appendChild(rowEle);
 					this.musicPool['_' + Object.keys(this.musicPool).length] = newSong;
 
-					// dealing with backend problem here
-					/** 
-     let xhrq = new XMLHttpRequest();
-     	// string represent url 
-     	let url = `http://localhost:8080/addSong`;
-     	// let playlistData = {
-     	// 		url : newSong['url'],
-     	// 		song_name : newSong['song_name'],
-     	// 		singer : newSong['singer'],
-     	// 		album : newSong['album'],
-     	// 		album_cover : newSong['album_cover']
-     	// };
-     	xhrq.open('post', url, true);
-      	// xhrq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      	xhrq.setRequestHeader('Content-type', 'application/json')
-     	xhrq.onreadystatechange = () => {
-     		if(xhrq.readyState === XMLHttpRequest.DONE){
-     			alert(xhrq.responseText);
-     			console.log("Sucessfully send song information.");
-     		// playlistData here 
-     		}
-     	};
-     	xhrq.send(JSON.stringify(newSong));
-      	let rowUI = this.iniPlaylist.addSongRow(newSong);
-     	let fakeEle = document.createElement('li');
-     	fakeEle.innerHTML = rowUI;
-     	let rowEle = fakeEle.firstChild;
-     	console.log(rowEle);
-     	document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0].appendChild(rowEle);
-     	*/
+					// dealing with backend problem here 
+					var xhrq = new XMLHttpRequest();
+					// string represent url 
+					var url = "http://localhost:8080/addSong";
+					// let playlistData = {
+					// 		url : newSong['url'],
+					// 		song_name : newSong['song_name'],
+					// 		singer : newSong['singer'],
+					// 		album : newSong['album'],
+					// 		album_cover : newSong['album_cover']
+					// };
+					xhrq.open('post', url, true);
+					// xhrq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					xhrq.setRequestHeader('Content-type', 'application/json');
+					xhrq.onreadystatechange = function () {
+						if (xhrq.readyState === XMLHttpRequest.DONE) {
+							alert(xhrq.responseText);
+							console.log("Sucessfully send song information.");
+							// playlistData here 
+						}
+					};
+					xhrq.send(JSON.stringify(newSong));
 				}
 
 				/*
@@ -502,20 +519,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 			}, {
 				key: "deleteSong",
-				value: function deleteSong(song) {
-					var _this2 = this;
-
-					var originID = '_' + song.second_id;
-					this.musicPool[originID].deleted = true;
+				value: function deleteSong(songID) {
+					var originID = songID;
+					this.musicPool['_' + originID].deleted = true;
 					// deleted song from database, or add gargbage place later 
 					var xhrq = new XMLHttpRequest();
-					var url = "http://localhost:8080/removeSong?removeId=" + encodeURIComponent(song.song_id);
+					var url = "http://localhost:8080/removeSong?removeId=" + encodeURIComponent(songID);
 					xhrq.onreadystatechange = function () {
 						if (xhrq.readyState === XMLHttpRequest.DONE) {
 							alert(xhrq.responseText);
-							console.log("Successfully delete the ");
+							console.log("Successfully delete song");
 							// handle the request status here 
-							_this2.iniPlaylist.removeSongRow(song);
+							//this.iniPlaylist.removeSongRow(song);
 						}
 					};
 					xhrq.open('delete', url, true);

@@ -123,23 +123,6 @@ class MBox {
 	 	// this.processedLyric = processLyric(this.usrOption['music']['lyric_with_time'], this.usrOption['music']['lyric']);
 	 	// music from database, add request later 
 	 	this.musicPool = {};
-	 	/*
-			XMLHttp Request Retrieve Playlist from database 
-			if the user want to have backend support 
-	 	*/
-
-	 	let getSongPoolxhrq = new XMLHttpRequest();
-	 	let getSongPoolURL = 'http://localhost:8080/getSongPool';
-	 	getSongPoolxhrq.open('get', getSongPoolURL, true);
-	 	getSongPoolxhrq.setRequestHeader('Content-type', 'application/json');
-	 	getSongPoolxhrq.onreadystatechange = () => {
-	 		if(getSongPoolxhrq.readyState === XMLHttpRequest.DONE){
-
-	 			this.musicPool = getSongPoolxhrq.responseText;
-	 			console.log(this.musicPool);
-	 		}
-	 	}
-	 	getSongPoolxhrq.send(null);
 	 /**
 	 	let xhrq = new XMLHttpRequest();
 	 	// string represent url 
@@ -269,8 +252,8 @@ class MBox {
 	 							if(!this.musicPool[curKey].removed && !this.musicPool[curKey].deleted){
 	 								// if the song is not removed or deleted by user, we find the next song to play 
 	 								this.musicFile.src = this.musicPool[curKey].url;
-	 								this.usrOption['music'] = this.musicPool[curKey];
-	 								this.loadSongInfo();
+	 								// this.usrOption['music'] = this.musicPool[curKey];
+	 								this.loadSongInfo(this.musicPool[curKey]);
 	 								// this.processedLyric = processLyric(this.usrOption['music']['lyric_with_time'], this.usrOption['music']['lyric']);
 	 								// update current playing index 
 	 								this.curIdx++;
@@ -364,24 +347,65 @@ class MBox {
 		method for initialize the music player 
 	*/
 	init(){
-		this.loadSongInfo();
-		this.addSong(this.usrOption['music']);
+		// this.loadSongInfo();
+		/*
+			XMLHttp Request Retrieve Playlist from database 
+			if the user want to have backend support 
+	 	*/
+
+	 	let getSongPoolxhrq = new XMLHttpRequest();
+	 	let getSongPoolURL = 'http://localhost:8080/getSongPool';
+	 	getSongPoolxhrq.open('get', getSongPoolURL, true);
+	 	getSongPoolxhrq.setRequestHeader('Content-type', 'application/json');
+	 	getSongPoolxhrq.onreadystatechange = () => {
+	 		if(getSongPoolxhrq.readyState === XMLHttpRequest.DONE){
+
+	 			this.musicPool = JSON.parse(getSongPoolxhrq.responseText);
+	 			for(let key in this.musicPool){
+					this.currentPlaylist.push(Number(key.substring(1)));
+					//this.iniPlaylist.addSongRow(this.musicPool[key]);
+					let rowUI = this.iniPlaylist.addSongRow(this.musicPool[key]);
+					//console.log(rowUI);
+	 				let fakeEle = document.createElement('li');
+	 				fakeEle.innerHTML = rowUI;
+	 				let rowEle = fakeEle.children[0];
+	 				// console.log(rowEle);
+	 				let node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
+	 				// console.log(node);
+	 				node.appendChild(rowEle);
+				}
+				// console.log(typeof(this.musicPool));
+
+				this.musicFile.src = this.musicPool['_0']['url'];
+
+				// console.log(this.musicPool);
+				this.loadSongInfo(this.musicPool['_0']);
+				this.play();
+
+	 			// console.log(this.musicPool);
+	 		}
+	 	}
+
+	 	getSongPoolxhrq.send(null);
+
+		// this.addSong(this.usrOption['music']);
+
 	}
 
 	/*
 		method for loading the UI components for player 
 	*/
-	loadSongInfo() {
+	loadSongInfo(song) {
 		// load the album cover 
-		this.coverArea.innerHTML = `<img src="${this.usrOption['music']['album_cover']}" width="70px" height="70px">`;
-		this.songInfo.innerText = '' + this.usrOption['music']['song_name'] + ' - ' + this.usrOption['music']['singer'];
-		this.albumName.innerText = '' + this.usrOption['music']['album']; 
+		this.coverArea.innerHTML = `<img src="${song['album_cover']}" width="70px" height="70px">`;
+		this.songInfo.innerText = '' + song['song_name'] + ' - ' + song['singer'];
+		this.albumName.innerText = '' + song['album']; 
 
 		if(this.usrOption['music']['lyric']===undefined){
 			this.usrOption['music']['lyric'] = this.noLyric;
 		}
 
-		this.processedLyric = processLyric(this.usrOption['music']['lyric_with_time'], this.usrOption['music']['lyric']);
+		this.processedLyric = processLyric(song['lyric_with_time'], song['lyric']);
 		if(!this.usrOption['multi']){
 	 		this.displayArea.innerHTML = this.processedLyric;
 	 	}else{
@@ -417,18 +441,10 @@ class MBox {
 	 	node.appendChild(rowEle);
 	 	this.musicPool['_' + Object.keys(this.musicPool).length] = newSong;
 
-		// dealing with backend problem here
-		/** 
+		// dealing with backend problem here 
 		let xhrq = new XMLHttpRequest();
 	 	// string represent url 
 	 	let url = `http://localhost:8080/addSong`;
-	 	// let playlistData = {
-	 	// 		url : newSong['url'],
-	 	// 		song_name : newSong['song_name'],
-	 	// 		singer : newSong['singer'],
-	 	// 		album : newSong['album'],
-	 	// 		album_cover : newSong['album_cover']
-	 	// };
 	 	xhrq.open('post', url, true);
 	  	// xhrq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	  	xhrq.setRequestHeader('Content-type', 'application/json')
@@ -440,14 +456,6 @@ class MBox {
 	 		}
 	 	};
 	 	xhrq.send(JSON.stringify(newSong));
-
-	 	let rowUI = this.iniPlaylist.addSongRow(newSong);
-	 	let fakeEle = document.createElement('li');
-	 	fakeEle.innerHTML = rowUI;
-	 	let rowEle = fakeEle.firstChild;
-	 	console.log(rowEle);
-	 	document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0].appendChild(rowEle);
-	 	*/
 	}
 
 	/*
@@ -463,18 +471,18 @@ class MBox {
 	/*
 		method for deleting the song 
 	*/
-	deleteSong(song) {
-		let originID = '_' + song.second_id;
-		this.musicPool[originID].deleted = true;
+	deleteSong(songID) {
+		let originID = songID;
+		this.musicPool['_'+originID].deleted = true;
 		// deleted song from database, or add gargbage place later 
 		let xhrq = new XMLHttpRequest();
-		let url = `http://localhost:8080/removeSong?removeId=${encodeURIComponent(song.song_id)}`;
+		let url = `http://localhost:8080/removeSong?removeId=${encodeURIComponent(songID)}`;
 		xhrq.onreadystatechange = () => {
 			if(xhrq.readyState === XMLHttpRequest.DONE){
 				alert(xhrq.responseText);
-				console.log("Successfully delete the ");
+				console.log("Successfully delete song");
 				// handle the request status here 
-				this.iniPlaylist.removeSongRow(song);
+				//this.iniPlaylist.removeSongRow(song);
 			}
 		};
 		xhrq.open('delete', url, true);

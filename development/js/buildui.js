@@ -99,21 +99,21 @@ module.exports = `<div class="magic-box">
 							</div>
 						</div>
 						<div class="mbox-setting-item mbox-playlist-wrap" style="background: #dff3e3;">
-							<button class="mbox-menu-icon">
+							<button class="mbox-menu-icon mbox-playlistBtn">
 								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999" width="16" height="16" viewBox="${viewBox['playlist']}">
 									<path d="${svg['playlist']}" />
 								</svg>
 							</button>
 						</div>
 						<div class="mbox-setting-item mbox-lovelist-wrap" style="background: #dff3e3;">
-							<button class="mbox-menu-icon">
+							<button class="mbox-menu-icon mbox-lovelistBtn">
 								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999" width="16" height="16" viewBox="${viewBox['heart']}">
 									<path d="${svg['heart']}" />
 								</svg>
 							</button>
 						</div>
 						<div class="mbox-setting-item mbox-lyric-show-wrap" style="background: #dff3e3;">
-							<button class="mbox-menu-icon">
+							<button class="mbox-menu-icon mbox-lyricBtn">
 								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999" width="16" height="16" viewBox="${viewBox['lyric']}">
 									<path d="${svg['lyric']}" />
 								</svg>

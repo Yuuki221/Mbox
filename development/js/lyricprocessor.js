@@ -12,7 +12,7 @@ let processLyric = (time, lyrics) => {
 			if(!lyrics[i]){
 				lyrics[i] = '<br><br>';
 			}else{
-				lyrics[i]+='<br>';
+				lyrics[i]+='<br><br>';
 			}
 		}
 		processedLyrics = lyrics.join('');

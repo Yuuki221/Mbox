@@ -46,13 +46,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				}
 			}, {
 				key: "addSongRow",
-				value: function addSongRow(rowElement) {
+				value: function addSongRow(rowElement, like) {
 					console.log('in addSongRow');
-					return this.getRowUI(rowElement.song_name, rowElement.singer, rowElement.song_id);
+					return this.getRowUI(rowElement.song_name, rowElement.singer, rowElement.song_id, like);
 				}
 			}, {
 				key: "removeSongRow",
-				value: function removeSongRow(song) {
+				value: function removeSongRow(songID) {
 					var rowToRemove = document.getElementById('' + song.song_id);
 					var parentUL = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
 					parentUL.removeChild(rowToRemove);
@@ -67,8 +67,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 			}, {
 				key: "getRowUI",
-				value: function getRowUI(songname, singer, songID) {
-					return "\n\t\t\t<li id=" + songID + " class=\"mbox-song-row\">\n\t\t\t\t<span class=\"mbox-song-row-songinfo\">" + songname + " - " + singer + "</span>\n\t\t\t\t<span class=\"mbox-song-row-setting-buttons\">\n\t\t\t\t<button class=\"icon mbox-row-buttons\">\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + this.svgInfo.viewBox['heart'] + "\">\n\t\t\t\t\t\t<path d=\"" + this.svgInfo.svg['heart'] + "\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t<button class=\"icon mbox-row-buttons\">\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + this.svgInfo.viewBox['garbage'] + "\">\n\t\t\t\t\t\t<path d=\"" + this.svgInfo.svg['garbage'] + "\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t<button class=\"icon mbox-row-buttons\">\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + this.svgInfo.viewBox['delete'] + "\">\n\t\t\t\t\t\t<path d=\"" + this.svgInfo.svg['delete'] + "\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t</span>\n\t\t\t</li>\n\t\t";
+				value: function getRowUI(songname, singer, songID, like) {
+					// console.log(like);
+					return "\n\t\t\t<li id=" + songID + " class=\"mbox-song-row\">\n\t\t\t\t<span class=\"mbox-song-row-songinfo\">" + songname + " - " + singer + "</span>\n\t\t\t\t<span class=\"mbox-song-row-setting-buttons\">\n\t\t\t\t<button class=\"icon mbox-row-buttons mbox-row-heart\">\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + this.svgInfo.viewBox['heart'] + "\" style=\"fill : " + (like ? '#f0717d' : '#828a95') + ";\">\n\t\t\t\t\t\t<path d=\"" + this.svgInfo.svg['heart'] + "\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t<button class=\"icon mbox-row-buttons mbox-row-garbage\">\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + this.svgInfo.viewBox['garbage'] + "\">\n\t\t\t\t\t\t<path d=\"" + this.svgInfo.svg['garbage'] + "\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t<button class=\"icon mbox-row-buttons mbox-row-remove\">\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + this.svgInfo.viewBox['delete'] + "\">\n\t\t\t\t\t\t<path d=\"" + this.svgInfo.svg['delete'] + "\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t</span>\n\t\t\t</li>\n\t\t";
 				}
 			}]);
 
@@ -86,7 +87,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 		var viewBox = iconInfo['viewBox'];
 
 		// object for svg viewbox
-		module.exports = "<div class=\"magic-box\">\n\t\t\t\t\t<div class=\"magic-box-upper-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-music-wrap\">\n\t\t\t\t\t\t\t<audio class=\"mbox-music\" src=\"development/music/You Need Me-KENN.mp3\"></audio>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<!-- audio file links are here --> \n\t\t\t\t\t\t<div class=\"mbox-album-cover-wrap\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-controller-wrap-wrap\">\n\t\t\t\t\t\t\t<div class=\"mbox-controller-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-songinfo\">\n\t\t\t\t\t\t\t\t<span class=\"mbox-song-info\" style=\"color: #dff3e3;\">Unknown</span><br>\n\t\t\t\t\t\t\t\t<span class=\"mbox-album-name\" style=\"color: #dff3e3;\">Unknown</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-controlBtn-wrap-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-previous-song-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-previous-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['previous'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['previous'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['play'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['play'] + "\"/>\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-next-song-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-next-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['next'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['next'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-mode-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-mode-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['playmode'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['playmode_cycle'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-volume-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['volume'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['volume'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar-wrap\">\n\t\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar\">\n\t\t\t\t\t\t\t\t\t\t<span class=\"mbox-volume-bar-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-share-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-share-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['share'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['share'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-play-info-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-play-progress-wrap\">\n\t\t\t\t\t\t\t<span class=\"mbox-play-progress-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-play-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-played-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-time-played\">00:00</span>/<span class=\"mbox-time-total\">00:00</span>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-multidisplay-area-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-multidisplay-area\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-options-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-setting-wrap\">\n\t\t\t\t\t\t\t<div class=\"mbox-setting-icon\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<input id=\"trigger\" class=\"mbox-setting-trigger\" type=\"checkbox\" />\n\t\t\t\t\t\t\t\t<label for=\"trigger\" class=\"mbox-setting-bars\">\n\t\t\t\t\t\t\t\t\t<div class=\"toggle-bar setting-first-bar\"></div>\n\t\t\t\t\t\t\t\t\t<div class=\"toggle-bar setting-second-bar\"></div>\n\t\t\t\t\t\t\t\t\t<div class=\"toggle-bar setting-third-bar\"></div>\n\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-playlist-wrap\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['playlist'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['playlist'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-lovelist-wrap\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['heart'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['heart'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-lyric-show-wrap\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['lyric'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['lyric'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>";
+		module.exports = "<div class=\"magic-box\">\n\t\t\t\t\t<div class=\"magic-box-upper-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-music-wrap\">\n\t\t\t\t\t\t\t<audio class=\"mbox-music\" src=\"development/music/You Need Me-KENN.mp3\"></audio>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<!-- audio file links are here --> \n\t\t\t\t\t\t<div class=\"mbox-album-cover-wrap\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-controller-wrap-wrap\">\n\t\t\t\t\t\t\t<div class=\"mbox-controller-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-songinfo\">\n\t\t\t\t\t\t\t\t<span class=\"mbox-song-info\" style=\"color: #dff3e3;\">Unknown</span><br>\n\t\t\t\t\t\t\t\t<span class=\"mbox-album-name\" style=\"color: #dff3e3;\">Unknown</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-controlBtn-wrap-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-previous-song-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-previous-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['previous'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['previous'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['play'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['play'] + "\"/>\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-next-song-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-next-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['next'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['next'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-mode-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-mode-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['playmode'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['playmode_cycle'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-volume-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['volume'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['volume'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar-wrap\">\n\t\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar\">\n\t\t\t\t\t\t\t\t\t\t<span class=\"mbox-volume-bar-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-share-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-share-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['share'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['share'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-play-info-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-play-progress-wrap\">\n\t\t\t\t\t\t\t<span class=\"mbox-play-progress-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-play-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-played-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-time-played\">00:00</span>/<span class=\"mbox-time-total\">00:00</span>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-multidisplay-area-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-multidisplay-area\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-options-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-setting-wrap\">\n\t\t\t\t\t\t\t<div class=\"mbox-setting-icon\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<input id=\"trigger\" class=\"mbox-setting-trigger\" type=\"checkbox\" />\n\t\t\t\t\t\t\t\t<label for=\"trigger\" class=\"mbox-setting-bars\">\n\t\t\t\t\t\t\t\t\t<div class=\"toggle-bar setting-first-bar\"></div>\n\t\t\t\t\t\t\t\t\t<div class=\"toggle-bar setting-second-bar\"></div>\n\t\t\t\t\t\t\t\t\t<div class=\"toggle-bar setting-third-bar\"></div>\n\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-playlist-wrap\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon mbox-playlistBtn\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['playlist'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['playlist'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-lovelist-wrap\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon mbox-lovelistBtn\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['heart'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['heart'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-lyric-show-wrap\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon mbox-lyricBtn\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['lyric'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['lyric'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>";
 	}, { "./svginfo.js": 7 }], 3: [function (require, module, exports) {
 		var transformTime = require('./getplaytime.js');
 		var iconInfo = require('./svginfo.js');
@@ -177,8 +178,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     	*/
 
 				// generate music playlist 
-				this.normalOrderedPlaylist = [0, 1, 2, 3, 4, 5];
+				// this.normalOrderedPlaylist = [0,1,2,3,4,5];
 				this.shufflePlaylist = [];
+				this.heartPlaylist = [];
 				this.currentPlaylist = [];
 				this.curIdx = 0;
 				// initialize the playlist 
@@ -210,9 +212,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				// display area
 				this.displayArea = document.getElementsByClassName('mbox-multidisplay-area')[0];
 				this.displayAreaWrap = document.getElementsByClassName('mbox-multidisplay-area-wrap')[0];
-				this.displayAreaWrap.innerHTML = this.iniPlaylist.initPlaylist();
-				//menu items
+				// this.displayAreaWrap.innerHTML = this.iniPlaylist.initPlaylist();
+				// song row menu
+				/**
+    this.rowRemove = document.getElementsByClassName('mbox-row-remove')[0];
+    this.rowDelete = document.getElementsByClassName('mbox-row-delete')[0];
+    this.rowDelete = document.getElementsByClassName('mbox-row-heart')[0];
+    */
+				// player menu
 
+				this.showLyric = document.getElementsByClassName('mbox-lyricBtn')[0];
+				this.showHeartList = document.getElementsByClassName('mbox-lovelistBtn')[0];
+				this.shwoPlaylist = document.getElementsByClassName('mbox-playlistBtn')[0];
 				// insert lyric or play list 
 				// if(!this.usrOption['multi']){
 				// 	this.displayArea.innerHTML = this.processedLyric;
@@ -276,7 +287,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 							if (_this.musicFile.ended) {
 								_this.playBtn.innerHTML = _this.getSvg(_this.viewBox['play'], _this.svg['play']);
 								var ct = _this.curIdx;
-								for (ct = _this.curIdx; ct < _this.currentPlaylist.length; ct++) {
+								for (ct = _this.curIdx + 1; ct < _this.currentPlaylist.length; ct++) {
 									var curKey = '_' + _this.currentPlaylist[ct];
 									if (!_this.musicPool[curKey].removed && !_this.musicPool[curKey].deleted) {
 										// if the song is not removed or deleted by user, we find the next song to play 
@@ -370,6 +381,48 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					_this.musicFile.volume = 0;
 					_this.updateProgressBar('volume', 0, 'width');
 				});
+
+				this.shwoPlaylist.addEventListener('click', function () {
+					_this.displayAreaWrap.innerHTML = _this.iniPlaylist.initPlaylist();
+					for (var key in _this.musicPool) {
+						var rowUI = _this.iniPlaylist.addSongRow(_this.musicPool[key], _this.musicPool[key].like);
+						//console.log(rowUI);
+						var fakeEle = document.createElement('li');
+						fakeEle.innerHTML = rowUI;
+						var rowEle = fakeEle.children[0];
+						// console.log(rowEle);
+						var node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
+						// console.log(node);
+						node.appendChild(rowEle);
+					}
+				});
+
+				this.showLyric.addEventListener('click', function () {
+					var currentSong = _this.musicPool['_' + _this.currentPlaylist[_this.curIdx]];
+					// console.log(currentSong);
+					// this.processedLyric = processLyric(currentSong['lyric_with_time'], currentSong['lyric']);
+					// let fakeElement = document.createElement('div');
+					_this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area">' + currentSong.lyric + '</div>';
+					// console.log(currentSong['lyric']);
+				});
+
+				this.showHeartList.addEventListener('click', function () {
+					_this.displayAreaWrap.innerHTML = _this.iniPlaylist.initPlaylist();
+					for (var i = 0; i < _this.heartPlaylist.length; i++) {
+						var currentSong = _this.musicPool['_' + _this.heartPlaylist[i]];
+						if (currentSong.like) {
+							// double check for validation 
+							var rowUI = _this.iniPlaylist.addSongRow(currentSong, true);
+							var fakeEle = document.createElement('li');
+							fakeEle.innerHTML = rowUI;
+							var rowEle = fakeEle.children[0];
+							// console.log(rowEle);
+							var node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
+							// console.log(node);
+							node.appendChild(rowEle);
+						}
+					}
+				});
 			}
 			/*
    	method for initialize the music player 
@@ -382,11 +435,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					var _this2 = this;
 
 					// this.loadSongInfo();
+					// this.addSong(this.usrOption['music']);
 					/*
      	XMLHttp Request Retrieve Playlist from database 
      	if the user want to have backend support 
      	*/
-
 					var getSongPoolxhrq = new XMLHttpRequest();
 					var getSongPoolURL = 'http://localhost:8080/getSongPool';
 					getSongPoolxhrq.open('get', getSongPoolURL, true);
@@ -396,27 +449,34 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 							_this2.musicPool = JSON.parse(getSongPoolxhrq.responseText);
 							for (var key in _this2.musicPool) {
+								var currentSong = _this2.musicPool[key];
 								_this2.currentPlaylist.push(Number(key.substring(1)));
+								if (currentSong.like) _this2.heartPlaylist.push(Number(key.substring(1)));
+								// process the lyric once they enter the API 
+								currentSong.lyric = processLyric(currentSong['lyric_with_time'], currentSong['lyric']);
 								//this.iniPlaylist.addSongRow(this.musicPool[key]);
-								var rowUI = _this2.iniPlaylist.addSongRow(_this2.musicPool[key]);
-								//console.log(rowUI);
-								var fakeEle = document.createElement('li');
-								fakeEle.innerHTML = rowUI;
-								var rowEle = fakeEle.children[0];
-								// console.log(rowEle);
-								var node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
-								// console.log(node);
-								node.appendChild(rowEle);
+								/**
+        let rowUI = this.iniPlaylist.addSongRow(this.musicPool[key]);
+        //console.log(rowUI);
+        	let fakeEle = document.createElement('li');
+        	fakeEle.innerHTML = rowUI;
+        	let rowEle = fakeEle.children[0];
+        	// console.log(rowEle);
+        	let node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
+        	// console.log(node);
+        	node.appendChild(rowEle);
+        */
 							}
 							// console.log(typeof(this.musicPool));
 
-							_this2.musicFile.src = _this2.musicPool['_0']['url'];
+							_this2.musicFile.src = _this2.musicPool['_' + _this2.currentPlaylist[0]]['url'];
 
 							// console.log(this.musicPool);
-							_this2.loadSongInfo(_this2.musicPool['_0']);
-							_this2.play();
+							_this2.loadSongInfo(_this2.musicPool['_' + _this2.currentPlaylist[0]]);
+							// this.play();
 
 							// console.log(this.musicPool);
+							// this.likeSong(1);
 						}
 					};
 
@@ -439,12 +499,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 					if (this.usrOption['music']['lyric'] === undefined) {
 						this.usrOption['music']['lyric'] = this.noLyric;
+					} else {
+						this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area">' + song.lyric + '</div>';
 					}
-
-					this.processedLyric = processLyric(song['lyric_with_time'], song['lyric']);
-					if (!this.usrOption['multi']) {
-						this.displayArea.innerHTML = this.processedLyric;
-					} else {}
 				}
 
 				/*
@@ -466,7 +523,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					this.musicPool[newId] = newSong;
 					this.currentPlaylist.push(newSecondId);
 
-					var rowUI = this.iniPlaylist.addSongRow(newSong);
+					var rowUI = this.iniPlaylist.addSongRow(newSong, false);
 					//console.log(rowUI);
 					var fakeEle = document.createElement('li');
 					fakeEle.innerHTML = rowUI;
@@ -481,13 +538,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					var xhrq = new XMLHttpRequest();
 					// string represent url 
 					var url = "http://localhost:8080/addSong";
-					// let playlistData = {
-					// 		url : newSong['url'],
-					// 		song_name : newSong['song_name'],
-					// 		singer : newSong['singer'],
-					// 		album : newSong['album'],
-					// 		album_cover : newSong['album_cover']
-					// };
 					xhrq.open('post', url, true);
 					// xhrq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 					xhrq.setRequestHeader('Content-type', 'application/json');
@@ -495,6 +545,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 						if (xhrq.readyState === XMLHttpRequest.DONE) {
 							alert(xhrq.responseText);
 							console.log("Sucessfully send song information.");
+							newSong.lyric = processLyric(newSong['lyric_with_time'], newSong['lyric']);
 							// playlistData here 
 						}
 					};
@@ -507,10 +558,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 			}, {
 				key: "removeSong",
-				value: function removeSong(song) {
-					var originID = '_' + song.second_id;
+				value: function removeSong(songID) {
+					var originID = songId;
 					this.musicPool[originID].removed = true;
-					this.iniPlaylist.removeSongRow(song);
+					this.iniPlaylist.removeSongRow(songID);
 				}
 
 				/*
@@ -535,6 +586,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					};
 					xhrq.open('delete', url, true);
 					xhrq.send(null);
+				}
+
+				/*
+    	method for like a song 
+    */
+
+			}, {
+				key: "likeSong",
+				value: function likeSong(songID) {
+					console.log(this.musicPool);
+					this.musicPool['_' + songID].like = true;
+					var xmrq = new XMLHttpRequest();
+					var url = "http://localhost:8080/likeSong?songId=" + encodeURIComponent(songID);
+					xmrq.onreadystatechange = function () {
+						if (xmrq.readyState === XMLHttpRequest.DONE) {
+							alert(xmrq.responseText);
+							console.log("I like this song");
+						}
+					};
+					xmrq.open('put', url, true);
+					xmrq.send(null);
 				}
 
 				/*
@@ -653,7 +725,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					if (!lyrics[i]) {
 						lyrics[i] = '<br><br>';
 					} else {
-						lyrics[i] += '<br>';
+						lyrics[i] += '<br><br>';
 					}
 				}
 				processedLyrics = lyrics.join('');

@@ -148,8 +148,9 @@ class MBox {
 	 	*/
 
 	 	// generate music playlist 
-	 	this.normalOrderedPlaylist = [0,1,2,3,4,5];
+	 	// this.normalOrderedPlaylist = [0,1,2,3,4,5];
 	 	this.shufflePlaylist = [];
+	 	this.heartPlaylist = [];
 	 	this.currentPlaylist = [];
 	 	this.curIdx = 0;
 	 	// initialize the playlist 
@@ -181,9 +182,18 @@ class MBox {
 	 	// display area
 	 	this.displayArea = document.getElementsByClassName('mbox-multidisplay-area')[0];
 	 	this.displayAreaWrap = document.getElementsByClassName('mbox-multidisplay-area-wrap')[0];
-	 	this.displayAreaWrap.innerHTML = this.iniPlaylist.initPlaylist();
-	 	//menu items
-
+	 	// this.displayAreaWrap.innerHTML = this.iniPlaylist.initPlaylist();
+	 	// song row menu
+	 	/**
+	 	this.rowRemove = document.getElementsByClassName('mbox-row-remove')[0];
+	 	this.rowDelete = document.getElementsByClassName('mbox-row-delete')[0];
+	 	this.rowDelete = document.getElementsByClassName('mbox-row-heart')[0];
+		*/
+		// player menu
+		
+		this.showLyric = document.getElementsByClassName('mbox-lyricBtn')[0];
+		this.showHeartList = document.getElementsByClassName('mbox-lovelistBtn')[0];
+		this.shwoPlaylist = document.getElementsByClassName('mbox-playlistBtn')[0];
 	 	// insert lyric or play list 
 	 	// if(!this.usrOption['multi']){
 	 	// 	this.displayArea.innerHTML = this.processedLyric;
@@ -342,17 +352,58 @@ class MBox {
 	 		this.updateProgressBar('volume', 0, 'width');
 	 	});
 
+	 	this.shwoPlaylist.addEventListener('click', () => {
+	 		this.displayAreaWrap.innerHTML = this.iniPlaylist.initPlaylist();
+	 		for(let key in this.musicPool){
+	 			let rowUI = this.iniPlaylist.addSongRow(this.musicPool[key], this.musicPool[key].like);
+				//console.log(rowUI);
+	 			let fakeEle = document.createElement('li');
+	 			fakeEle.innerHTML = rowUI;
+	 			let rowEle = fakeEle.children[0];
+	 			// console.log(rowEle);
+	 			let node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
+	 			// console.log(node);
+	 			node.appendChild(rowEle);
+	 		}
+	 	});
+
+	 	this.showLyric.addEventListener('click', () => {
+	 		let currentSong = this.musicPool['_' + this.currentPlaylist[this.curIdx]];
+	 		// console.log(currentSong);
+	 		// this.processedLyric = processLyric(currentSong['lyric_with_time'], currentSong['lyric']);
+	 		// let fakeElement = document.createElement('div');
+			this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area">' + currentSong.lyric + '</div>';
+	 		// console.log(currentSong['lyric']);
+	 	});
+
+	 	this.showHeartList.addEventListener('click', ()=>{
+	 		this.displayAreaWrap.innerHTML = this.iniPlaylist.initPlaylist();
+	 		for(let i=0; i<this.heartPlaylist.length; i++){
+	 			let currentSong = this.musicPool['_'+this.heartPlaylist[i]];
+	 			if(currentSong.like){
+	 				// double check for validation 
+	 				let rowUI = this.iniPlaylist.addSongRow(currentSong, true);
+	 				let fakeEle = document.createElement('li');
+	 				fakeEle.innerHTML = rowUI;
+	 				let rowEle = fakeEle.children[0];
+	 				// console.log(rowEle);
+	 				let node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
+	 				// console.log(node);
+	 				node.appendChild(rowEle);
+	 			}
+	 		}
+	 	});
 	}
 	/*
 		method for initialize the music player 
 	*/
 	init(){
 		// this.loadSongInfo();
+		// this.addSong(this.usrOption['music']);
 		/*
 			XMLHttp Request Retrieve Playlist from database 
 			if the user want to have backend support 
 	 	*/
-
 	 	let getSongPoolxhrq = new XMLHttpRequest();
 	 	let getSongPoolURL = 'http://localhost:8080/getSongPool';
 	 	getSongPoolxhrq.open('get', getSongPoolURL, true);
@@ -362,8 +413,13 @@ class MBox {
 
 	 			this.musicPool = JSON.parse(getSongPoolxhrq.responseText);
 	 			for(let key in this.musicPool){
+	 				let currentSong = this.musicPool[key];
 					this.currentPlaylist.push(Number(key.substring(1)));
+					if(currentSong.like) this.heartPlaylist.push(Number(key.substring(1)));
+					// process the lyric once they enter the API 
+					currentSong.lyric = processLyric(currentSong['lyric_with_time'], currentSong['lyric']);
 					//this.iniPlaylist.addSongRow(this.musicPool[key]);
+					/**
 					let rowUI = this.iniPlaylist.addSongRow(this.musicPool[key]);
 					//console.log(rowUI);
 	 				let fakeEle = document.createElement('li');
@@ -373,16 +429,18 @@ class MBox {
 	 				let node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
 	 				// console.log(node);
 	 				node.appendChild(rowEle);
+					*/
 				}
 				// console.log(typeof(this.musicPool));
 
-				this.musicFile.src = this.musicPool['_0']['url'];
+				this.musicFile.src = this.musicPool['_' + this.currentPlaylist[0]]['url'];
 
 				// console.log(this.musicPool);
-				this.loadSongInfo(this.musicPool['_0']);
-				this.play();
+				this.loadSongInfo(this.musicPool['_' + this.currentPlaylist[0]]);
+				// this.play();
 
 	 			// console.log(this.musicPool);
+	 			// this.likeSong(1);
 	 		}
 	 	}
 
@@ -403,13 +461,8 @@ class MBox {
 
 		if(this.usrOption['music']['lyric']===undefined){
 			this.usrOption['music']['lyric'] = this.noLyric;
-		}
-
-		this.processedLyric = processLyric(song['lyric_with_time'], song['lyric']);
-		if(!this.usrOption['multi']){
-	 		this.displayArea.innerHTML = this.processedLyric;
-	 	}else{
-	 		
+		}else{
+			this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area">' + song.lyric + '</div>';
 	 	}
 	}
 
@@ -430,7 +483,7 @@ class MBox {
 		this.musicPool[newId] = newSong;
 		this.currentPlaylist.push(newSecondId);
 
-		let rowUI = this.iniPlaylist.addSongRow(newSong);
+		let rowUI = this.iniPlaylist.addSongRow(newSong, false);
 		//console.log(rowUI);
 	 	let fakeEle = document.createElement('li');
 	 	fakeEle.innerHTML = rowUI;
@@ -452,6 +505,7 @@ class MBox {
 	 		if(xhrq.readyState === XMLHttpRequest.DONE){
 	 			alert(xhrq.responseText);
 	 			console.log("Sucessfully send song information.");
+	 			newSong.lyric = processLyric(newSong['lyric_with_time'], newSong['lyric']);
 	 		// playlistData here 
 	 		}
 	 	};
@@ -462,10 +516,10 @@ class MBox {
 		method for remove a song from current playlist 
 	*/
 
-	removeSong(song) {
-		let originID = '_' + song.second_id;
+	removeSong(songID) {
+		let originID = songId;
 		this.musicPool[originID].removed = true;
-		this.iniPlaylist.removeSongRow(song);
+		this.iniPlaylist.removeSongRow(songID);
 	}
 
 	/*
@@ -488,6 +542,24 @@ class MBox {
 		xhrq.open('delete', url, true);
 		xhrq.send(null);
 
+	}
+
+	/*
+		method for like a song 
+	*/
+	likeSong(songID) {
+		console.log(this.musicPool);
+		this.musicPool['_' + songID].like = true;
+		let xmrq = new XMLHttpRequest();
+		let url = `http://localhost:8080/likeSong?songId=${encodeURIComponent(songID)}`;
+		xmrq.onreadystatechange = () => {
+			if(xmrq.readyState === XMLHttpRequest.DONE){
+				alert(xmrq.responseText);
+				console.log("I like this song");
+			}
+		};
+		xmrq.open('put', url, true);
+		xmrq.send(null);
 	}
 
 	/*

@@ -27,12 +27,12 @@ class BuildPlayList {
 				</div>`;
 	}
 
-	addSongRow(rowElement) {
+	addSongRow(rowElement, like) {
 		console.log('in addSongRow');
-		return this.getRowUI(rowElement.song_name, rowElement.singer, rowElement.song_id);
+		return this.getRowUI(rowElement.song_name, rowElement.singer, rowElement.song_id, like);
 	}
 
-	removeSongRow(song) {
+	removeSongRow(songID) {
 		let rowToRemove = document.getElementById(''+song.song_id);
 		let parentUL = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
 		parentUL.removeChild(rowToRemove);
@@ -45,22 +45,23 @@ class BuildPlayList {
 		@param {Array} an array contains svg icons to the end of each row
 		@return {String} html code to be inserted 
 	*/
-	getRowUI(songname, singer, songID){
+	getRowUI(songname, singer, songID, like){
+		// console.log(like);
 		return `
 			<li id=${songID} class="mbox-song-row">
 				<span class="mbox-song-row-songinfo">${songname} - ${singer}</span>
 				<span class="mbox-song-row-setting-buttons">
-				<button class="icon mbox-row-buttons">
-					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999" width="16" height="16" viewBox="${this.svgInfo.viewBox['heart']}">
+				<button class="icon mbox-row-buttons mbox-row-heart">
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999" width="16" height="16" viewBox="${this.svgInfo.viewBox['heart']}" style="fill : ${like? '#f0717d' : '#828a95'};">
 						<path d="${this.svgInfo.svg['heart']}" />
 					</svg>
 				</button>
-				<button class="icon mbox-row-buttons">
+				<button class="icon mbox-row-buttons mbox-row-garbage">
 					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999" width="16" height="16" viewBox="${this.svgInfo.viewBox['garbage']}">
 						<path d="${this.svgInfo.svg['garbage']}" />
 					</svg>
 				</button>
-				<button class="icon mbox-row-buttons">
+				<button class="icon mbox-row-buttons mbox-row-remove">
 					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999" width="16" height="16" viewBox="${this.svgInfo.viewBox['delete']}">
 						<path d="${this.svgInfo.svg['delete']}" />
 					</svg>

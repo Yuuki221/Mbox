@@ -183,6 +183,27 @@ app.delete('/removeSong', function(req, res){
 	});
 });
 
+app.all('/likeSong', function(req, res, next){
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
+	res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+	next();
+	console.log('likeSong configured');
+});
+
+app.put('/likeSong', function(req, res, next){
+	var targetID = req.query.songId;
+	Song.update({song_id : targetID}, {like : true}, function(err, raw){
+		if(err){
+			console.log('Update like error');
+			res.send(err);
+			return;
+		}else{
+			res.send(raw);
+		}
+	});
+});
+
 app.listen(8080);
 
 

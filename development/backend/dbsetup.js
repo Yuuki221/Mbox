@@ -157,15 +157,6 @@ app.all('/removeSong', function(req, res, next){
 	console.log('ALL DELETE server configured');
 });
 
-// app.options('/removeSong/:removeId', function(req, res, next){
-// 	res.header('Access-Control-Allow-Origin', '*');
-// 	res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
-// 	res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-// 	next();
-// 	console.log('OPTION server configured');
-
-// });
-
 app.delete('/removeSong', function(req, res){
 	console.log('in DELETE processing');
 	var idToDelete = req.query.removeId;
@@ -193,13 +184,29 @@ app.all('/likeSong', function(req, res, next){
 
 app.put('/likeSong', function(req, res, next){
 	var targetID = req.query.songId;
-	Song.update({song_id : targetID}, {like : true}, function(err, raw){
-		if(err){
-			console.log('Update like error');
-			res.send(err);
-			return;
+	targetID++;
+	Song.find({song_id : targetID}, function(err, theSong){
+		console.log(theSong);
+		if(theSong[0].like){
+			Song.update({song_id : targetID}, {like : false}, function(err, raw){
+				if(err){
+					console.log('Update like error');
+					res.send(err);
+					return;
+				}else{
+					res.send(raw);
+				}
+			});
 		}else{
-			res.send(raw);
+			Song.update({song_id:targetID}, {like : true}, function(err, raw){
+				if(err){
+					console.log('Update like error');
+					res.send(err);
+					return;
+				}else{
+					res.send(raw);
+				}
+			});
 		}
 	});
 });

@@ -159,6 +159,9 @@ class MBox {
 	 	// bar length 
 	 	this.volumeBarLen = 50;
 	 	this.progressBarLen = 225;
+
+	 	// body part flag 
+	 	this.LyricOn = true;
 	 	/*
 			player related elements 
 	 	*/
@@ -182,15 +185,12 @@ class MBox {
 	 	// display area
 	 	this.displayArea = document.getElementsByClassName('mbox-multidisplay-area')[0];
 	 	this.displayAreaWrap = document.getElementsByClassName('mbox-multidisplay-area-wrap')[0];
-	 	// this.displayAreaWrap.innerHTML = this.iniPlaylist.initPlaylist();
-	 	// song row menu
-	 	/**
-	 	this.rowRemove = document.getElementsByClassName('mbox-row-remove')[0];
-	 	this.rowDelete = document.getElementsByClassName('mbox-row-delete')[0];
-	 	this.rowDelete = document.getElementsByClassName('mbox-row-heart')[0];
-		*/
-		// player menu
-		
+
+	 	// play next and play previous icon 
+	 	this.playNext = document.getElementsByClassName('mbox-next-song-icon')[0];
+	 	this.playPre = document.getElementsByClassName('mbox-previous-song-icon')[0];
+	 	
+		// song row menu
 		this.showLyric = document.getElementsByClassName('mbox-lyricBtn')[0];
 		this.showHeartList = document.getElementsByClassName('mbox-lovelistBtn')[0];
 		this.shwoPlaylist = document.getElementsByClassName('mbox-playlistBtn')[0];
@@ -200,8 +200,6 @@ class MBox {
 	 	// }else{
 	 		
 	 	// }
-
-	 	// load playlist 
 
 	 	/*
 			@param {Object} progress bar needs to be update 
@@ -263,10 +261,10 @@ class MBox {
 	 								// if the song is not removed or deleted by user, we find the next song to play 
 	 								this.musicFile.src = this.musicPool[curKey].url;
 	 								// this.usrOption['music'] = this.musicPool[curKey];
-	 								this.loadSongInfo(this.musicPool[curKey]);
+	 								this.loadSongInfo(this.musicPool[curKey], this.LyricOn);
 	 								// this.processedLyric = processLyric(this.usrOption['music']['lyric_with_time'], this.usrOption['music']['lyric']);
 	 								// update current playing index 
-	 								this.curIdx++;
+	 								this.curIdx = ct;
 	 								this.play();
 	 								break;
 	 							}
@@ -274,6 +272,7 @@ class MBox {
 	 						// if there is no more song to play, stop the player 
 	 						if(ct===this.currentPlaylist.length) {
 	 							this.clearTime();
+	 							this.pause();
 	 						}
 	 					}
 	 			},200);
@@ -309,7 +308,7 @@ class MBox {
 	 			this.volumeIcon.innerHTML = this.getSvg(this.viewBox['mute'], this.svg['mute']);
 	 		}else if(curVolume > 0 && curVolume<0.6) {
 	 			this.volumeIcon.innerHTML = this.getSvg(this.viewBox['volume'], this.svg['volume']);
-	 		}else {
+	 		}else{
 	 			this.volumeIcon.innerHTML = this.getSvg(this.viewBox['high_volume'], this.svg['high_volume']);
 	 		}
 	 	}
@@ -319,6 +318,44 @@ class MBox {
 	 	this.clearTime = () => {
 	 		clearInterval(this.detectIdx);
 	 	}
+
+	 	/*
+			add listener to play next button
+	 	*/
+
+	 	this.playNext.addEventListener('click', ()=>{
+	 			let i=0;
+	 			for(i=this.curIdx+1; i<this.currentPlaylist.length; i++){
+	 				let nextSongToPlay = this.musicPool['_'+this.currentPlaylist[i]];
+	 				if(nextSongToPlay!==undefined && !nextSongToPlay.removed && !nextSongToPlay.deleted){
+	 					this.musicFile.src = nextSongToPlay.url;
+	 					this.loadSongInfo(nextSongToPlay, this.LyricOn);
+	 					this.play();
+	 					this.curIdx = i;
+	 					break;
+	 				}
+	 			}
+	 			if(i===this.currentPlaylist.length) alert('no more song to play');
+	 	});
+
+	 	/*
+			add listener to play previous button
+	 	*/
+
+	 	this.playPre.addEventListener('click', ()=>{
+	 		let i=0; 
+	 		for(i=this.curIdx-1; i>=0; i--){
+	 			let previousSong = this.musicPool['_' + this.currentPlaylist[i]];
+	 			if(previousSong!==undefined && !previousSong.removed && !previousSong.deleted){
+	 				this.musicFile.src = previousSong.url;
+	 				this.loadSongInfo(previousSong, this.LyricOn);
+	 				this.play();
+	 				this.curIdx = i;
+	 				break;
+	 			}
+	 		}
+	 		if(i===-1) alert('This is the first song already');
+	 	});
 
 	 	/*
 			add listener to volume bar 
@@ -353,21 +390,68 @@ class MBox {
 	 	});
 
 	 	this.shwoPlaylist.addEventListener('click', () => {
+	 		this.LyricOn = this.LyricOn? false : true;
 	 		this.displayAreaWrap.innerHTML = this.iniPlaylist.initPlaylist();
 	 		for(let key in this.musicPool){
-	 			let rowUI = this.iniPlaylist.addSongRow(this.musicPool[key], this.musicPool[key].like);
-				//console.log(rowUI);
-	 			let fakeEle = document.createElement('li');
-	 			fakeEle.innerHTML = rowUI;
-	 			let rowEle = fakeEle.children[0];
-	 			// console.log(rowEle);
-	 			let node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
-	 			// console.log(node);
-	 			node.appendChild(rowEle);
+	 			if(!this.musicPool[key].removed && !this.musicPool[key].deleted){
+	 				let rowUI = this.iniPlaylist.addSongRow(this.musicPool[key], this.musicPool[key].like);
+					//console.log(rowUI);
+	 				let fakeEle = document.createElement('li');
+	 				fakeEle.innerHTML = rowUI;
+	 				let rowEle = fakeEle.children[0];
+	 				// console.log(rowEle);
+	 				let node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
+	 				// console.log(node);
+	 				node.appendChild(rowEle);
+	 			}
 	 		}
+	 		// define method for row buttons
+	 		this.rowHeartIcons = document.getElementsByClassName('mbox-row-heart');
+	 		this.rowDeleteIcons = document.getElementsByClassName('mbox-row-garbage');
+	 		this.rowRemoveIcons = document.getElementsByClassName('mbox-row-remove');
+
+	 		// function handling click event for heart symbol 
+	 		let clickBind = (songId, i)=>{
+	 			return () => {
+	 				this.likeSong(songId);
+	 				this.rowHeartIcons[i].children[0].style['fill'] = this.musicPool['_'+songId].like? '#f0717d' : '#828a95';
+	 			}
+	 		};
+
+	 		// function handling click event for remove symbol
+	 		let clickRemoveBind = (songId) => {
+	 			return () => {
+	 				this.removeSong(songId);
+	 			}
+	 		};
+
+	 		// function handling click event for delete symbol 
+	 		let clickDeleteBind = (songId) => {
+	 			return () => {
+	 				this.deleteSong(songId);
+	 			}
+	 		}
+
+
+	 		// add listener to the icon
+	 		for(let i=0; i<this.rowHeartIcons.length; i++){
+	 			// console.log(this.rowHeartIcons[i].parentElement.parentElement);
+	 			let curID = this.rowHeartIcons[i].parentElement.parentElement.id;
+	 			this.rowHeartIcons[i].addEventListener('click', clickBind(curID, i));
+	 			this.rowRemoveIcons[i].addEventListener('click', clickRemoveBind(curID));
+	 			this.rowDeleteIcons[i].addEventListener('click', clickDeleteBind(curID));
+
+	 		}
+	 		// this.rowHeartIcons.addEventListener('click', (event)=>{
+	 		// 	// dealing with IE6-8 later
+	 		// 	let currentHeart = event.target;
+	 		// 	let songLikeID = currentHeart.parent.parent.id;
+	 		// 	this.likeSong(songLikeID);
+	 		// });
 	 	});
 
 	 	this.showLyric.addEventListener('click', () => {
+	 		if(!this.LyricOn) this.LyricOn = true;
 	 		let currentSong = this.musicPool['_' + this.currentPlaylist[this.curIdx]];
 	 		// console.log(currentSong);
 	 		// this.processedLyric = processLyric(currentSong['lyric_with_time'], currentSong['lyric']);
@@ -377,10 +461,11 @@ class MBox {
 	 	});
 
 	 	this.showHeartList.addEventListener('click', ()=>{
+	 		this.LyricOn = this.LyricOn? false : true;
 	 		this.displayAreaWrap.innerHTML = this.iniPlaylist.initPlaylist();
-	 		for(let i=0; i<this.heartPlaylist.length; i++){
-	 			let currentSong = this.musicPool['_'+this.heartPlaylist[i]];
-	 			if(currentSong.like){
+	 		for(let i=0; i<this.currentPlaylist.length; i++){
+	 			let currentSong = this.musicPool['_'+this.currentPlaylist[i]];
+	 			if(currentSong.like && !currentSong.removed && !currentSong.deleted){
 	 				// double check for validation 
 	 				let rowUI = this.iniPlaylist.addSongRow(currentSong, true);
 	 				let fakeEle = document.createElement('li');
@@ -392,8 +477,32 @@ class MBox {
 	 				node.appendChild(rowEle);
 	 			}
 	 		}
+
+	 		// define method for row buttons
+	 		this.rowHeartIcons = document.getElementsByClassName('mbox-row-heart');
+	 		this.rowDeleteIcons = document.getElementsByClassName('mbox-row-garbage');
+	 		this.rowRemoveIcons = document.getElementsByClassName('mbox-row-delete');
+
+	 		// function handling click event
+	 		let clickBind = (songId, i)=>{
+	 			return () => {
+	 				this.likeSong(songId);
+	 				// this.rowHeartIcons[i].children[0].style['fill'] = this.musicPool['_'+songId].like? '#f0717d' : '#828a95';
+	 				let rowEle = document.getElementById('' + songId);
+	 				rowEle.remove();
+	 			}
+	 		};
+
+	 		// add listners to the icon
+	 		for(let i=0; i<this.rowHeartIcons.length; i++){
+	 			// console.log(this.rowHeartIcons[i].parentElement.parentElement);
+	 			let curID = this.rowHeartIcons[i].parentElement.parentElement.id;
+	 			this.rowHeartIcons[i].addEventListener('click', clickBind(curID, i));
+
+	 		}
 	 	});
 	}
+	
 	/*
 		method for initialize the music player 
 	*/
@@ -436,7 +545,7 @@ class MBox {
 				this.musicFile.src = this.musicPool['_' + this.currentPlaylist[0]]['url'];
 
 				// console.log(this.musicPool);
-				this.loadSongInfo(this.musicPool['_' + this.currentPlaylist[0]]);
+				this.loadSongInfo(this.musicPool['_' + this.currentPlaylist[0]], true);
 				// this.play();
 
 	 			// console.log(this.musicPool);
@@ -453,16 +562,17 @@ class MBox {
 	/*
 		method for loading the UI components for player 
 	*/
-	loadSongInfo(song) {
+	loadSongInfo(song, lyricOn) {
 		// load the album cover 
 		this.coverArea.innerHTML = `<img src="${song['album_cover']}" width="70px" height="70px">`;
 		this.songInfo.innerText = '' + song['song_name'] + ' - ' + song['singer'];
 		this.albumName.innerText = '' + song['album']; 
-
-		if(this.usrOption['music']['lyric']===undefined){
-			this.usrOption['music']['lyric'] = this.noLyric;
-		}else{
-			this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area">' + song.lyric + '</div>';
+		if(lyricOn){
+			if(this.usrOption['music']['lyric']===undefined){
+				this.usrOption['music']['lyric'] = this.noLyric;
+			}else{
+				this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area">' + song.lyric + '</div>';
+	 		}
 	 	}
 	}
 
@@ -517,8 +627,8 @@ class MBox {
 	*/
 
 	removeSong(songID) {
-		let originID = songId;
-		this.musicPool[originID].removed = true;
+		let originID = songID;
+		this.musicPool['_' + originID].removed = true;
 		this.iniPlaylist.removeSongRow(songID);
 	}
 
@@ -542,6 +652,8 @@ class MBox {
 		xhrq.open('delete', url, true);
 		xhrq.send(null);
 
+		// remove the song row 
+		this.iniPlaylist.removeSongRow(songID);
 	}
 
 	/*
@@ -549,7 +661,7 @@ class MBox {
 	*/
 	likeSong(songID) {
 		console.log(this.musicPool);
-		this.musicPool['_' + songID].like = true;
+		this.musicPool['_' + songID].like = (this.musicPool['_' + songID].like? false : true);
 		let xmrq = new XMLHttpRequest();
 		let url = `http://localhost:8080/likeSong?songId=${encodeURIComponent(songID)}`;
 		xmrq.onreadystatechange = () => {

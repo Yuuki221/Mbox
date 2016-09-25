@@ -48,12 +48,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				key: "addSongRow",
 				value: function addSongRow(rowElement, like) {
 					console.log('in addSongRow');
-					return this.getRowUI(rowElement.song_name, rowElement.singer, rowElement.song_id, like);
+					// console.log(rowElement);
+					return this.getRowUI(rowElement.song_name, rowElement.singer, rowElement._id, like);
 				}
 			}, {
 				key: "removeSongRow",
 				value: function removeSongRow(songID) {
-					var rowToRemove = document.getElementById('' + song.song_id);
+					var rowToRemove = document.getElementById('' + songID);
 					var parentUL = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
 					parentUL.removeChild(rowToRemove);
 				}
@@ -69,7 +70,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				key: "getRowUI",
 				value: function getRowUI(songname, singer, songID, like) {
 					// console.log(like);
-					return "\n\t\t\t<li id=" + songID + " class=\"mbox-song-row\">\n\t\t\t\t<span class=\"mbox-song-row-songinfo\">" + songname + " - " + singer + "</span>\n\t\t\t\t<span class=\"mbox-song-row-setting-buttons\">\n\t\t\t\t<button class=\"icon mbox-row-buttons mbox-row-heart\">\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + this.svgInfo.viewBox['heart'] + "\" style=\"fill : " + (like ? '#f0717d' : '#828a95') + ";\">\n\t\t\t\t\t\t<path d=\"" + this.svgInfo.svg['heart'] + "\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t<button class=\"icon mbox-row-buttons mbox-row-garbage\">\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + this.svgInfo.viewBox['garbage'] + "\">\n\t\t\t\t\t\t<path d=\"" + this.svgInfo.svg['garbage'] + "\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t<button class=\"icon mbox-row-buttons mbox-row-remove\">\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + this.svgInfo.viewBox['delete'] + "\">\n\t\t\t\t\t\t<path d=\"" + this.svgInfo.svg['delete'] + "\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t</span>\n\t\t\t</li>\n\t\t";
+					return "\n\t\t\t<li id=\"" + songID + "\" class=\"mbox-song-row\">\n\t\t\t\t<span class=\"mbox-song-row-songinfo\">" + songname + " - " + singer + "</span>\n\t\t\t\t<span class=\"mbox-song-row-setting-buttons\">\n\t\t\t\t<button class=\"icon mbox-row-buttons mbox-row-heart\">\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + this.svgInfo.viewBox['heart'] + "\" style=\"fill : " + (like ? '#f0717d' : '#828a95') + ";\">\n\t\t\t\t\t\t<path d=\"" + this.svgInfo.svg['heart'] + "\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t<button class=\"icon mbox-row-buttons mbox-row-garbage\">\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + this.svgInfo.viewBox['garbage'] + "\">\n\t\t\t\t\t\t<path d=\"" + this.svgInfo.svg['garbage'] + "\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t<button class=\"icon mbox-row-buttons mbox-row-remove\">\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + this.svgInfo.viewBox['delete'] + "\">\n\t\t\t\t\t\t<path d=\"" + this.svgInfo.svg['delete'] + "\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t</span>\n\t\t\t</li>\n\t\t";
 				}
 			}]);
 
@@ -189,6 +190,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				// bar length 
 				this.volumeBarLen = 50;
 				this.progressBarLen = 225;
+
+				// body part flag 
+				this.LyricOn = true;
 				/*
     player related elements 
     */
@@ -212,15 +216,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				// display area
 				this.displayArea = document.getElementsByClassName('mbox-multidisplay-area')[0];
 				this.displayAreaWrap = document.getElementsByClassName('mbox-multidisplay-area-wrap')[0];
-				// this.displayAreaWrap.innerHTML = this.iniPlaylist.initPlaylist();
-				// song row menu
-				/**
-    this.rowRemove = document.getElementsByClassName('mbox-row-remove')[0];
-    this.rowDelete = document.getElementsByClassName('mbox-row-delete')[0];
-    this.rowDelete = document.getElementsByClassName('mbox-row-heart')[0];
-    */
-				// player menu
 
+				// play next and play previous icon 
+				this.playNext = document.getElementsByClassName('mbox-next-song-icon')[0];
+				this.playPre = document.getElementsByClassName('mbox-previous-song-icon')[0];
+
+				// song row menu
 				this.showLyric = document.getElementsByClassName('mbox-lyricBtn')[0];
 				this.showHeartList = document.getElementsByClassName('mbox-lovelistBtn')[0];
 				this.shwoPlaylist = document.getElementsByClassName('mbox-playlistBtn')[0];
@@ -230,8 +231,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				// }else{
 
 				// }
-
-				// load playlist 
 
 				/*
     @param {Object} progress bar needs to be update 
@@ -293,10 +292,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 										// if the song is not removed or deleted by user, we find the next song to play 
 										_this.musicFile.src = _this.musicPool[curKey].url;
 										// this.usrOption['music'] = this.musicPool[curKey];
-										_this.loadSongInfo(_this.musicPool[curKey]);
+										_this.loadSongInfo(_this.musicPool[curKey], _this.LyricOn);
 										// this.processedLyric = processLyric(this.usrOption['music']['lyric_with_time'], this.usrOption['music']['lyric']);
 										// update current playing index 
-										_this.curIdx++;
+										_this.curIdx = ct;
 										_this.play();
 										break;
 									}
@@ -304,6 +303,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 								// if there is no more song to play, stop the player 
 								if (ct === _this.currentPlaylist.length) {
 									_this.clearTime();
+									_this.pause();
 								}
 							}
 						}, 200);
@@ -351,6 +351,44 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				};
 
 				/*
+    add listener to play next button
+    */
+
+				this.playNext.addEventListener('click', function () {
+					var i = 0;
+					for (i = _this.curIdx + 1; i < _this.currentPlaylist.length; i++) {
+						var nextSongToPlay = _this.musicPool['_' + _this.currentPlaylist[i]];
+						if (nextSongToPlay !== undefined && !nextSongToPlay.removed && !nextSongToPlay.deleted) {
+							_this.musicFile.src = nextSongToPlay.url;
+							_this.loadSongInfo(nextSongToPlay, _this.LyricOn);
+							_this.play();
+							_this.curIdx = i;
+							break;
+						}
+					}
+					if (i === _this.currentPlaylist.length) alert('no more song to play');
+				});
+
+				/*
+    add listener to play previous button
+    */
+
+				this.playPre.addEventListener('click', function () {
+					var i = 0;
+					for (i = _this.curIdx - 1; i >= 0; i--) {
+						var previousSong = _this.musicPool['_' + _this.currentPlaylist[i]];
+						if (previousSong !== undefined && !previousSong.removed && !previousSong.deleted) {
+							_this.musicFile.src = previousSong.url;
+							_this.loadSongInfo(previousSong, _this.LyricOn);
+							_this.play();
+							_this.curIdx = i;
+							break;
+						}
+					}
+					if (i === -1) alert('This is the first song already');
+				});
+
+				/*
     add listener to volume bar 
     */
 				this.volumeBarOutter.addEventListener('click', function (event) {
@@ -383,21 +421,66 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				});
 
 				this.shwoPlaylist.addEventListener('click', function () {
+					_this.LyricOn = _this.LyricOn ? false : true;
 					_this.displayAreaWrap.innerHTML = _this.iniPlaylist.initPlaylist();
 					for (var key in _this.musicPool) {
-						var rowUI = _this.iniPlaylist.addSongRow(_this.musicPool[key], _this.musicPool[key].like);
-						//console.log(rowUI);
-						var fakeEle = document.createElement('li');
-						fakeEle.innerHTML = rowUI;
-						var rowEle = fakeEle.children[0];
-						// console.log(rowEle);
-						var node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
-						// console.log(node);
-						node.appendChild(rowEle);
+						if (!_this.musicPool[key].removed && !_this.musicPool[key].deleted) {
+							var rowUI = _this.iniPlaylist.addSongRow(_this.musicPool[key], _this.musicPool[key].like);
+							//console.log(rowUI);
+							var fakeEle = document.createElement('li');
+							fakeEle.innerHTML = rowUI;
+							var rowEle = fakeEle.children[0];
+							// console.log(rowEle);
+							var node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
+							// console.log(node);
+							node.appendChild(rowEle);
+						}
 					}
+					// define method for row buttons
+					_this.rowHeartIcons = document.getElementsByClassName('mbox-row-heart');
+					_this.rowDeleteIcons = document.getElementsByClassName('mbox-row-garbage');
+					_this.rowRemoveIcons = document.getElementsByClassName('mbox-row-remove');
+
+					// function handling click event for heart symbol 
+					var clickBind = function clickBind(songId, i) {
+						return function () {
+							_this.likeSong(songId);
+							_this.rowHeartIcons[i].children[0].style['fill'] = _this.musicPool['_' + songId].like ? '#f0717d' : '#828a95';
+						};
+					};
+
+					// function handling click event for remove symbol
+					var clickRemoveBind = function clickRemoveBind(songId) {
+						return function () {
+							_this.removeSong(songId);
+						};
+					};
+
+					// function handling click event for delete symbol 
+					var clickDeleteBind = function clickDeleteBind(songId) {
+						return function () {
+							_this.deleteSong(songId);
+						};
+					};
+
+					// add listener to the icon
+					for (var i = 0; i < _this.rowHeartIcons.length; i++) {
+						// console.log(this.rowHeartIcons[i].parentElement.parentElement);
+						var curID = _this.rowHeartIcons[i].parentElement.parentElement.id;
+						_this.rowHeartIcons[i].addEventListener('click', clickBind(curID, i));
+						_this.rowRemoveIcons[i].addEventListener('click', clickRemoveBind(curID));
+						_this.rowDeleteIcons[i].addEventListener('click', clickDeleteBind(curID));
+					}
+					// this.rowHeartIcons.addEventListener('click', (event)=>{
+					// 	// dealing with IE6-8 later
+					// 	let currentHeart = event.target;
+					// 	let songLikeID = currentHeart.parent.parent.id;
+					// 	this.likeSong(songLikeID);
+					// });
 				});
 
 				this.showLyric.addEventListener('click', function () {
+					if (!_this.LyricOn) _this.LyricOn = true;
 					var currentSong = _this.musicPool['_' + _this.currentPlaylist[_this.curIdx]];
 					// console.log(currentSong);
 					// this.processedLyric = processLyric(currentSong['lyric_with_time'], currentSong['lyric']);
@@ -407,10 +490,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				});
 
 				this.showHeartList.addEventListener('click', function () {
+					_this.LyricOn = _this.LyricOn ? false : true;
 					_this.displayAreaWrap.innerHTML = _this.iniPlaylist.initPlaylist();
-					for (var i = 0; i < _this.heartPlaylist.length; i++) {
-						var currentSong = _this.musicPool['_' + _this.heartPlaylist[i]];
-						if (currentSong.like) {
+					for (var i = 0; i < _this.currentPlaylist.length; i++) {
+						var currentSong = _this.musicPool['_' + _this.currentPlaylist[i]];
+						if (currentSong.like && !currentSong.removed && !currentSong.deleted) {
 							// double check for validation 
 							var rowUI = _this.iniPlaylist.addSongRow(currentSong, true);
 							var fakeEle = document.createElement('li');
@@ -422,8 +506,31 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 							node.appendChild(rowEle);
 						}
 					}
+
+					// define method for row buttons
+					_this.rowHeartIcons = document.getElementsByClassName('mbox-row-heart');
+					_this.rowDeleteIcons = document.getElementsByClassName('mbox-row-garbage');
+					_this.rowRemoveIcons = document.getElementsByClassName('mbox-row-delete');
+
+					// function handling click event
+					var clickBind = function clickBind(songId, i) {
+						return function () {
+							_this.likeSong(songId);
+							// this.rowHeartIcons[i].children[0].style['fill'] = this.musicPool['_'+songId].like? '#f0717d' : '#828a95';
+							var rowEle = document.getElementById('' + songId);
+							rowEle.remove();
+						};
+					};
+
+					// add listners to the icon
+					for (var _i = 0; _i < _this.rowHeartIcons.length; _i++) {
+						// console.log(this.rowHeartIcons[i].parentElement.parentElement);
+						var curID = _this.rowHeartIcons[_i].parentElement.parentElement.id;
+						_this.rowHeartIcons[_i].addEventListener('click', clickBind(curID, _i));
+					}
 				});
 			}
+
 			/*
    	method for initialize the music player 
    */
@@ -472,7 +579,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 							_this2.musicFile.src = _this2.musicPool['_' + _this2.currentPlaylist[0]]['url'];
 
 							// console.log(this.musicPool);
-							_this2.loadSongInfo(_this2.musicPool['_' + _this2.currentPlaylist[0]]);
+							_this2.loadSongInfo(_this2.musicPool['_' + _this2.currentPlaylist[0]], true);
 							// this.play();
 
 							// console.log(this.musicPool);
@@ -491,16 +598,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 			}, {
 				key: "loadSongInfo",
-				value: function loadSongInfo(song) {
+				value: function loadSongInfo(song, lyricOn) {
 					// load the album cover 
 					this.coverArea.innerHTML = "<img src=\"" + song['album_cover'] + "\" width=\"70px\" height=\"70px\">";
 					this.songInfo.innerText = '' + song['song_name'] + ' - ' + song['singer'];
 					this.albumName.innerText = '' + song['album'];
-
-					if (this.usrOption['music']['lyric'] === undefined) {
-						this.usrOption['music']['lyric'] = this.noLyric;
-					} else {
-						this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area">' + song.lyric + '</div>';
+					if (lyricOn) {
+						if (this.usrOption['music']['lyric'] === undefined) {
+							this.usrOption['music']['lyric'] = this.noLyric;
+						} else {
+							this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area">' + song.lyric + '</div>';
+						}
 					}
 				}
 
@@ -559,8 +667,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 			}, {
 				key: "removeSong",
 				value: function removeSong(songID) {
-					var originID = songId;
-					this.musicPool[originID].removed = true;
+					var originID = songID;
+					this.musicPool['_' + originID].removed = true;
 					this.iniPlaylist.removeSongRow(songID);
 				}
 
@@ -586,6 +694,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					};
 					xhrq.open('delete', url, true);
 					xhrq.send(null);
+
+					// remove the song row 
+					this.iniPlaylist.removeSongRow(songID);
 				}
 
 				/*
@@ -596,7 +707,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				key: "likeSong",
 				value: function likeSong(songID) {
 					console.log(this.musicPool);
-					this.musicPool['_' + songID].like = true;
+					this.musicPool['_' + songID].like = this.musicPool['_' + songID].like ? false : true;
 					var xmrq = new XMLHttpRequest();
 					var url = "http://localhost:8080/likeSong?songId=" + encodeURIComponent(songID);
 					xmrq.onreadystatechange = function () {

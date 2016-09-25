@@ -29,11 +29,12 @@ class BuildPlayList {
 
 	addSongRow(rowElement, like) {
 		console.log('in addSongRow');
-		return this.getRowUI(rowElement.song_name, rowElement.singer, rowElement.song_id, like);
+		// console.log(rowElement);
+		return this.getRowUI(rowElement.song_name, rowElement.singer, rowElement._id, like);
 	}
 
 	removeSongRow(songID) {
-		let rowToRemove = document.getElementById(''+song.song_id);
+		let rowToRemove = document.getElementById(''+songID);
 		let parentUL = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
 		parentUL.removeChild(rowToRemove);
 	}
@@ -48,7 +49,7 @@ class BuildPlayList {
 	getRowUI(songname, singer, songID, like){
 		// console.log(like);
 		return `
-			<li id=${songID} class="mbox-song-row">
+			<li id="${songID}" class="mbox-song-row">
 				<span class="mbox-song-row-songinfo">${songname} - ${singer}</span>
 				<span class="mbox-song-row-setting-buttons">
 				<button class="icon mbox-row-buttons mbox-row-heart">

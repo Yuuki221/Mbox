@@ -193,6 +193,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 				// body part flag 
 				this.LyricOn = true;
+
+				// lyric block line height for scroll dynamic music use 
+				this.lyricLineHeight = 0;
 				/*
     player related elements 
     */
@@ -273,8 +276,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 						_this.detectIdx = setInterval(function () {
 							musicCurrentTime = Math.floor(_this.musicFile.currentTime);
 							musicTotalTime = Math.floor(_this.musicFile.duration);
-							_this.playedTime.innerHTML = '' + transformTime(musicCurrentTime);
+							var currentTimeKey = '' + transformTime(musicCurrentTime);
+							_this.playedTime.innerHTML = currentTimeKey;
 							_this.totalTime.innerHTML = '' + transformTime(musicTotalTime);
+							// dealing with moving lyric
+							if (true) {
+								var theLyr = document.getElementsByClassName('mbox-multidisplay-area')[0];
+								console.log(_this.musicPool['_' + _this.currentPlaylist[_this.curIdx]].lyricTime[currentTimeKey]);
+								if (_this.musicPool['_' + _this.currentPlaylist[_this.curIdx]].lyricTime[currentTimeKey]) {
+									theLyr.scrollTop += 15;
+									_this.musicPool['_' + _this.currentPlaylist[_this.curIdx]].lyricTime[currentTimeKey] = false;
+									console.log(theLyr.scrollTop);
+								}
+							}
 							var playPercent = musicCurrentTime / musicTotalTime;
 							_this.updateProgressBar('playProgress', playPercent, 'width');
 							if (!buffering && musicCurrentTime - musicLastTime < 0.2 && !_this.musicFile.paused && !_this.musicFile.ended) {
@@ -286,6 +300,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 							if (_this.musicFile.ended) {
 								_this.playBtn.innerHTML = _this.getSvg(_this.viewBox['play'], _this.svg['play']);
 								var ct = _this.curIdx;
+								// set back lyric time to true 
+								var endedSong = _this.musicPool['_' + _this.currentPlaylist[_this.curIdx]];
+								if (endedSong.lyric_with_time) {
+									for (var key in endedSong.lyricTime) {
+										endedSong.lyricTime[key] = true;
+									}
+								}
 								for (ct = _this.curIdx + 1; ct < _this.currentPlaylist.length; ct++) {
 									var curKey = '_' + _this.currentPlaylist[ct];
 									if (!_this.musicPool[curKey].removed && !_this.musicPool[curKey].deleted) {
@@ -348,6 +369,30 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     */
 				this.clearTime = function () {
 					clearInterval(_this.detectIdx);
+				};
+
+				/*
+    compute the lyric line height
+    */
+				this.getLyricLineHeight = function () {
+					if (_this.LyricOn) {
+						var lyricArea = document.getElementsByClassName('mbox-multidisplay-area')[0];
+						var cssLineHeight = pareseInt(getStyle(lyricArea, 'line-height'), 10);
+						var clone = undefined;
+						var computedLineHeigh = undefined;
+						if (isNaN(cssLineHeight)) {
+							clone = element.cloneNode();
+							clone.innerHTML = '<br><br>';
+							element.appendChild(clone);
+							var twoline = clone.offsetHeight;
+							clone.innerHTML = '<br><br><br><br>';
+							var fourline = clone.offsetHeigh;
+							element.removeChild(clone);
+							computedLineHeigh = fourline - twoline;
+						}
+						return computedLineHeigh;
+					}
+					return 0;
 				};
 
 				/*
@@ -560,7 +605,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 								_this2.currentPlaylist.push(Number(key.substring(1)));
 								if (currentSong.like) _this2.heartPlaylist.push(Number(key.substring(1)));
 								// process the lyric once they enter the API 
-								currentSong.lyric = processLyric(currentSong['lyric_with_time'], currentSong['lyric']);
+								var returnedLyric = processLyric(currentSong['lyric_with_time'], currentSong['lyric']);
+								currentSong.lyric = returnedLyric.processedText;
+								// console.log(currentSong.lyric);
+								currentSong.lyricTime = returnedLyric.lyricObj;
+								// console.log(currentSong.lyricTime);
 								//this.iniPlaylist.addSongRow(this.musicPool[key]);
 								/**
         let rowUI = this.iniPlaylist.addSongRow(this.musicPool[key]);
@@ -622,25 +671,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				key: "addSong",
 				value: function addSong(newSong) {
 					// process new id
-					var newSecondId = Object.keys(this.musicPool).length;
-					var newId = '_' + newSecondId;
-					// add music file to current musicPool
-					newSong.second_id = newSecondId;
-					newSong.removed = false;
-					newSong.deleted = false;
-					this.musicPool[newId] = newSong;
-					this.currentPlaylist.push(newSecondId);
 
-					var rowUI = this.iniPlaylist.addSongRow(newSong, false);
-					//console.log(rowUI);
-					var fakeEle = document.createElement('li');
-					fakeEle.innerHTML = rowUI;
-					var rowEle = fakeEle.children[0];
-					// console.log(rowEle);
-					var node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
-					// console.log(node);
-					node.appendChild(rowEle);
-					this.musicPool['_' + Object.keys(this.musicPool).length] = newSong;
+					// let newSecondId = Object.keys(this.musicPool).length;
+					// find the largest id
+					var maxId = 0;
+					for (var key in this.musicPool) {
+						maxId = Math.max(maxId, this.musicPool[key]._id);
+					}
+					// add music file to current musicPool
+					// newSong.second_id = newSecondId;
+					/**
+     let rowUI = this.iniPlaylist.addSongRow(newSong, false);
+     //console.log(rowUI);
+     	let fakeEle = document.createElement('li');
+     	fakeEle.innerHTML = rowUI;
+     	let rowEle = fakeEle.children[0];
+     	// console.log(rowEle);
+     	let node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
+     	// console.log(node);
+     	node.appendChild(rowEle);
+     	*/
 
 					// dealing with backend problem here 
 					var xhrq = new XMLHttpRequest();
@@ -653,11 +703,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 						if (xhrq.readyState === XMLHttpRequest.DONE) {
 							alert(xhrq.responseText);
 							console.log("Sucessfully send song information.");
-							newSong.lyric = processLyric(newSong['lyric_with_time'], newSong['lyric']);
 							// playlistData here 
 						}
 					};
 					xhrq.send(JSON.stringify(newSong));
+
+					// add the song to current playlist
+					var newId = '_' + (maxId + 1);
+					this.musicPool[newId] = newSong;
+					newSong._id = maxId + 1;
+					newSong.removed = false;
+					newSong.deleted = false;
+					var returnedLyric = processLyric(newSong['lyric_with_time'], newSong['lyric']);
+					newSong.lyric = returnedLyric.processedText;
+					newSong.lyticTime = returnedLyric.lyricObj;
+					newsong.like = false;
+					this.musicPool[newId] = newSong;
+					this.currentPlaylist.push(maxId + 1);
 				}
 
 				/*
@@ -828,7 +890,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   */
 
 		var processLyric = function processLyric(time, lyrics) {
-			var processedLyrics = '';
+			var processedLyrics = '',
+			    lyricObj = {};
 			if (!time) {
 				// process with lyrics without time information 
 				// if the entry is empty then replace with a new line symbol
@@ -840,79 +903,100 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					}
 				}
 				processedLyrics = lyrics.join('');
-				console.log('processed?');
+				// console.log('processed?');
+			} else {
+				var processedText = [];
+				for (var _i2 = 0; _i2 < lyrics.length; _i2++) {
+					if (!lyrics[_i2]) {
+						processedText.push('<br><br>');
+					} else {
+						// generate lyrics text now
+						processedText.push(lyrics[_i2][1] + '<br><br>');
+						// generate lyric object 
+						lyricObj[lyrics[_i2][0]] = true;
+					}
+				}
+				processedLyrics = processedText.join('');
 			}
-			return processedLyrics;
+			// console.log(processedLyrics);
+			return {
+				'processedText': processedLyrics,
+				'lyricObj': lyricObj
+			};
 		};
 
 		module.exports = processLyric;
-
 		/**
-  var lyrics = [
-  	 				'You Need Me - KENN',
+  var testLyric = [
+  	 				['00:00', 'WAVE - kradness'],
   	 				'',
-  	 				'君は　覚えているかい',
-  	 				'はじめて 出会えた時',
-  	 				'(Baby I need you)',
-  	 				'何故か　ふいに横切る',
-  	 				'おそれや　不安を確かめる',
+  	 				['00:31', '間違（まちが）えて宇宙（うちゅう）終（お）わって'],
+  	 				['00:32', '青信号（あおしんごう）はいつも通（とお）り'],
+  	 				['00:35', '飛（と）んでまた止（とま）まって'],
+  	 				['00:37', 'また　飛（と）びそうだ'],
+  	 				['00:39', 'ココロコネクト'],
+  	 				['00:40', '古代人（こだいじん）と恋（こい）した'],
+  	 				['00:42', '妄想（もうそう）コレクト'],
+  	 				['00:44', '化石的（かせきてき）なロマンス'],
+  	 				['00:46', 'はぁ…夢（ゆめ）に踊（おど）るの'],
   	 				'',
-  	 				'上手く言葉じゃ君に',
-  	 				'伝えられないけれと',
-  	 				"(I'm missing you)",
-  	 				'誤解しないで　悲しまないで',
-  	 				'勇気出して　歩き出すよ',
-  	 				'So Feeling my heart',
+  	 				['00:49', '月（つき）の灯（あか）りが'],
+  	 				['00:51', '僕（ぼく）を包（つつ）んで'],
+  	 				['00:53', '鳴（な）り響（ひび）く音（おと）カラダを'],
+  	 				['00:55', '飲（の）み込（こ）んでいく'],
+  	 				['00:57', 'もう恐（おそ）れることを'],
+  	 				['00:59', '感（かん）じないくらいの'],
+  	 				['01:01', '眩（まぶ）しさに'],
+  	 				['01:02', '今（いま）ココロを'],
+  	 				['01:03', '狙（ねら）われているの'],
+  	 				['01:05', '回（まわ）る　回（まわ）る　世界（せかい）は'],
+  	 				['01:08', '///W/A//VE//'],
   	 				'',
-  	 				'君の名前を（呼んでいるよ)',
-  	 				'僕のメロディー　この歌に乗せて',
-  	 				'大好きだから（心つなぐ）',
-  	 				'この道をゆこう　永久に',
-  	 				'例えどんなに　苦しい時も',
-  	 				'もう　離れないから',
-  	 				'これからもずっと',
+  	 				['01:22', '考（かんが）えてみて止（と）まって'],
+  	 				['01:24', '赤信号（あかしんごう）は狙（ねら）い通（とお）り'],
+  	 				['01:27', '逃（に）げたくて滑（すべ）って'],
+  	 				['01:29', 'また　逃（に）げそうだ'],
+  	 				['01:31', '開（ひら）けネクスト'],
+  	 				['01:32', '宇宙人（うちゅうじん）とＳｋｙｐｅ'],
+  	 				['01:34', '妄想（もうそう）セレクト'],
+  	 				['01:36', '電波的（でんぱてき）なロマンス'],
+  	 				['01:38', 'はぁ…夜（よる）に眠（ねむ）るの'],
   	 				'',
-  	 				'愛に 終わりはあるか',
-  	 				'はじめて 考えたよ',
-  	 				"(So Don't you fake me?)",
-  	 				'そうさ 失うことが',
-  	 				'怖くて 不安を抱きしめる',
+  	 				['01:41', '月（つき）の灯（あか）りが'],
+  	 				['01:43', '僕（ぼく）を包（つつ）んで'],
+  	 				['01:45', '鳴（な）り響（ひび）く音（おと）カラダを'],
+  	 				['01:47', 'また惑（まど）わせる'],
+  	 				['01:48', 'もう暴（あば）れることを'],
+  	 				['01:50', '忘（わす）れちゃうくらいの'],
+  	 				['01:52', '眩（まぶ）しさに'],
+  	 				['01:53', '今（いま）ココロを'],
+  	 				['01:54', '狙（ねら）われているの'],
+  	 				['01:56', '迫（せま）る　迫（せま）る　未来（みらい）は'],
+  	 				'///W/A//VE//',
   	 				'',
-  	 				'君に　触れた瞬間（聞こえる)',
-  	 				'鼓動　揺らめいた瞳が',
-  	 				"(Don't be afraid)",
-  	 				'僕を見つめて　変わらぬまま',
-  	 				'2人で　愛を誓い合おう',
-  	 				'So just stay with me',
+  	 				['02:00', 'はぁーん…'],
+  	 				['02:23', '夢（ゆめ）に踊（おど）るのー'],
+  	 				['02:25', '明日（あした）の声（こえ）が'],
+  	 				['02:27', '僕（ぼく）を誘（さそ）って'],
+  	 				['02:29', '鳴（な）り響（ひび）く音（おと）ミライを'],
+  	 				['02:31', '塗（ぬ）り替（か）えていく'],
+  	 				['02:33', 'もう留（とど）まることを'],
+  	 				['02:35', '許（ゆる）さないくらいの'],
   	 				'',
-  	 				'君への愛を（叫んでるよ）',
-  	 				'僕のメロディー　この声に乗せて',
-  	 				'大好きだから（溢れるほど）',
-  	 				'この道を行こう　永久に',
-  	 				'例えどんなに　苦しい時も',
-  	 				'もう　迷わないから',
-  	 				'これからもずっと',
+  	 				['02:37', '眩（まぶ）しさに'],
+  	 				['02:38', '今（いま）ココロを'],
+  	 				['02:39', '狙（ねら）われているの'],
+  	 				['02:41', '回（まわ）る　回（まわ）る　世界（せかい）から'],
+  	 				['02:44', '見（み）える　見（み）える'],
+  	 				['02:46', '未来（みらい）'],
   	 				'',
-  	 				'I miss you　消えないで',
-  	 				'(Oh my sweet baby)',
-  	 				'僕が守るから',
-  	 				'',
-  	 				'そばにいるよ···',
-  	 				'',
-  	 				'君の名前を（呼んでいるよ）',
-  	 				'僕のメロディー　この歌に乗せて',
-  	 				'大好きだから（心つなぐ）',
-  	 				'この道をゆこう　永久に',
-  	 				'',
-  	 				'例えどんなに　苦しい時も',
-  	 				'もう　離さないから',
-  	 				'もう　迷わないから',
-  	 				'これからもずっと',
-  	 				'',
-  	 				"I don't wanna leave you"
+  	 				['02:48', 'らららーららーららー'],
+  	 				['02:49', 'らららーららーららー'],
+  	 				['02:55', 'らららーららーららー'],
+  	 				['02:57', 'らららーららーららー']
   	 			];
-  	 console.log(processLyric(false, lyrics));
-  	 */
+  console.log(processLyric(true, testLyric));
+  */
 	}, {}], 7: [function (require, module, exports) {
 		/*
   	svg icon path and viewBox information 

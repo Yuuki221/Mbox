@@ -46,15 +46,17 @@ var Song = mongoose.model('Song', songSchema);
 var currentMaxID = -1;
 var maxIDQuery = Song.find().sort({song_id : -1}).limit(1);
 maxIDQuery.exec(function(err, maxResult){
+	// console.log(maxResult);
 	if(err) {
-		console.log(err);
+		// console.log(err);
 		return;
 	}else{
 		// currentMaxID = maxResult.song_id;
 		if(maxResult.length===0){
 			currentMaxID = 0;
 		}else{
-			currentMaxID = maxResult.song_id;
+			currentMaxID = maxResult[0].song_id;
+			// console.log(currentMaxID);
 		}
 	}
 });
@@ -139,7 +141,7 @@ app.get('/getSongPool', function(req, res){
 				item.album = allSongs[i].album_name;
 				item.album_cover = allSongs[i].album_cover;
 				item.like = allSongs[i].like;
-				item.lyric_with_time = false;
+				item.lyric_with_time = allSongs[i].lyric_with_time;
 				item.lyric = allSongs[i].lyric;
 				songInformation['_' + item._id] = item;
 			}

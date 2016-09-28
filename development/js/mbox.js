@@ -251,12 +251,14 @@ class MBox {
 	 				// dealing with moving lyric
 	 				if(true){
 	 					let theLyr = document.getElementsByClassName('mbox-multidisplay-area')[0];
-	 					console.log(this.musicPool['_' + this.currentPlaylist[this.curIdx]].lyricTime[currentTimeKey]);
+	 					// console.log(this.musicPool['_' + this.currentPlaylist[this.curIdx]].lyricTime[currentTimeKey]);
 	 					if(this.musicPool['_' + this.currentPlaylist[this.curIdx]].lyricTime[currentTimeKey]){
-	 						theLyr.scrollTop+=15;
+	 						theLyr.scrollTop+=16;
 	 						this.musicPool['_' + this.currentPlaylist[this.curIdx]].lyricTime[currentTimeKey] = false;
+	 						let curLyricLine = document.getElementById(currentTimeKey);
+	 						curLyricLine.style.color = '#dff3e3';
 	 						// console.log(theLyr.scrollTop);
-	 					} 
+	 					}
 	 				}
 	 					let playPercent = musicCurrentTime/musicTotalTime;
 	 					this.updateProgressBar('playProgress', playPercent, 'width');
@@ -419,7 +421,20 @@ class MBox {
 	 		let clickX = event.clientX,
 	 			barX = getPosition(this.playProgressOuter, 'left'),
 	 			percentage = (clickX - barX)/this.progressBarLen;
+	 			// previousTime = this.musicFile.currentTime;
 	 		this.musicFile.currentTime = (percentage>1? 1 : (percentage<0? 0 : percentage))*this.musicFile.duration;
+	 		// set the lyric to correct place and color 
+	 		let curSong = this.musicPool['_' + this.currentPlaylist[this.curIdx]];
+	 		if(curSong.lyric_with_time){
+	 			// if the song has timed lyrics
+	 			let timePool = curSong.lyricTime, lineCt = 0;
+	 			for(let key in timePool){
+	 				if(key<this.musicFile.currentTime){
+	 					document.getElementById(key).color = '#dff3e3';
+	 					lineCt++;
+	 				}
+	 			}
+	 		}
 	 		this.updateProgressBar('playPorgress', percentage, 'width');
 	 	});
 
@@ -499,7 +514,7 @@ class MBox {
 	 		// console.log(currentSong);
 	 		// this.processedLyric = processLyric(currentSong['lyric_with_time'], currentSong['lyric']);
 	 		// let fakeElement = document.createElement('div');
-			this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area">' + currentSong.lyric + '</div>';
+			this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area"><div class="mbox-lyric-prefix"></div><div>' + currentSong.lyric + '</div><div class="mbox-lyric-prefix"></div></div>';
 	 		// console.log(currentSong['lyric']);
 	 	});
 
@@ -618,7 +633,7 @@ class MBox {
 			if(this.usrOption['music']['lyric']===undefined){
 				this.usrOption['music']['lyric'] = this.noLyric;
 			}else{
-				this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area">' + song.lyric + '</div>';
+				this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area"><div class="mbox-lyric-prefix"></div><div>' + song.lyric + '</div><div class="mbox-lyric-prefix"></div></div>';
 	 		}
 	 	}
 	}

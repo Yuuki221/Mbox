@@ -282,11 +282,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 							// dealing with moving lyric
 							if (true) {
 								var theLyr = document.getElementsByClassName('mbox-multidisplay-area')[0];
-								console.log(_this.musicPool['_' + _this.currentPlaylist[_this.curIdx]].lyricTime[currentTimeKey]);
+								// console.log(this.musicPool['_' + this.currentPlaylist[this.curIdx]].lyricTime[currentTimeKey]);
 								if (_this.musicPool['_' + _this.currentPlaylist[_this.curIdx]].lyricTime[currentTimeKey]) {
-									theLyr.scrollTop += 15;
+									theLyr.scrollTop += 16;
 									_this.musicPool['_' + _this.currentPlaylist[_this.curIdx]].lyricTime[currentTimeKey] = false;
-									console.log(theLyr.scrollTop);
+									var curLyricLine = document.getElementById(currentTimeKey);
+									curLyricLine.style.color = '#dff3e3';
+									// console.log(theLyr.scrollTop);
 								}
 							}
 							var playPercent = musicCurrentTime / musicTotalTime;
@@ -530,7 +532,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					// console.log(currentSong);
 					// this.processedLyric = processLyric(currentSong['lyric_with_time'], currentSong['lyric']);
 					// let fakeElement = document.createElement('div');
-					_this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area">' + currentSong.lyric + '</div>';
+					_this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area"><div class="mbox-lyric-prefix"></div><div>' + currentSong.lyric + '</div><div class="mbox-lyric-prefix"></div></div>';
 					// console.log(currentSong['lyric']);
 				});
 
@@ -656,7 +658,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 						if (this.usrOption['music']['lyric'] === undefined) {
 							this.usrOption['music']['lyric'] = this.noLyric;
 						} else {
-							this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area">' + song.lyric + '</div>';
+							this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area"><div class="mbox-lyric-prefix"></div><div>' + song.lyric + '</div><div class="mbox-lyric-prefix"></div></div>';
 						}
 					}
 				}
@@ -897,9 +899,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				// if the entry is empty then replace with a new line symbol
 				for (var i = 0; i < lyrics.length; i++) {
 					if (!lyrics[i]) {
-						lyrics[i] = '<br><br>';
+						lyrics[i] = '<br>';
 					} else {
-						lyrics[i] += '<br><br>';
+						lyrics[i] += '<br>';
 					}
 				}
 				processedLyrics = lyrics.join('');
@@ -907,11 +909,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 			} else {
 				var processedText = [];
 				for (var _i2 = 0; _i2 < lyrics.length; _i2++) {
-					if (!lyrics[_i2]) {
-						processedText.push('<br><br>');
-					} else {
+					if (lyrics[_i2]) {
+						// processedText.push('<br><br>');
+						// }else{
 						// generate lyrics text now
-						processedText.push(lyrics[_i2][1] + '<br><br>');
+						processedText.push("<span id=\"" + lyrics[_i2][0] + "\" class=\"mbox-lyric-line\">" + lyrics[_i2][1] + '</span><br>');
 						// generate lyric object 
 						lyricObj[lyrics[_i2][0]] = true;
 					}

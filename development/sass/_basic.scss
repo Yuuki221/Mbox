@@ -177,6 +177,8 @@ svg{
 	height: 207px;
 	width: 100%;
 
+	line-height: 1rem;
+
 	padding-top: 10px;
 	padding-bottom: 10px;
 
@@ -188,6 +190,10 @@ svg{
 
 	text-align: center;
 	overflow: scroll;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
 }
 
 .mbox-multidisplay-area-wrap {
@@ -308,6 +314,11 @@ svg{
 .mbox-lyric-show-wrap {
 	bottom: 40px;
 	right: 40px;
+}
+
+.mbox-lyric-prefix {
+	height: 94px;
+	width: 100%;
 }
 
 .mbox-playlist-wrap {

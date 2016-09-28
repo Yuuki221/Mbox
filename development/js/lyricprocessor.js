@@ -10,9 +10,9 @@ let processLyric = (time, lyrics) => {
 		// if the entry is empty then replace with a new line symbol
 		for(let i=0; i<lyrics.length; i++){
 			if(!lyrics[i]){
-				lyrics[i] = '<br><br>';
+				lyrics[i] = '<br>';
 			}else{
-				lyrics[i]+='<br><br>';
+				lyrics[i]+='<br>';
 			}
 		}
 		processedLyrics = lyrics.join('');
@@ -20,11 +20,11 @@ let processLyric = (time, lyrics) => {
 	}else{
 		let processedText = [];
 		for(let i=0; i<lyrics.length; i++){
-			if(!lyrics[i]){
-				processedText.push('<br><br>');
-			}else{
+			if(lyrics[i]){
+				// processedText.push('<br><br>');
+			// }else{
 				// generate lyrics text now
-				processedText.push(lyrics[i][1]+'<br><br>');
+				processedText.push(`<span id="${lyrics[i][0]}" class="mbox-lyric-line">` + lyrics[i][1]+ '</span><br>');
 				// generate lyric object 
 				lyricObj[lyrics[i][0]] = true; 
 			}

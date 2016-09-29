@@ -420,18 +420,35 @@ class MBox {
 	 	this.playProgressOuter.addEventListener('click', (event) => {
 	 		let clickX = event.clientX,
 	 			barX = getPosition(this.playProgressOuter, 'left'),
-	 			percentage = (clickX - barX)/this.progressBarLen;
-	 			// previousTime = this.musicFile.currentTime;
+	 			percentage = (clickX - barX)/this.progressBarLen,
+	 			previousTime = transformTime(this.musicFile.currentTime),
+	 			preserveTime = transformTime((percentage>1? 1 : (percentage<0? 0 : percentage))*this.musicFile.duration);
 	 		this.musicFile.currentTime = (percentage>1? 1 : (percentage<0? 0 : percentage))*this.musicFile.duration;
-	 		// set the lyric to correct place and color 
+	 		// dealing with lyric problem 
+	 		// let playToTime = transformTime(this.musicFile.currentTime);
 	 		let curSong = this.musicPool['_' + this.currentPlaylist[this.curIdx]];
-	 		if(curSong.lyric_with_time){
+	 		// if the lyric window is on and the lyric is a lyric file with time 
+	 		// if(curSong.lyric_with_time && this.lyricOn){
+	 		if(true){
+	 			// console.log('in adjusting lyric area');
 	 			// if the song has timed lyrics
 	 			let timePool = curSong.lyricTime, lineCt = 0;
-	 			for(let key in timePool){
-	 				if(key<this.musicFile.currentTime){
-	 					document.getElementById(key).color = '#dff3e3';
-	 					lineCt++;
+	 			let theLyr = document.getElementsByClassName('mbox-multidisplay-area')[0];
+	 			// console.log(theLyr.children[1].children);
+	 			let lyrics = theLyr.children[1].children;
+	 			if(previousTime<preserveTime){
+	 				for(let i=0; i<lyrics.length; i++){	
+	 					if(lyrics[i].id!=="" && lyrics[i].id<preserveTime && lyrics[i].id>previousTime){
+	 						lyrics[i].style.color = '#dff3e3';
+	 						theLyr.scrollTop+=16;
+	 					}
+	 				}
+	 			}else{
+	 				for(let i=0; i<lyrics.length; i++){	
+	 					if(lyrics[i].id!=="" && lyrics[i].id>preserveTime && lyrics[i].id<previousTime){
+	 						lyrics[i].style.color = '#828a95';
+	 						theLyr.scrollTop-=16;
+	 					}
 	 				}
 	 			}
 	 		}

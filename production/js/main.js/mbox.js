@@ -453,8 +453,39 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				this.playProgressOuter.addEventListener('click', function (event) {
 					var clickX = event.clientX,
 					    barX = getPosition(_this.playProgressOuter, 'left'),
-					    percentage = (clickX - barX) / _this.progressBarLen;
+					    percentage = (clickX - barX) / _this.progressBarLen,
+					    previousTime = transformTime(_this.musicFile.currentTime),
+					    preserveTime = transformTime((percentage > 1 ? 1 : percentage < 0 ? 0 : percentage) * _this.musicFile.duration);
 					_this.musicFile.currentTime = (percentage > 1 ? 1 : percentage < 0 ? 0 : percentage) * _this.musicFile.duration;
+					// dealing with lyric problem 
+					// let playToTime = transformTime(this.musicFile.currentTime);
+					var curSong = _this.musicPool['_' + _this.currentPlaylist[_this.curIdx]];
+					// if the lyric window is on and the lyric is a lyric file with time 
+					// if(curSong.lyric_with_time && this.lyricOn){
+					if (true) {
+						// console.log('in adjusting lyric area');
+						// if the song has timed lyrics
+						var timePool = curSong.lyricTime,
+						    lineCt = 0;
+						var theLyr = document.getElementsByClassName('mbox-multidisplay-area')[0];
+						// console.log(theLyr.children[1].children);
+						var lyrics = theLyr.children[1].children;
+						if (previousTime < preserveTime) {
+							for (var i = 0; i < lyrics.length; i++) {
+								if (lyrics[i].id !== "" && lyrics[i].id < preserveTime && lyrics[i].id > previousTime) {
+									lyrics[i].style.color = '#dff3e3';
+									theLyr.scrollTop += 16;
+								}
+							}
+						} else {
+							for (var _i = 0; _i < lyrics.length; _i++) {
+								if (lyrics[_i].id !== "" && lyrics[_i].id > preserveTime && lyrics[_i].id < previousTime) {
+									lyrics[_i].style.color = '#828a95';
+									theLyr.scrollTop -= 16;
+								}
+							}
+						}
+					}
 					_this.updateProgressBar('playPorgress', percentage, 'width');
 				});
 
@@ -570,10 +601,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					};
 
 					// add listners to the icon
-					for (var _i = 0; _i < _this.rowHeartIcons.length; _i++) {
+					for (var _i2 = 0; _i2 < _this.rowHeartIcons.length; _i2++) {
 						// console.log(this.rowHeartIcons[i].parentElement.parentElement);
-						var curID = _this.rowHeartIcons[_i].parentElement.parentElement.id;
-						_this.rowHeartIcons[_i].addEventListener('click', clickBind(curID, _i));
+						var curID = _this.rowHeartIcons[_i2].parentElement.parentElement.id;
+						_this.rowHeartIcons[_i2].addEventListener('click', clickBind(curID, _i2));
 					}
 				});
 			}
@@ -908,14 +939,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				// console.log('processed?');
 			} else {
 				var processedText = [];
-				for (var _i2 = 0; _i2 < lyrics.length; _i2++) {
-					if (lyrics[_i2]) {
+				for (var _i3 = 0; _i3 < lyrics.length; _i3++) {
+					if (lyrics[_i3]) {
 						// processedText.push('<br><br>');
 						// }else{
 						// generate lyrics text now
-						processedText.push("<span id=\"" + lyrics[_i2][0] + "\" class=\"mbox-lyric-line\">" + lyrics[_i2][1] + '</span><br>');
+						processedText.push("<span id=\"" + lyrics[_i3][0] + "\" class=\"mbox-lyric-line\">" + lyrics[_i3][1] + '</span><br>');
 						// generate lyric object 
-						lyricObj[lyrics[_i2][0]] = true;
+						lyricObj[lyrics[_i3][0]] = true;
 					}
 				}
 				processedLyrics = processedText.join('');

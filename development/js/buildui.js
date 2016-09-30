@@ -88,31 +88,21 @@ module.exports = `<div class="magic-box">
 						</div>
 					</div>
 					<div class="mbox-options-wrap">
-						<div class="mbox-setting-item mbox-setting-wrap">
-							<div class="mbox-setting-icon" style="background: #dff3e3;">
-							<input id="trigger" class="mbox-setting-trigger" type="checkbox" />
-								<label for="trigger" class="mbox-setting-bars">
-									<div class="toggle-bar setting-first-bar"></div>
-									<div class="toggle-bar setting-second-bar"></div>
-									<div class="toggle-bar setting-third-bar"></div>
-								</label>
-							</div>
-						</div>
-						<div class="mbox-setting-item mbox-playlist-wrap" style="background: #dff3e3;">
+						<div class="mbox-setting-item mbox-playlist-wrap">
 							<button class="mbox-menu-icon mbox-playlistBtn">
 								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999" width="16" height="16" viewBox="${viewBox['playlist']}">
 									<path d="${svg['playlist']}" />
 								</svg>
 							</button>
 						</div>
-						<div class="mbox-setting-item mbox-lovelist-wrap" style="background: #dff3e3;">
+						<div class="mbox-setting-item mbox-lovelist-wrap">
 							<button class="mbox-menu-icon mbox-lovelistBtn">
 								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999" width="16" height="16" viewBox="${viewBox['heart']}">
 									<path d="${svg['heart']}" />
 								</svg>
 							</button>
 						</div>
-						<div class="mbox-setting-item mbox-lyric-show-wrap" style="background: #dff3e3;">
+						<div class="mbox-setting-item mbox-lyric-show-wrap">
 							<button class="mbox-menu-icon mbox-lyricBtn">
 								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999" width="16" height="16" viewBox="${viewBox['lyric']}">
 									<path d="${svg['lyric']}" />

@@ -88,7 +88,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 		var viewBox = iconInfo['viewBox'];
 
 		// object for svg viewbox
-		module.exports = "<div class=\"magic-box\">\n\t\t\t\t\t<div class=\"magic-box-upper-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-music-wrap\">\n\t\t\t\t\t\t\t<audio class=\"mbox-music\" src=\"development/music/You Need Me-KENN.mp3\"></audio>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<!-- audio file links are here --> \n\t\t\t\t\t\t<div class=\"mbox-album-cover-wrap\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-controller-wrap-wrap\">\n\t\t\t\t\t\t\t<div class=\"mbox-controller-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-songinfo\">\n\t\t\t\t\t\t\t\t<span class=\"mbox-song-info\" style=\"color: #dff3e3;\">Unknown</span><br>\n\t\t\t\t\t\t\t\t<span class=\"mbox-album-name\" style=\"color: #dff3e3;\">Unknown</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-controlBtn-wrap-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-previous-song-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-previous-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['previous'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['previous'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['play'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['play'] + "\"/>\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-next-song-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-next-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['next'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['next'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-mode-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-mode-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['playmode'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['playmode_cycle'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-volume-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['volume'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['volume'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar-wrap\">\n\t\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar\">\n\t\t\t\t\t\t\t\t\t\t<span class=\"mbox-volume-bar-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-share-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-share-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['share'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['share'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-play-info-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-play-progress-wrap\">\n\t\t\t\t\t\t\t<span class=\"mbox-play-progress-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-play-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-played-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-time-played\">00:00</span>/<span class=\"mbox-time-total\">00:00</span>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-multidisplay-area-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-multidisplay-area\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-options-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-setting-wrap\">\n\t\t\t\t\t\t\t<div class=\"mbox-setting-icon\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<input id=\"trigger\" class=\"mbox-setting-trigger\" type=\"checkbox\" />\n\t\t\t\t\t\t\t\t<label for=\"trigger\" class=\"mbox-setting-bars\">\n\t\t\t\t\t\t\t\t\t<div class=\"toggle-bar setting-first-bar\"></div>\n\t\t\t\t\t\t\t\t\t<div class=\"toggle-bar setting-second-bar\"></div>\n\t\t\t\t\t\t\t\t\t<div class=\"toggle-bar setting-third-bar\"></div>\n\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-playlist-wrap\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon mbox-playlistBtn\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['playlist'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['playlist'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-lovelist-wrap\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon mbox-lovelistBtn\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['heart'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['heart'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-lyric-show-wrap\" style=\"background: #dff3e3;\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon mbox-lyricBtn\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['lyric'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['lyric'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>";
+		module.exports = "<div class=\"magic-box\">\n\t\t\t\t\t<div class=\"magic-box-upper-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-music-wrap\">\n\t\t\t\t\t\t\t<audio class=\"mbox-music\" src=\"development/music/You Need Me-KENN.mp3\"></audio>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<!-- audio file links are here --> \n\t\t\t\t\t\t<div class=\"mbox-album-cover-wrap\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-controller-wrap-wrap\">\n\t\t\t\t\t\t\t<div class=\"mbox-controller-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-songinfo\">\n\t\t\t\t\t\t\t\t<span class=\"mbox-song-info\" style=\"color: #dff3e3;\">Unknown</span><br>\n\t\t\t\t\t\t\t\t<span class=\"mbox-album-name\" style=\"color: #dff3e3;\">Unknown</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-controlBtn-wrap-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-previous-song-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-previous-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['previous'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['previous'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['play'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['play'] + "\"/>\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-next-song-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-next-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['next'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['next'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-mode-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-mode-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['playmode'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['playmode_cycle'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-volume-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['volume'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['volume'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar-wrap\">\n\t\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar\">\n\t\t\t\t\t\t\t\t\t\t<span class=\"mbox-volume-bar-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-share-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-share-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['share'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['share'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-play-info-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-play-progress-wrap\">\n\t\t\t\t\t\t\t<span class=\"mbox-play-progress-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-play-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-played-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-time-played\">00:00</span>/<span class=\"mbox-time-total\">00:00</span>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-multidisplay-area-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-multidisplay-area\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-options-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-playlist-wrap\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon mbox-playlistBtn\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['playlist'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['playlist'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-lovelist-wrap\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon mbox-lovelistBtn\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['heart'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['heart'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-lyric-show-wrap\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon mbox-lyricBtn\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['lyric'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['lyric'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>";
 	}, { "./svginfo.js": 7 }], 3: [function (require, module, exports) {
 		var transformTime = require('./getplaytime.js');
 		var iconInfo = require('./svginfo.js');
@@ -272,15 +272,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 				this.detectPlayStatus = function () {
 					// if the audio is not buffering, paused or ended then we check the status
-					if (!buffering && !_this.musicFile.paused) {
+					if (!buffering) {
 						_this.detectIdx = setInterval(function () {
 							musicCurrentTime = Math.floor(_this.musicFile.currentTime);
 							musicTotalTime = Math.floor(_this.musicFile.duration);
 							var currentTimeKey = '' + transformTime(musicCurrentTime);
 							_this.playedTime.innerHTML = currentTimeKey;
 							_this.totalTime.innerHTML = '' + transformTime(musicTotalTime);
-							// dealing with moving lyric
-							if (true) {
+							// dealing with moving lyric, if we have a song with moving lyrics 
+							if (_this.LyricOn && _this.musicPool['_' + _this.currentPlaylist[_this.curIdx]].lyric_with_time) {
 								var theLyr = document.getElementsByClassName('mbox-multidisplay-area')[0];
 								// console.log(this.musicPool['_' + this.currentPlaylist[this.curIdx]].lyricTime[currentTimeKey]);
 								if (_this.musicPool['_' + _this.currentPlaylist[_this.curIdx]].lyricTime[currentTimeKey]) {
@@ -462,7 +462,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					var curSong = _this.musicPool['_' + _this.currentPlaylist[_this.curIdx]];
 					// if the lyric window is on and the lyric is a lyric file with time 
 					// if(curSong.lyric_with_time && this.lyricOn){
-					if (true) {
+					if (_this.LyricOn && curSong.lyric_with_time) {
 						// console.log('in adjusting lyric area');
 						// if the song has timed lyrics
 						var timePool = curSong.lyricTime,
@@ -486,7 +486,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 							}
 						}
 					}
-					_this.updateProgressBar('playPorgress', percentage, 'width');
+					_this.updateProgressBar('playProgress', percentage, 'width');
 				});
 
 				/*
@@ -499,7 +499,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				});
 
 				this.shwoPlaylist.addEventListener('click', function () {
-					_this.LyricOn = _this.LyricOn ? false : true;
+					if (_this.LyricOn) _this.LyricOn = false;
 					_this.displayAreaWrap.innerHTML = _this.iniPlaylist.initPlaylist();
 					for (var key in _this.musicPool) {
 						if (!_this.musicPool[key].removed && !_this.musicPool[key].deleted) {
@@ -565,10 +565,31 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					// let fakeElement = document.createElement('div');
 					_this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area"><div class="mbox-lyric-prefix"></div><div>' + currentSong.lyric + '</div><div class="mbox-lyric-prefix"></div></div>';
 					// console.log(currentSong['lyric']);
+					// when jumping to the lyric in the middle, should highlight previous lyrics 
+
+					var curSong = _this.musicPool['_' + _this.currentPlaylist[_this.curIdx]];
+					var jumpToTime = transformTime(_this.musicFile.currentTime);
+					// if the lyric window is on and the lyric is a lyric file with time 
+					// if(curSong.lyric_with_time && this.lyricOn){
+					if (curSong.lyric_with_time) {
+						// console.log('in adjusting lyric area');
+						// if the song has timed lyrics
+						var timePool = curSong.lyricTime,
+						    lineCt = 0;
+						var theLyr = document.getElementsByClassName('mbox-multidisplay-area')[0];
+						// console.log(theLyr.children[1].children);
+						var lyrics = theLyr.children[1].children;
+						for (var i = 0; i < lyrics.length; i++) {
+							if (lyrics[i].id !== "" && lyrics[i].id < jumpToTime) {
+								lyrics[i].style.color = '#dff3e3';
+								theLyr.scrollTop += 16;
+							}
+						}
+					}
 				});
 
 				this.showHeartList.addEventListener('click', function () {
-					_this.LyricOn = _this.LyricOn ? false : true;
+					if (_this.LyricOn) _this.LyricOn = false;
 					_this.displayAreaWrap.innerHTML = _this.iniPlaylist.initPlaylist();
 					for (var i = 0; i < _this.currentPlaylist.length; i++) {
 						var currentSong = _this.musicPool['_' + _this.currentPlaylist[i]];
@@ -782,7 +803,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					xhrq.onreadystatechange = function () {
 						if (xhrq.readyState === XMLHttpRequest.DONE) {
 							alert(xhrq.responseText);
-							console.log("Successfully delete song");
+							// console.log("Successfully delete song");
 							// handle the request status here 
 							//this.iniPlaylist.removeSongRow(song);
 						}
@@ -801,14 +822,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 			}, {
 				key: "likeSong",
 				value: function likeSong(songID) {
-					console.log(this.musicPool);
+					// console.log(this.musicPool);
 					this.musicPool['_' + songID].like = this.musicPool['_' + songID].like ? false : true;
 					var xmrq = new XMLHttpRequest();
 					var url = "http://localhost:8080/likeSong?songId=" + encodeURIComponent(songID);
 					xmrq.onreadystatechange = function () {
 						if (xmrq.readyState === XMLHttpRequest.DONE) {
 							alert(xmrq.responseText);
-							console.log("I like this song");
+							// console.log("I like this song");
 						}
 					};
 					xmrq.open('put', url, true);
@@ -839,7 +860,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				value: function pause() {
 					if (!this.musicFile.paused && !this.musicFile.ended) {
 						this.musicFile.pause();
-						this.clearTime();
+						// this.clearTime();
 						this.playBtn.innerHTML = this.getSvg(this.viewBox['play'], this.svg['play']);
 					}
 				}

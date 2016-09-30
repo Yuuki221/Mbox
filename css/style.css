@@ -313,32 +313,6 @@ svg:hover {
   left: 8px;
 }
 
-.toggle-bar {
-  height: 3px;
-  width: 1.5em;
-  background: #4a525a;
-  margin-top: 3px;
-  transition: all 0.3s ease-in-out;
-}
-.toggle-bar:hover {
-  cursor: pointer;
-}
-
-#trigger:checked + .mbox-setting-bars .setting-first-bar {
-  margin-top: 10px;
-  transform: rotate(-45deg);
-}
-
-#trigger:checked + .mbox-setting-bars .setting-second-bar {
-  opacity: 0;
-  transform: rotate(-45deg);
-}
-
-#trigger:checked + .mbox-setting-bars .setting-third-bar {
-  margin-top: -9px;
-  transform: rotate(45deg);
-}
-
 /* menu area */
 .mbox-setting-item {
   position: absolute;
@@ -359,13 +333,17 @@ svg:hover {
   cursor: pointer;
 }
 
+.mbox-menu-icon svg :hover {
+  fill: #dff3e3;
+}
+
 .mbox-lovelist-wrap {
   bottom: 0;
-  right: 40px;
+  right: 0;
 }
 
 .mbox-lyric-show-wrap {
-  bottom: 40px;
+  bottom: 0;
   right: 40px;
 }
 
@@ -375,8 +353,8 @@ svg:hover {
 }
 
 .mbox-playlist-wrap {
-  bottom: 40px;
-  right: 0;
+  bottom: 0;
+  right: 80px;
 }
 
 /* dealing with playlist displaying */
@@ -434,4 +412,16 @@ svg:hover {
   top: 4px;
   right: 0;
   width: 80px;
+}
+
+@keyframes showMenu {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
 }

@@ -241,15 +241,15 @@ class MBox {
 
 	 	this.detectPlayStatus = () => {
 	 		// if the audio is not buffering, paused or ended then we check the status
-	 		if(!buffering && !this.musicFile.paused){
+	 		if(!buffering){
 	 			this.detectIdx = setInterval(()=>{
 	 				musicCurrentTime = Math.floor(this.musicFile.currentTime);
 	 				musicTotalTime = Math.floor(this.musicFile.duration);
 	 				let currentTimeKey = '' + transformTime(musicCurrentTime);
 	 				this.playedTime.innerHTML = currentTimeKey;
 	 				this.totalTime.innerHTML = '' + transformTime(musicTotalTime);
-	 				// dealing with moving lyric
-	 				if(true){
+	 				// dealing with moving lyric, if we have a song with moving lyrics 
+	 				if(this.LyricOn && this.musicPool['_' + this.currentPlaylist[this.curIdx]].lyric_with_time){
 	 					let theLyr = document.getElementsByClassName('mbox-multidisplay-area')[0];
 	 					// console.log(this.musicPool['_' + this.currentPlaylist[this.curIdx]].lyricTime[currentTimeKey]);
 	 					if(this.musicPool['_' + this.currentPlaylist[this.curIdx]].lyricTime[currentTimeKey]){
@@ -429,7 +429,7 @@ class MBox {
 	 		let curSong = this.musicPool['_' + this.currentPlaylist[this.curIdx]];
 	 		// if the lyric window is on and the lyric is a lyric file with time 
 	 		// if(curSong.lyric_with_time && this.lyricOn){
-	 		if(true){
+	 		if(this.LyricOn && curSong.lyric_with_time){
 	 			// console.log('in adjusting lyric area');
 	 			// if the song has timed lyrics
 	 			let timePool = curSong.lyricTime, lineCt = 0;
@@ -452,7 +452,7 @@ class MBox {
 	 				}
 	 			}
 	 		}
-	 		this.updateProgressBar('playPorgress', percentage, 'width');
+	 		this.updateProgressBar('playProgress', percentage, 'width');
 	 	});
 
 	 	/*
@@ -465,7 +465,7 @@ class MBox {
 	 	});
 
 	 	this.shwoPlaylist.addEventListener('click', () => {
-	 		this.LyricOn = this.LyricOn? false : true;
+	 		if(this.LyricOn) this.LyricOn = false;
 	 		this.displayAreaWrap.innerHTML = this.iniPlaylist.initPlaylist();
 	 		for(let key in this.musicPool){
 	 			if(!this.musicPool[key].removed && !this.musicPool[key].deleted){
@@ -533,10 +533,30 @@ class MBox {
 	 		// let fakeElement = document.createElement('div');
 			this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area"><div class="mbox-lyric-prefix"></div><div>' + currentSong.lyric + '</div><div class="mbox-lyric-prefix"></div></div>';
 	 		// console.log(currentSong['lyric']);
+	 		// when jumping to the lyric in the middle, should highlight previous lyrics 
+
+	 		let curSong = this.musicPool['_' + this.currentPlaylist[this.curIdx]];
+	 		let jumpToTime = transformTime(this.musicFile.currentTime);
+	 		// if the lyric window is on and the lyric is a lyric file with time 
+	 		// if(curSong.lyric_with_time && this.lyricOn){
+	 		if(curSong.lyric_with_time){
+	 			// console.log('in adjusting lyric area');
+	 			// if the song has timed lyrics
+	 			let timePool = curSong.lyricTime, lineCt = 0;
+	 			let theLyr = document.getElementsByClassName('mbox-multidisplay-area')[0];
+	 			// console.log(theLyr.children[1].children);
+	 			let lyrics = theLyr.children[1].children;
+	 			for(let i=0; i<lyrics.length; i++){	
+	 				if(lyrics[i].id!=="" && lyrics[i].id<jumpToTime){
+	 					lyrics[i].style.color = '#dff3e3';
+	 					theLyr.scrollTop+=16;
+	 				}
+	 			}
+	 		}
 	 	});
 
 	 	this.showHeartList.addEventListener('click', ()=>{
-	 		this.LyricOn = this.LyricOn? false : true;
+	 		if(this.LyricOn) this.LyricOn = false;
 	 		this.displayAreaWrap.innerHTML = this.iniPlaylist.initPlaylist();
 	 		for(let i=0; i<this.currentPlaylist.length; i++){
 	 			let currentSong = this.musicPool['_'+this.currentPlaylist[i]];
@@ -736,7 +756,7 @@ class MBox {
 		xhrq.onreadystatechange = () => {
 			if(xhrq.readyState === XMLHttpRequest.DONE){
 				alert(xhrq.responseText);
-				console.log("Successfully delete song");
+				// console.log("Successfully delete song");
 				// handle the request status here 
 				//this.iniPlaylist.removeSongRow(song);
 			}
@@ -752,14 +772,14 @@ class MBox {
 		method for like a song 
 	*/
 	likeSong(songID) {
-		console.log(this.musicPool);
+		// console.log(this.musicPool);
 		this.musicPool['_' + songID].like = (this.musicPool['_' + songID].like? false : true);
 		let xmrq = new XMLHttpRequest();
 		let url = `http://localhost:8080/likeSong?songId=${encodeURIComponent(songID)}`;
 		xmrq.onreadystatechange = () => {
 			if(xmrq.readyState === XMLHttpRequest.DONE){
 				alert(xmrq.responseText);
-				console.log("I like this song");
+				// console.log("I like this song");
 			}
 		};
 		xmrq.open('put', url, true);
@@ -784,7 +804,6 @@ class MBox {
 	pause() {
 		if(!this.musicFile.paused && !this.musicFile.ended){
 			this.musicFile.pause();
-			this.clearTime();
 			this.playBtn.innerHTML = this.getSvg(this.viewBox['play'], this.svg['play']);
 		}
 	}

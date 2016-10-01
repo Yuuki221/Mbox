@@ -1,5 +1,6 @@
 # Mbox
 > A HTML5, CSS3, ES6 and MongoDB Music Player API, build with Gulp
+> [Demo](https://yuuki221.github.io/Mbox/Demo/)
 
 <p align="center">
   <img align="center" src="https://github.com/Yuuki221/Mbox/blob/master/RMpic/withLyric.png" alt="player with lyric" width="60%" height="60%" />

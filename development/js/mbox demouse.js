@@ -4,7 +4,6 @@ let uiHtml = require('./buildui.js');
 let getPosition = require('./getpositions.js');
 let processLyric = require('./lyricprocessor.js');
 let BuildPlayList = require('./buildplaylist.js');
-let fakeSongPool = require('./songJSON.js');
 
 class MBox {
 	/**
@@ -41,11 +40,11 @@ class MBox {
 	 		background_color : '#4a525a',
 	 		multi : false,
 	 		music : {
-	 			'url' : 'music/You Need Me-KENN.mp3',
+	 			'url' : 'development/music/You Need Me-KENN.mp3',
 	 			'song_name' : 'You Need Me',
 	 			'singer' : 'KENN',
 	 			'album' : 'You Need Me',
-	 			'album_cover' : 'music/YouNeedMeCover.jpg',
+	 			'album_cover' : 'development/music/YouNeedMeCover.jpg',
 	 			'lyric_with_time' : false,
 	 			'lyric' :  [
 	 				'You Need Me - KENN',
@@ -544,7 +543,18 @@ class MBox {
 		method for initialize the music player 
 	*/
 	init(){
-	 			this.musicPool = fakeSongPool;
+		/*
+			XMLHttp Request Retrieve Playlist from database 
+			if the user want to have backend support 
+	 	*/
+	 	let getSongPoolxhrq = new XMLHttpRequest();
+	 	let getSongPoolURL = 'http://localhost:8080/getSongPool';
+	 	getSongPoolxhrq.open('get', getSongPoolURL, true);
+	 	getSongPoolxhrq.setRequestHeader('Content-type', 'application/json');
+	 	getSongPoolxhrq.onreadystatechange = () => {
+	 		if(getSongPoolxhrq.readyState === XMLHttpRequest.DONE){
+
+	 			this.musicPool = JSON.parse(getSongPoolxhrq.responseText);
 	 			for(let key in this.musicPool){
 	 				let currentSong = this.musicPool[key];
 					this.currentPlaylist.push(Number(key.substring(1)));
@@ -556,6 +566,9 @@ class MBox {
 				}
 				this.musicFile.src = this.musicPool['_' + this.currentPlaylist[0]]['url'];
 				this.loadSongInfo(this.musicPool['_' + this.currentPlaylist[0]], true);
+	 		}
+	 	}
+	 	getSongPoolxhrq.send(null);
 	}
 
 	/*
@@ -588,6 +601,22 @@ class MBox {
 		for(let key in this.musicPool){
 			maxId = Math.max(maxId, this.musicPool[key]._id);
 		}
+		// add music file to current musicPool
+		// dealing with backend problem here 
+		let xhrq = new XMLHttpRequest();
+	 	// string represent url 
+	 	let url = `http://localhost:8080/addSong`;
+	 	xhrq.open('post', url, true);
+	  	xhrq.setRequestHeader('Content-type', 'application/json');
+	 	xhrq.onreadystatechange = () => {
+	 		if(xhrq.readyState === XMLHttpRequest.DONE){
+	 			alert(xhrq.responseText);
+	 			console.log("Sucessfully send song information.");
+	 		// playlistData here 
+	 		}
+	 	};
+	 	xhrq.send(JSON.stringify(newSong));
+
 	 	// add the song to current playlist
 	 	let newId = '_' + (maxId+1); 
 	 	this.musicPool[newId] = newSong;
@@ -619,6 +648,16 @@ class MBox {
 		let originID = songID;
 		this.musicPool['_'+originID].deleted = true;
 		// deleted song from database, or add gargbage place later 
+		let xhrq = new XMLHttpRequest();
+		let url = `http://localhost:8080/removeSong?removeId=${encodeURIComponent(songID)}`;
+		xhrq.onreadystatechange = () => {
+			if(xhrq.readyState === XMLHttpRequest.DONE){
+				alert(xhrq.responseText);
+			}
+		};
+		xhrq.open('delete', url, true);
+		xhrq.send(null);
+
 		// remove the song row 
 		this.iniPlaylist.removeSongRow(songID);
 	}
@@ -627,11 +666,20 @@ class MBox {
 		method for like a song 
 	*/
 	likeSong(songID) {
-		if(this.musicPool['_' + songID].like) {
-			this.musicPool['_'+songID].like = false;
+		if(this.musicPool['_' + songID].like){
+		 	this.musicPool['_' + songID].like = true;
 		}else{
-			this.musicPool['_'+songID].like = true;
+			this.musicPool['_' + songID].like = false;
 		}
+		let xmrq = new XMLHttpRequest();
+		let url = `http://localhost:8080/likeSong?songId=${encodeURIComponent(songID)}`;
+		xmrq.onreadystatechange = () => {
+			if(xmrq.readyState === XMLHttpRequest.DONE){
+				alert(xmrq.responseText);
+			}
+		};
+		xmrq.open('put', url, true);
+		xmrq.send(null);
 	}
 
 	/*
@@ -662,3 +710,7 @@ if(typeof window === 'undefined') {
 }else{
 	window.MBox = MBox;
 }
+
+
+// var test = new MBox();
+// test.load();

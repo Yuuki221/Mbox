@@ -1,11 +1,13 @@
 var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	compass = require('gulp-compass'),
-	ugligy = require('gulp-uglify'),
+	uglify = require('gulp-uglify'),
 	connect = require('gulp-connect'),
 	browserify = require('gulp-browserify'),
 	gulpOpen = require('gulp-open'),
-	babelify = require('gulp-babel');
+	babelify = require('gulp-babel'),
+	rename = require('gulp-rename'),
+	pump = require('pump');
 
 var env, 
 	sassSource,
@@ -54,6 +56,8 @@ gulp.task('browserify', function(){
 	.pipe(babelify({
 		presets: ['es2015']
 	}))
+	.pipe(rename('mbox.min.js'))
+	.pipe(uglify())
 	.pipe(gulp.dest('production/js/main.js'));
 });
 /**

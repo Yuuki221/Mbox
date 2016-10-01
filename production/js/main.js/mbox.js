@@ -78,7 +78,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 		}();
 
 		module.exports = BuildPlayList;
-	}, { "./svginfo.js": 7 }], 2: [function (require, module, exports) {
+	}, { "./svginfo.js": 8 }], 2: [function (require, module, exports) {
 		/*
   	method for load html content for the player
   */
@@ -89,13 +89,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 		// object for svg viewbox
 		module.exports = "<div class=\"magic-box\">\n\t\t\t\t\t<div class=\"magic-box-upper-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-music-wrap\">\n\t\t\t\t\t\t\t<audio class=\"mbox-music\" src=\"development/music/You Need Me-KENN.mp3\"></audio>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<!-- audio file links are here --> \n\t\t\t\t\t\t<div class=\"mbox-album-cover-wrap\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-controller-wrap-wrap\">\n\t\t\t\t\t\t\t<div class=\"mbox-controller-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-songinfo\">\n\t\t\t\t\t\t\t\t<span class=\"mbox-song-info\" style=\"color: #dff3e3;\">Unknown</span><br>\n\t\t\t\t\t\t\t\t<span class=\"mbox-album-name\" style=\"color: #dff3e3;\">Unknown</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-controlBtn-wrap-wrap\">\n\t\t\t\t\t\t\t\t<div class=\"mbox-previous-song-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-previous-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['previous'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['previous'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['play'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['play'] + "\"/>\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-next-song-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-next-song-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['next'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['next'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-play-mode-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-play-mode-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['playmode'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['playmode_cycle'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-volume-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['volume'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['volume'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar-wrap\">\n\t\t\t\t\t\t\t\t\t<div class=\"mbox-volume-bar\">\n\t\t\t\t\t\t\t\t\t\t<span class=\"mbox-volume-bar-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"mbox-share-icon-wrap\">\n\t\t\t\t\t\t\t\t\t<button class=\"mbox-share-icon icon\">\n\t\t\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['share'] + "\">\n\t\t\t\t\t\t\t\t\t\t\t<path d=\"" + svg['share'] + "\" />\n\t\t\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-play-info-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-play-progress-wrap\">\n\t\t\t\t\t\t\t<span class=\"mbox-play-progress-inner\" style=\"width: 0; background: #dff3e3;\"></span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-play-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-played-time\">\n\t\t\t\t\t\t\t<span class=\"mbox-time-played\">00:00</span>/<span class=\"mbox-time-total\">00:00</span>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-multidisplay-area-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-multidisplay-area\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"mbox-options-wrap\">\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-playlist-wrap\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon mbox-playlistBtn\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['playlist'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['playlist'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-lovelist-wrap\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon mbox-lovelistBtn\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['heart'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['heart'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mbox-setting-item mbox-lyric-show-wrap\">\n\t\t\t\t\t\t\t<button class=\"mbox-menu-icon mbox-lyricBtn\">\n\t\t\t\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999\" width=\"16\" height=\"16\" viewBox=\"" + viewBox['lyric'] + "\">\n\t\t\t\t\t\t\t\t\t<path d=\"" + svg['lyric'] + "\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>";
-	}, { "./svginfo.js": 7 }], 3: [function (require, module, exports) {
+	}, { "./svginfo.js": 8 }], 3: [function (require, module, exports) {
 		var transformTime = require('./getplaytime.js');
 		var iconInfo = require('./svginfo.js');
 		var uiHtml = require('./buildui.js');
 		var getPosition = require('./getpositions.js');
 		var processLyric = require('./lyricprocessor.js');
 		var BuildPlayList = require('./buildplaylist.js');
+		var fakeSongPool = require('./songJSON.js');
 
 		var MBox = function () {
 			/**
@@ -154,32 +155,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				// this.processedLyric = processLyric(this.usrOption['music']['lyric_with_time'], this.usrOption['music']['lyric']);
 				// music from database, add request later 
 				this.musicPool = {};
-				/**
-    	let xhrq = new XMLHttpRequest();
-    	// string represent url 
-    	let url = `http://localhost:8080/api`;
-    	let playlistData = {
-    			url : this.usrOption['music']['url'],
-    			song_name : this.usrOption['music']['song_name'],
-    			singer : this.usrOption['music']['singer'],
-    			album : this.usrOption['music']['album'],
-    			album_cover : this.usrOption['music']['album_cover']
-    	};
-    	xhrq.open('post', url, true);
-     	// xhrq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-     	xhrq.setRequestHeader('Content-type', 'application/json')
-    	xhrq.onreadystatechange = () => {
-    		if(xhrq.readyState === XMLHttpRequest.DONE){
-    			alert(xhrq.responseText);
-    			console.log("Sucessfully send song information.");
-    		// playlistData here 
-    		}
-    	};
-    	xhrq.send(JSON.stringify(playlistData));
-    	*/
 
 				// generate music playlist 
-				// this.normalOrderedPlaylist = [0,1,2,3,4,5];
 				this.shufflePlaylist = [];
 				this.heartPlaylist = [];
 				this.currentPlaylist = [];
@@ -228,13 +205,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				this.showLyric = document.getElementsByClassName('mbox-lyricBtn')[0];
 				this.showHeartList = document.getElementsByClassName('mbox-lovelistBtn')[0];
 				this.shwoPlaylist = document.getElementsByClassName('mbox-playlistBtn')[0];
+
 				// insert lyric or play list 
-				// if(!this.usrOption['multi']){
-				// 	this.displayArea.innerHTML = this.processedLyric;
-				// }else{
-
-				// }
-
 				/*
     @param {Object} progress bar needs to be update 
     @param {Number} percentage that needs to be update 
@@ -282,19 +254,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 							// dealing with moving lyric, if we have a song with moving lyrics 
 							if (_this.LyricOn && _this.musicPool['_' + _this.currentPlaylist[_this.curIdx]].lyric_with_time) {
 								var theLyr = document.getElementsByClassName('mbox-multidisplay-area')[0];
-								// console.log(this.musicPool['_' + this.currentPlaylist[this.curIdx]].lyricTime[currentTimeKey]);
 								if (_this.musicPool['_' + _this.currentPlaylist[_this.curIdx]].lyricTime[currentTimeKey]) {
 									theLyr.scrollTop += 16;
 									_this.musicPool['_' + _this.currentPlaylist[_this.curIdx]].lyricTime[currentTimeKey] = false;
 									var curLyricLine = document.getElementById(currentTimeKey);
 									curLyricLine.style.color = '#dff3e3';
-									// console.log(theLyr.scrollTop);
 								}
 							}
 							var playPercent = musicCurrentTime / musicTotalTime;
 							_this.updateProgressBar('playProgress', playPercent, 'width');
 							if (!buffering && musicCurrentTime - musicLastTime < 0.2 && !_this.musicFile.paused && !_this.musicFile.ended) {
-								// the audio is buffering for some reason 
 								buffering = true;
 							}
 							if (buffering && musicCurrentTime - musicLastTime >= 0.2) buffering = false;
@@ -314,9 +283,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 									if (!_this.musicPool[curKey].removed && !_this.musicPool[curKey].deleted) {
 										// if the song is not removed or deleted by user, we find the next song to play 
 										_this.musicFile.src = _this.musicPool[curKey].url;
-										// this.usrOption['music'] = this.musicPool[curKey];
 										_this.loadSongInfo(_this.musicPool[curKey], _this.LyricOn);
-										// this.processedLyric = processLyric(this.usrOption['music']['lyric_with_time'], this.usrOption['music']['lyric']);
 										// update current playing index 
 										_this.curIdx = ct;
 										_this.play();
@@ -458,17 +425,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					    preserveTime = transformTime((percentage > 1 ? 1 : percentage < 0 ? 0 : percentage) * _this.musicFile.duration);
 					_this.musicFile.currentTime = (percentage > 1 ? 1 : percentage < 0 ? 0 : percentage) * _this.musicFile.duration;
 					// dealing with lyric problem 
-					// let playToTime = transformTime(this.musicFile.currentTime);
 					var curSong = _this.musicPool['_' + _this.currentPlaylist[_this.curIdx]];
-					// if the lyric window is on and the lyric is a lyric file with time 
-					// if(curSong.lyric_with_time && this.lyricOn){
 					if (_this.LyricOn && curSong.lyric_with_time) {
-						// console.log('in adjusting lyric area');
 						// if the song has timed lyrics
 						var timePool = curSong.lyricTime,
 						    lineCt = 0;
 						var theLyr = document.getElementsByClassName('mbox-multidisplay-area')[0];
-						// console.log(theLyr.children[1].children);
 						var lyrics = theLyr.children[1].children;
 						if (previousTime < preserveTime) {
 							for (var i = 0; i < lyrics.length; i++) {
@@ -508,9 +470,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 							var fakeEle = document.createElement('li');
 							fakeEle.innerHTML = rowUI;
 							var rowEle = fakeEle.children[0];
-							// console.log(rowEle);
 							var node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
-							// console.log(node);
 							node.appendChild(rowEle);
 						}
 					}
@@ -549,35 +509,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 						_this.rowRemoveIcons[i].addEventListener('click', clickRemoveBind(curID));
 						_this.rowDeleteIcons[i].addEventListener('click', clickDeleteBind(curID));
 					}
-					// this.rowHeartIcons.addEventListener('click', (event)=>{
-					// 	// dealing with IE6-8 later
-					// 	let currentHeart = event.target;
-					// 	let songLikeID = currentHeart.parent.parent.id;
-					// 	this.likeSong(songLikeID);
-					// });
 				});
 
 				this.showLyric.addEventListener('click', function () {
 					if (!_this.LyricOn) _this.LyricOn = true;
 					var currentSong = _this.musicPool['_' + _this.currentPlaylist[_this.curIdx]];
-					// console.log(currentSong);
-					// this.processedLyric = processLyric(currentSong['lyric_with_time'], currentSong['lyric']);
-					// let fakeElement = document.createElement('div');
 					_this.displayAreaWrap.innerHTML = '<div class="mbox-multidisplay-area"><div class="mbox-lyric-prefix"></div><div>' + currentSong.lyric + '</div><div class="mbox-lyric-prefix"></div></div>';
-					// console.log(currentSong['lyric']);
-					// when jumping to the lyric in the middle, should highlight previous lyrics 
 
 					var curSong = _this.musicPool['_' + _this.currentPlaylist[_this.curIdx]];
 					var jumpToTime = transformTime(_this.musicFile.currentTime);
 					// if the lyric window is on and the lyric is a lyric file with time 
-					// if(curSong.lyric_with_time && this.lyricOn){
 					if (curSong.lyric_with_time) {
-						// console.log('in adjusting lyric area');
 						// if the song has timed lyrics
 						var timePool = curSong.lyricTime,
 						    lineCt = 0;
 						var theLyr = document.getElementsByClassName('mbox-multidisplay-area')[0];
-						// console.log(theLyr.children[1].children);
 						var lyrics = theLyr.children[1].children;
 						for (var i = 0; i < lyrics.length; i++) {
 							if (lyrics[i].id !== "" && lyrics[i].id < jumpToTime) {
@@ -599,9 +545,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 							var fakeEle = document.createElement('li');
 							fakeEle.innerHTML = rowUI;
 							var rowEle = fakeEle.children[0];
-							// console.log(rowEle);
 							var node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
-							// console.log(node);
 							node.appendChild(rowEle);
 						}
 					}
@@ -615,7 +559,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					var clickBind = function clickBind(songId, i) {
 						return function () {
 							_this.likeSong(songId);
-							// this.rowHeartIcons[i].children[0].style['fill'] = this.musicPool['_'+songId].like? '#f0717d' : '#828a95';
 							var rowEle = document.getElementById('' + songId);
 							rowEle.remove();
 						};
@@ -623,7 +566,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 					// add listners to the icon
 					for (var _i2 = 0; _i2 < _this.rowHeartIcons.length; _i2++) {
-						// console.log(this.rowHeartIcons[i].parentElement.parentElement);
 						var curID = _this.rowHeartIcons[_i2].parentElement.parentElement.id;
 						_this.rowHeartIcons[_i2].addEventListener('click', clickBind(curID, _i2));
 					}
@@ -638,61 +580,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 			_createClass(MBox, [{
 				key: "init",
 				value: function init() {
-					var _this2 = this;
-
-					// this.loadSongInfo();
-					// this.addSong(this.usrOption['music']);
-					/*
-     	XMLHttp Request Retrieve Playlist from database 
-     	if the user want to have backend support 
-     	*/
-					var getSongPoolxhrq = new XMLHttpRequest();
-					var getSongPoolURL = 'http://localhost:8080/getSongPool';
-					getSongPoolxhrq.open('get', getSongPoolURL, true);
-					getSongPoolxhrq.setRequestHeader('Content-type', 'application/json');
-					getSongPoolxhrq.onreadystatechange = function () {
-						if (getSongPoolxhrq.readyState === XMLHttpRequest.DONE) {
-
-							_this2.musicPool = JSON.parse(getSongPoolxhrq.responseText);
-							for (var key in _this2.musicPool) {
-								var currentSong = _this2.musicPool[key];
-								_this2.currentPlaylist.push(Number(key.substring(1)));
-								if (currentSong.like) _this2.heartPlaylist.push(Number(key.substring(1)));
-								// process the lyric once they enter the API 
-								var returnedLyric = processLyric(currentSong['lyric_with_time'], currentSong['lyric']);
-								currentSong.lyric = returnedLyric.processedText;
-								// console.log(currentSong.lyric);
-								currentSong.lyricTime = returnedLyric.lyricObj;
-								// console.log(currentSong.lyricTime);
-								//this.iniPlaylist.addSongRow(this.musicPool[key]);
-								/**
-        let rowUI = this.iniPlaylist.addSongRow(this.musicPool[key]);
-        //console.log(rowUI);
-        	let fakeEle = document.createElement('li');
-        	fakeEle.innerHTML = rowUI;
-        	let rowEle = fakeEle.children[0];
-        	// console.log(rowEle);
-        	let node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
-        	// console.log(node);
-        	node.appendChild(rowEle);
-        */
-							}
-							// console.log(typeof(this.musicPool));
-
-							_this2.musicFile.src = _this2.musicPool['_' + _this2.currentPlaylist[0]]['url'];
-
-							// console.log(this.musicPool);
-							_this2.loadSongInfo(_this2.musicPool['_' + _this2.currentPlaylist[0]], true);
-							// this.play();
-
-							// console.log(this.musicPool);
-							// this.likeSong(1);
-						}
-					};
-
-					getSongPoolxhrq.send(null);
-
-					// this.addSong(this.usrOption['music']);
+					this.musicPool = fakeSongPool;
+					for (var key in this.musicPool) {
+						var currentSong = this.musicPool[key];
+						this.currentPlaylist.push(Number(key.substring(1)));
+						if (currentSong.like) this.heartPlaylist.push(Number(key.substring(1)));
+						// process the lyric once they enter the API 
+						var returnedLyric = processLyric(currentSong['lyric_with_time'], currentSong['lyric']);
+						currentSong.lyric = returnedLyric.processedText;
+						currentSong.lyricTime = returnedLyric.lyricObj;
+					}
+					this.musicFile.src = this.musicPool['_' + this.currentPlaylist[0]]['url'];
+					this.loadSongInfo(this.musicPool['_' + this.currentPlaylist[0]], true);
 				}
 
 				/*
@@ -725,43 +624,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				key: "addSong",
 				value: function addSong(newSong) {
 					// process new id
-
-					// let newSecondId = Object.keys(this.musicPool).length;
 					// find the largest id
 					var maxId = 0;
 					for (var key in this.musicPool) {
 						maxId = Math.max(maxId, this.musicPool[key]._id);
 					}
-					// add music file to current musicPool
-					// newSong.second_id = newSecondId;
-					/**
-     let rowUI = this.iniPlaylist.addSongRow(newSong, false);
-     //console.log(rowUI);
-     	let fakeEle = document.createElement('li');
-     	fakeEle.innerHTML = rowUI;
-     	let rowEle = fakeEle.children[0];
-     	// console.log(rowEle);
-     	let node = document.getElementsByClassName('mbox-multidisplay-playlist-ul')[0];
-     	// console.log(node);
-     	node.appendChild(rowEle);
-     	*/
-
-					// dealing with backend problem here 
-					var xhrq = new XMLHttpRequest();
-					// string represent url 
-					var url = "http://localhost:8080/addSong";
-					xhrq.open('post', url, true);
-					// xhrq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-					xhrq.setRequestHeader('Content-type', 'application/json');
-					xhrq.onreadystatechange = function () {
-						if (xhrq.readyState === XMLHttpRequest.DONE) {
-							alert(xhrq.responseText);
-							console.log("Sucessfully send song information.");
-							// playlistData here 
-						}
-					};
-					xhrq.send(JSON.stringify(newSong));
-
 					// add the song to current playlist
 					var newId = '_' + (maxId + 1);
 					this.musicPool[newId] = newSong;
@@ -798,19 +665,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 					var originID = songID;
 					this.musicPool['_' + originID].deleted = true;
 					// deleted song from database, or add gargbage place later 
-					var xhrq = new XMLHttpRequest();
-					var url = "http://localhost:8080/removeSong?removeId=" + encodeURIComponent(songID);
-					xhrq.onreadystatechange = function () {
-						if (xhrq.readyState === XMLHttpRequest.DONE) {
-							alert(xhrq.responseText);
-							// console.log("Successfully delete song");
-							// handle the request status here 
-							//this.iniPlaylist.removeSongRow(song);
-						}
-					};
-					xhrq.open('delete', url, true);
-					xhrq.send(null);
-
 					// remove the song row 
 					this.iniPlaylist.removeSongRow(songID);
 				}
@@ -822,18 +676,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 			}, {
 				key: "likeSong",
 				value: function likeSong(songID) {
-					// console.log(this.musicPool);
-					this.musicPool['_' + songID].like = this.musicPool['_' + songID].like ? false : true;
-					var xmrq = new XMLHttpRequest();
-					var url = "http://localhost:8080/likeSong?songId=" + encodeURIComponent(songID);
-					xmrq.onreadystatechange = function () {
-						if (xmrq.readyState === XMLHttpRequest.DONE) {
-							alert(xmrq.responseText);
-							// console.log("I like this song");
-						}
-					};
-					xmrq.open('put', url, true);
-					xmrq.send(null);
+					if (this.musicPool['_' + songID].like) {
+						this.musicPool['_' + songID].like = false;
+					} else {
+						this.musicPool['_' + songID].like = true;
+					}
 				}
 
 				/*
@@ -860,7 +707,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 				value: function pause() {
 					if (!this.musicFile.paused && !this.musicFile.ended) {
 						this.musicFile.pause();
-						// this.clearTime();
 						this.playBtn.innerHTML = this.getSvg(this.viewBox['play'], this.svg['play']);
 					}
 				}
@@ -874,10 +720,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 		} else {
 			window.MBox = MBox;
 		}
-
-		// var test = new MBox();
-		// test.load();
-	}, { "./buildplaylist.js": 1, "./buildui.js": 2, "./getplaytime.js": 4, "./getpositions.js": 5, "./lyricprocessor.js": 6, "./svginfo.js": 7 }], 4: [function (require, module, exports) {
+	}, { "./buildplaylist.js": 1, "./buildui.js": 2, "./getplaytime.js": 4, "./getpositions.js": 5, "./lyricprocessor.js": 6, "./songJSON.js": 7, "./svginfo.js": 8 }], 4: [function (require, module, exports) {
 		/**
   	method to transform playtime to 00:00:00 format 
   	@param {Number} seconds
@@ -1052,6 +895,77 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   console.log(processLyric(true, testLyric));
   */
 	}, {}], 7: [function (require, module, exports) {
+		module.exports = {
+			_0: {
+				_id: 0, // the id used when actual play, default is the same as original id 
+				removed: false, // field marked removed song 
+				deleted: false, // field marked for deleted song 
+				url: 'development/music/You Need Me-KENN.mp3',
+				song_name: 'You Need Me',
+				singer: 'KENN',
+				album: 'You Need Me',
+				album_cover: 'development/music/YouNeedMeCover.jpg',
+				lyric_with_time: false,
+				lyric: ['You Need Me - KENN', '', '君は　覚えているかい', 'はじめて 出会えた時', '(Baby I need you)', '何故か　ふいに横切る', 'おそれや　不安を確かめる', '', '上手く言葉じゃ君に', '伝えられないけれと', "(I'm missing you)", '誤解しないで　悲しまないで', '勇気出して　歩き出すよ', 'So Feeling my heart', '', '君の名前を（呼んでいるよ)', '僕のメロディー　この歌に乗せて', '大好きだから（心つなぐ）', 'この道をゆこう　永久に', '例えどんなに　苦しい時も', 'もう　離れないから', 'これからもずっと', '', '愛に 終わりはあるか', 'はじめて 考えたよ', "(So Don't you fake me?)", 'そうさ 失うことが', '怖くて 不安を抱きしめる', '', '君に　触れた瞬間（聞こえる)', '鼓動　揺らめいた瞳が', "(Don't be afraid)", '僕を見つめて　変わらぬまま', '2人で　愛を誓い合おう', 'So just stay with me', '', '君への愛を（叫んでるよ）', '僕のメロディー　この声に乗せて', '大好きだから（溢れるほど）', 'この道を行こう　永久に', '例えどんなに　苦しい時も', 'もう　迷わないから', 'これからもずっと', '', 'I miss you　消えないで', '(Oh my sweet baby)', '僕が守るから', '', 'そばにいるよ···', '', '君の名前を（呼んでいるよ）', '僕のメロディー　この歌に乗せて', '大好きだから（心つなぐ）', 'この道をゆこう　永久に', '', '例えどんなに　苦しい時も', 'もう　離さないから', 'もう　迷わないから', 'これからもずっと', '', "I don't wanna leave you"]
+			},
+
+			_1: {
+				_id: 1, // the id used when actual play, default is the same as original id 
+				removed: false, // field marked removed song 
+				deleted: false, // field marked for deleted song 
+				url: 'development/music/Anchor-Novo Amor.mp3',
+				song_name: 'Anchor',
+				singer: 'Novo Amor',
+				album: 'Achor',
+				album_cover: 'development/music/AnchorCover.jpg',
+				like: true,
+				lyric_with_time: false,
+				lyric: ['Anchor - Novo Amor', '', 'Took the breath from my open mouth', 'Never known how it broke me down', 'I went in circles somewhere else', '', 'Shook the best when your love was home', 'Storing up on your summer glow', 'You went in search of someone else', '', "And I hear your ship is comin' in", 'Your tears a sea for me to swim', "And I hear a storm is comin' in", 'My dear is it all we’ve ever been?', '', 'Caught the air in your woven mouth', 'Leave it all i’ll be hearing how you went', 'In search of someone else', '', 'They taught the hand that taut the bride', 'Both our eyes locked to the tide', 'We went in circles somewhere else', '', "And I hear your ship is comin' in", 'Your tears a sea for me to swim', "And I hear a storm is comin' in", 'My dear is it all we’ve ever been?', '', 'Anchor up to me, love', 'Anchor up to me, love', 'Anchor up to me, love', 'Oh, Anchor up to me', 'My love, my love, my love']
+			},
+
+			_2: {
+				_id: 2, // the id used when actual play, default is the same as original id 
+				removed: false, // field marked removed song 
+				deleted: false, // field marked for deleted song 
+				url: 'development/music/M01-梶浦由記.mp3',
+				song_name: 'M01',
+				singer: '梶浦由記',
+				album: '劇場版 空の境界 Vol.2「殺人考察(前)」Original Soundtrack',
+				album_cover: 'development/music/M01Cover.jpg',
+				like: true,
+				lyric_with_time: false,
+				lyric: ['song has no lytics']
+			},
+
+			_4: {
+				_id: 4, // the id used when actual play, default is the same as original id 
+				removed: false, // field marked removed song 
+				deleted: false, // field marked for deleted song 
+				url: 'development/music/WAVE-kradness.mp3',
+				song_name: 'WAVE',
+				singer: 'kradness',
+				album: 'KRAD VORTEX',
+				album_cover: 'development/music/KRADVORTEXCover.jpg',
+				like: true,
+				lyric_with_time: true,
+				lyric: [['00:00', 'WAVE - kradness'], '', ['00:31', '間違（まちが）えて宇宙（うちゅう）終（お）わって'], ['00:32', '青信号（あおしんごう）はいつも通（とお）り'], ['00:35', '飛（と）んでまた止（とま）まって'], ['00:37', 'また　飛（と）びそうだ'], ['00:39', 'ココロコネクト'], ['00:40', '古代人（こだいじん）と恋（こい）した'], ['00:42', '妄想（もうそう）コレクト'], ['00:44', '化石的（かせきてき）なロマンス'], ['00:46', 'はぁ…夢（ゆめ）に踊（おど）るの'], '', ['00:49', '月（つき）の灯（あか）りが'], ['00:51', '僕（ぼく）を包（つつ）んで'], ['00:53', '鳴（な）り響（ひび）く音（おと）カラダを'], ['00:55', '飲（の）み込（こ）んでいく'], ['00:57', 'もう恐（おそ）れることを'], ['00:59', '感（かん）じないくらいの'], ['01:01', '眩（まぶ）しさに'], ['01:02', '今（いま）ココロを'], ['01:03', '狙（ねら）われているの'], ['01:05', '回（まわ）る　回（まわ）る　世界（せかい）は'], ['01:08', '///W/A//VE//'], '', ['01:22', '考（かんが）えてみて止（と）まって'], ['01:24', '赤信号（あかしんごう）は狙（ねら）い通（とお）り'], ['01:27', '逃（に）げたくて滑（すべ）って'], ['01:29', 'また　逃（に）げそうだ'], ['01:31', '開（ひら）けネクスト'], ['01:32', '宇宙人（うちゅうじん）とＳｋｙｐｅ'], ['01:34', '妄想（もうそう）セレクト'], ['01:36', '電波的（でんぱてき）なロマンス'], ['01:38', 'はぁ…夜（よる）に眠（ねむ）るの'], '', ['01:41', '月（つき）の灯（あか）りが'], ['01:43', '僕（ぼく）を包（つつ）んで'], ['01:45', '鳴（な）り響（ひび）く音（おと）カラダを'], ['01:47', 'また惑（まど）わせる'], ['01:48', 'もう暴（あば）れることを'], ['01:50', '忘（わす）れちゃうくらいの'], ['01:52', '眩（まぶ）しさに'], ['01:53', '今（いま）ココロを'], ['01:54', '狙（ねら）われているの'], ['01:56', '迫（せま）る　迫（せま）る　未来（みらい）は'], '///W/A//VE//', '', ['02:00', 'はぁーん…'], ['02:23', '夢（ゆめ）に踊（おど）るのー'], ['02:25', '明日（あした）の声（こえ）が'], ['02:27', '僕（ぼく）を誘（さそ）って'], ['02:29', '鳴（な）り響（ひび）く音（おと）ミライを'], ['02:31', '塗（ぬ）り替（か）えていく'], ['02:33', 'もう留（とど）まることを'], ['02:35', '許（ゆる）さないくらいの'], '', ['02:37', '眩（まぶ）しさに'], ['02:38', '今（いま）ココロを'], ['02:39', '狙（ねら）われているの'], ['02:41', '回（まわ）る　回（まわ）る　世界（せかい）から'], ['02:44', '見（み）える　見（み）える'], ['02:46', '未来（みらい）'], '', ['02:48', 'らららーららーららー'], ['02:49', 'らららーららーららー'], ['02:55', 'らららーららーららー'], ['02:57', 'らららーららーららー']]
+			},
+
+			_5: {
+				_id: 5, // the id used when actual play, default is the same as original id 
+				removed: false, // field marked removed song 
+				deleted: false, // field marked for deleted song 
+				url: 'development/music/夢見る三日月-近藤隆.mp3',
+				song_name: '夢見る三日月',
+				singer: '近藤隆',
+				album: '夕燒けデイズ',
+				album_cover: 'development/music/JohnCover.jpg',
+				like: true,
+				lyric_with_time: false,
+				lyric: ['夢見る三日月 - 近藤隆', '', 'ちょっと前をゆく人の', '背中追って 浮かんでた', '階段の踊り場で', '見失った 道しるべ', '', 'なんでかな この場所を', '知った風で 忘れてた', '奥にあった 細道で', '立ち止まって 見上げたら', '', '煙を散らして', '星を渡った', '', 'ひとりきりの夢の中', '君がそばにいるだけで', '声にならない想い 焦がして', 'こんなに 胸が苦しくて', 'だけど 僕は戻れない', 'そうやって今を漂っているんだ', '', '寝息 立てる街を', '風になって すり抜ける', '勘の冴えた 野良猫が', '僕の目を見て 鳴いた', '', '誰かと話が', 'できたら良いのに', '', 'ひかり灯す 悪戯で', '君に何か 伝えたくて', '猫の手も借りてみようか なんて', 'どうにもならない 哀しみも', 'いつか 前を向けるなら', 'そうやって未来は変わっていくんだ', '', '振り返る街並みは 走馬灯のように', 'やり残した願いも すべて抱きしめて', 'La La La...少しのお別れだね', 'La La La...だから 怖がらないで', 'それじゃあ お先に', '僕は眠っているよ', '', 'ひとりきりの夢の中', '君の姿 見つけたら', '精一杯の笑顔で 手を握って', 'ひかりが宿る 三日月の', '迎えを待つ その場所で', 'いつか 僕らにも訪れるさ', 'そうやって 命は続いていくんだ']
+			}
+		};
+	}, {}], 8: [function (require, module, exports) {
 		/*
   	svg icon path and viewBox information 
   */

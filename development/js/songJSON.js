@@ -1,13 +1,13 @@
-this.musicPool = {
+module.exports = {
 	 		_0 : {
-	 			second_id : 0, // the id used when actual play, default is the same as original id 
+	 			_id : 0, // the id used when actual play, default is the same as original id 
 	 			removed : false, // field marked removed song 
 	 			deleted : false, // field marked for deleted song 
-	 			url : 'development/music/You Need Me-KENN.mp3',
+	 			url : './music/You Need Me-KENN.mp3',
 	 			song_name : 'You Need Me',
 	 			singer : 'KENN',
 	 			album : 'You Need Me',
-	 			album_cover : 'development/music/YouNeedMeCover.jpg',
+	 			album_cover : './music/YouNeedMeCover.jpg',
 	 			lyric_with_time : false,
 	 			lyric : [
 	 				'You Need Me - KENN',
@@ -75,14 +75,15 @@ this.musicPool = {
 	 		},
 
 	 		_1 : {
-	 			second_id : 1, // the id used when actual play, default is the same as original id 
+	 			_id : 1, // the id used when actual play, default is the same as original id 
 	 			removed : false, // field marked removed song 
 	 			deleted : false, // field marked for deleted song 
-	 			url : 'development/music/Anchor-Novo Amor.mp3',
+	 			url : 'music/Anchor-Novo Amor.mp3',
 	 			song_name : 'Anchor',
 	 			singer : 'Novo Amor',
 	 			album : 'Achor',
-	 			album_cover : 'development/music/AnchorCover.jpg',
+	 			album_cover : 'music/AnchorCover.jpg',
+	 			like : true,
 	 			lyric_with_time : false,
 	 			lyric : [
 	 				'Anchor - Novo Amor',
@@ -122,40 +123,29 @@ this.musicPool = {
 	 		},
 
 	 		_2 : {
-	 			second_id : 2, // the id used when actual play, default is the same as original id 
+	 			_id : 2, // the id used when actual play, default is the same as original id 
 	 			removed : false, // field marked removed song 
 	 			deleted : false, // field marked for deleted song 
-	 			url : 'development/music/M01-梶浦由記.mp3',
+	 			url : 'music/M01-梶浦由記.mp3',
 	 			song_name : 'M01',
 	 			singer : '梶浦由記',
 	 			album : '劇場版 空の境界 Vol.2「殺人考察(前)」Original Soundtrack',
-	 			album_cover : 'development/music/M01Cover.jpg',
+	 			album_cover : 'music/M01Cover.jpg',
+	 			like : true,
 	 			lyric_with_time : false,
-	 			lyric : undefined
-	 		},
-
-	 		_3 : {
-	 			second_id : 3, // the id used when actual play, default is the same as original id 
-	 			removed : false, // field marked removed song 
-	 			deleted : false, // field marked for deleted song 
-	 			url : 'development/music/Signal-TK from 凛として時雨.mp3',
-	 			song_name : 'Signal',
-	 			singer : 'TK from 凛として時雨',
-	 			album : 'Signal',
-	 			album_cover : 'development/music/SingnalCover.jpg',
-	 			lyric_with_time : false,
-	 			lyric : undefined
+	 			lyric : ['song has no lytics']
 	 		},
 
 	 		_4 : {
-	 			second_id : 4, // the id used when actual play, default is the same as original id 
+	 			_id : 4, // the id used when actual play, default is the same as original id 
 	 			removed : false, // field marked removed song 
 	 			deleted : false, // field marked for deleted song 
-	 			url : 'development/music/WAVE-kradness.mp3',
+	 			url : 'music/WAVE-kradness.mp3',
 	 			song_name : 'WAVE',
 	 			singer : 'kradness',
 	 			album : 'KRAD VORTEX',
-	 			album_cover : 'development/music/KRADVORTEXCover.jpg',
+	 			album_cover : 'music/KRADVORTEXCover.jpg',
+	 			like : true,
 	 			lyric_with_time : true,
 	 			lyric : [
 	 				['00:00', 'WAVE - kradness'],
@@ -228,14 +218,15 @@ this.musicPool = {
 	 		},
 
 	 		_5 : {
-	 			second_id : 5, // the id used when actual play, default is the same as original id 
+	 			_id : 5, // the id used when actual play, default is the same as original id 
 	 			removed : false, // field marked removed song 
 	 			deleted : false, // field marked for deleted song 
-	 			url : 'development/music/夢見る三日月-近藤隆.mp3',
-	 			song_name : '夢見る3日月',
+	 			url : 'music/夢見る三日月-近藤隆.mp3',
+	 			song_name : '夢見る三日月',
 	 			singer : '近藤隆',
 	 			album : '夕燒けデイズ',
-	 			album_cover : 'development/music/JohnCover.jpg',
+	 			album_cover : 'music/JohnCover.jpg',
+	 			like : true,
 	 			lyric_with_time : false,
 	 			lyric : [
 	 				'夢見る三日月 - 近藤隆',

@@ -1,0 +1,427 @@
+@import "https://fonts.googleapis.com/css?family=Titillium+Web";
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+.mbox-album-cover-wrap {
+  float: left;
+}
+
+.mbox-controlBtn-wrap-wrap div {
+  float: left;
+}
+
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+button:focus {
+  outline: 0;
+}
+
+.magic-box {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  background: #4a525a;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 0 7px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 0 7px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 7px;
+}
+
+.magic-box-upper-wrap {
+  width: 300px;
+  height: 70px;
+}
+
+.icon {
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  padding-right: 8px;
+}
+.icon:hover {
+  cursor: pointer;
+}
+
+.mbox-controller-wrap-wrap {
+  width: 230px;
+  float: right;
+}
+
+.mbox-controller-wrap-wrap:after, .mbox-controller-wrap-wrap:before {
+  clear: both;
+}
+
+.mbox-controlBtn-wrap-wrap {
+  width: 230px;
+  height: 18px;
+  left: 70px;
+  padding: 0px 10px 0px 15px;
+}
+
+.mbox-album-cover-wrap {
+  height: 70px;
+  width: 70px;
+  background: #dff3e3;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 0 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 0 5px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 5px;
+}
+
+.mbox-share-icon {
+  margin-left: 7px;
+}
+
+svg {
+  fill: #828a95;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  -webkit-transition-property: all;
+  transition-property: all;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -moz-transition-timing-function: ease-in-out;
+  -o-transition-timing-function: ease-in-out;
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+}
+svg:hover {
+  fill: #dff3e3;
+}
+
+.mbox-volume-bar {
+  width: 50px;
+  height: 2px;
+  background: #828a95;
+  margin-top: 6px;
+  position: relative;
+}
+.mbox-volume-bar:hover {
+  cursor: pointer;
+}
+
+.mbox-volume-bar-inner {
+  display: inline-block;
+  position: absolute;
+  height: 2px;
+}
+
+.mbox-play-info-wrap {
+  position: relative;
+  height: 11px;
+  width: 100%;
+}
+
+.mbox-play-progress-wrap {
+  display: inline-block;
+  position: absolute;
+  width: 75%;
+  height: 1px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: #828a95;
+}
+.mbox-play-progress-wrap:hover {
+  cursor: pointer;
+}
+
+.mbox-play-progress-inner {
+  position: absolute;
+  height: 1px;
+}
+
+.mbox-play-time {
+  display: inline-block;
+  position: relative;
+  height: 11px;
+  float: right;
+  width: 25%;
+  color: #828a95;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.mbox-played-time {
+  font-size: 0.3rem !important;
+  position: absolute;
+  left: 7px;
+}
+
+.mbox-songinfo {
+  width: 230px;
+  margin: 10px auto;
+}
+
+.mbox-song-info {
+  font-size: 0.8rem;
+  margin: 0 auto;
+}
+
+.mbox-album-name {
+  font-size: 0.3rem;
+  margin: 0 auto;
+}
+
+.mbox-album-name, .mbox-song-info {
+  display: inline-block;
+  width: 200px;
+  height: 13px;
+  padding-left: 15px;
+  font-family: "Titillium Web";
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mbox-multidisplay-area {
+  position: relative;
+  height: 207px;
+  width: 100%;
+  line-height: 1rem;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-family: "Titillium Web";
+  font-size: 0.7rem;
+  font-weight: 100;
+  color: #828a95;
+  text-align: center;
+  overflow: scroll;
+}
+.mbox-multidisplay-area::-webkit-scrollbar {
+  display: none;
+}
+
+.mbox-multidisplay-area-wrap {
+  position: relative;
+  width: 300px;
+  height: 219px;
+}
+
+/**
+.mbox-multidisplay-area-wrap:before {
+	content: '';
+	position: absolute;
+
+	width: 100%;
+	height: 40px;
+	top: 0;
+	left: 0;
+
+	background: linear-gradient($davyGrey, #fff);
+	background: linear-gradient($davyGrey, rgba(0,0,0,0));
+}
+*/
+.mbox-multidisplay-area-wrap:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 40px;
+  top: 170px;
+  left: 0;
+  background: linear-gradient(#ffffff, #4a525a);
+  background: linear-gradient(rgba(0, 0, 0, 0), #4a525a);
+}
+
+/* for the sandwich button */
+.mbox-setting-trigger {
+  display: none;
+}
+
+.mbox-setting-wrap {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  bottom: 0;
+  right: 0;
+}
+.mbox-setting-wrap:hover {
+  cursor: pointer;
+}
+
+.mbox-setting-icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.mbox-setting-bars {
+  position: absolute;
+  top: 9px;
+  left: 8px;
+}
+
+/* menu area */
+.mbox-setting-item {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}
+
+.mbox-menu-icon {
+  position: relative;
+  top: 12px;
+  left: 12px;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.mbox-menu-icon:hover {
+  cursor: pointer;
+}
+
+.mbox-menu-icon svg :hover {
+  fill: #dff3e3;
+}
+
+.mbox-lovelist-wrap {
+  bottom: 0;
+  right: 0;
+}
+
+.mbox-lyric-show-wrap {
+  bottom: 0;
+  right: 40px;
+}
+
+.mbox-lyric-prefix {
+  height: 94px;
+  width: 100%;
+}
+
+.mbox-playlist-wrap {
+  bottom: 0;
+  right: 80px;
+}
+
+/* dealing with playlist displaying */
+.mbox-multodisplay-playlist-area {
+  position: relative;
+  height: 207px;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-family: "Titillium Web";
+  font-size: 0.7rem;
+  font-weight: 100;
+  color: #828a95;
+}
+
+.mbox-multidisplay-playlist-ul {
+  margin-top: 10px;
+}
+
+.mbox-row-buttons {
+  float: right;
+}
+
+.mbox-song-row {
+  display: inline-block;
+  position: relative;
+  width: 280px;
+  height: 25px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #828a95;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.mbox-song-row-songinfo {
+  display: inline-block;
+  position: absolute;
+  top: 5px;
+  height: 13px;
+  width: 200px;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  font-family: "Titillium Web";
+  color: #828a95;
+}
+
+.mbox-song-row-setting-buttons {
+  display: inline-block;
+  position: absolute;
+  top: 4px;
+  right: 0;
+  width: 80px;
+}
+
+@keyframes showMenu {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}

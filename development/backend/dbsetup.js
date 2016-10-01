@@ -46,17 +46,13 @@ var Song = mongoose.model('Song', songSchema);
 var currentMaxID = -1;
 var maxIDQuery = Song.find().sort({song_id : -1}).limit(1);
 maxIDQuery.exec(function(err, maxResult){
-	// console.log(maxResult);
 	if(err) {
-		// console.log(err);
 		return;
 	}else{
-		// currentMaxID = maxResult.song_id;
 		if(maxResult.length===0){
 			currentMaxID = 0;
 		}else{
 			currentMaxID = maxResult[0].song_id;
-			// console.log(currentMaxID);
 		}
 	}
 });
@@ -84,10 +80,8 @@ app.all('/addSong', function(req, res, next){
 app.post('/addSong', function(req, res){
 		console.log('in the post method');
 		var song = new Song();
-		// console.log(req.body); need body parser to use this 
 		var body = '';
 		req.on('data', function(chunk){
-			// console.log(chunk);
 			body+=chunk;
 		}).on('end', function(){
 			body = JSON.parse(body);
@@ -118,7 +112,6 @@ app.post('/addSong', function(req, res){
 
 app.get('/getSongPool', function(req, res){
 	console.log('in the GET section');
-	// var songInformation = [];
 	Song.find(function(err, allSongs){
 		if(err){
 			console.log(err);
@@ -148,7 +141,6 @@ app.get('/getSongPool', function(req, res){
 		}
 		res.send(songInformation);
 	});
-	//res.send({songInformation});
 });
 
 app.all('/removeSong', function(req, res, next){

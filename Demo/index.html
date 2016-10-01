@@ -4,13 +4,50 @@
 	<title>MBox Demo</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" type="text/css" href="style.css">  
+	<link rel="stylesheet" type="text/css" href="style.css"> 
+	<style>
+		body{
+			background-color: #ececea;
+		}
+
+		.content-wrap {
+			margin: 100px auto;
+			width: 40rem;
+
+			font-family: 'Helvetica Nenu', Helvetica, Arial, sans-serif;
+		}
+
+		h1 {
+			font-size: 2rem;
+			font-weight: 300;
+			text-align: center;
+			color: #74afad;
+		}
+
+		p {
+			margin: 30px auto;
+			color:#aaa;
+			font-weight: 200;
+		}
+
+		a{
+			color: #74afad;
+		}
+
+		span{
+			font-weight: 500;
+		}
+	</style>
 </head>
 <body>
-	<div class="plyr-container" style="margin: 100px auto; height: 300px; width: 300px;">
-		
+	<div class="content-wrap">
+		<h1><span>MBox</span> - an Awesome Music Player API Build with HTML5, CSS3, ES6 and Mongoose</h1>
+		<p>
+			"MBox" is an awesome music player with backend supported by Mongodb. You can have both static and dynamic lyrics displaying, swtich to different playlist view, like a song, remove a song, completed delete the song. 
+			More details can be found in <a href="https://github.com/Yuuki221/Mbox/blob/master/README.md">Readme.md</a> file
+		</p>
+		<div class="plyr-container" style="margin: 60px auto; height: 300px; width: 300px;"></div>
 	</div>
-	<!-- <script src="http://localhost:35729/liveload.js"></script> -->
 	<script src="mbox.min.js"></script>
 	<script>
 		var test = new MBox();
